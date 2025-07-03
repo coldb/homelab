@@ -6,4 +6,3 @@ resources:
   - storage.yaml
   - secret.yaml
   - service.yaml
-  - cloudflare.yaml
