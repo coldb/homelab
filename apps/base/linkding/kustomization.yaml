@@ -5,4 +5,5 @@ resources:
   - deployment.yaml
   - storage.yaml
   - secret.yaml
+  - service.yaml
   - cloudflare.yaml
