@@ -29,3 +29,9 @@ spec:
   values:
     grafana:
       adminPassword: siim
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - grafana-staging.colddev.net
+
