@@ -18,6 +18,9 @@ spec:
           ports:
             - containerPort: 80
 
-          env:
-            - name: TZ
-              value: Europe/Tallinn
+          envFrom:
+            # - secretRef:
+            #     name: audiobookshelf-container-env
+            - configMapRef:
+                name: audiobookshelf-configmap
+
