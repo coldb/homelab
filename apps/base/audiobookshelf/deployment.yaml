@@ -21,7 +21,3 @@ spec:
           env:
             - name: TZ
               value: Europe/Tallinn
-      volumes:
-        - name: linkding-data
-          persistentVolumeClaim:
-            claimName: linkding-data-pvc
