@@ -34,6 +34,9 @@ spec:
             #     name: audiobookshelf-container-env
             - configMapRef:
                 name: audiobookshelf-configmap
+
+      restartPolicy: Always
+
       volumes:
         - name: audiobookshelf-audiobooks
           persistentVolumeClaim:
