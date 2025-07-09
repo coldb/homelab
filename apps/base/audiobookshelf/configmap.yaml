@@ -4,3 +4,4 @@ metadata:
   name: audiobookshelf-configmap
 data:
   TZ: "Europe/Tallinn"
+  PORT: "3005"
