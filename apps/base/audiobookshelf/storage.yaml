@@ -3,11 +3,12 @@ kind: PersistentVolumeClaim
 metadata:
   name: audiobookshelf-audiobooks-pvc
 spec:
+  storageClassName: "synology-iscsi"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
 
 ---
 
@@ -16,11 +17,12 @@ kind: PersistentVolumeClaim
 metadata:
   name: audiobookshelf-podcasts-pvc
 spec:
+  storageClassName: "synology-iscsi"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 1Gi
 
 ---
 
@@ -29,6 +31,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: audiobookshelf-config-pvc
 spec:
+  storageClassName: "synology-iscsi"
   accessModes:
     - ReadWriteOnce
   resources:
@@ -42,6 +45,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: audiobookshelf-metadata-pvc
 spec:
+  storageClassName: "synology-iscsi"
   accessModes:
     - ReadWriteOnce
   resources:
