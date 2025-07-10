@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: synology-csi
 resources:
   - ../../base/synology-csi/
+  - client-info-secret.yaml
