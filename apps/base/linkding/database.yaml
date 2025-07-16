@@ -7,6 +7,4 @@ spec:
 
   storage:
     storageClassName: "synology-iscsi"
-    accessModes:
-      - ReadWriteOnce
     size: 1Gi
