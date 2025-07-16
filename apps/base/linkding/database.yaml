@@ -1,0 +1,12 @@
+apiVersion: postresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: linkding-db-cluster
+spec:
+  instances: 3
+
+  storage:
+    storageClassName: "synology-iscsi"
+    accessModes:
+      - ReadWriteOnce
+    size: 1Gi
