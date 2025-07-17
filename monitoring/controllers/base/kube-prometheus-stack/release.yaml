@@ -55,6 +55,7 @@ spec:
 
     persistence:
       enabled: true
+      storageClassName: "synology-iscsi"
       type: pvc
       accessModes:
         - ReadWriteOnce
