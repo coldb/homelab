@@ -39,24 +39,24 @@ spec:
             hosts:
               - grafana-staging.colddev.net
 
-    sidecar:
-      # datasources:
-      #   enabled: true
-      #   label: grafana_datasource
-      #   labelValue: "1"
-      dashboards:
-        enabled: true
-        label: grafana_dashboard
-        labelValue: "1"
-        # Allow discovery in all namespaces for dashboards
-        searchNamespace: ALL
-        provider:
-          allowUiUpdates: true
+      sidecar:
+        # datasources:
+        #   enabled: true
+        #   label: grafana_datasource
+        #   labelValue: "1"
+        dashboards:
+          enabled: true
+          label: grafana_dashboard
+          labelValue: "1"
+          # Allow discovery in all namespaces for dashboards
+          searchNamespace: ALL
+          provider:
+            allowUiUpdates: true
 
-    persistence:
-      enabled: true
-      storageClassName: "synology-iscsi"
-      type: pvc
-      accessModes:
-        - ReadWriteOnce
-      size: 4Gi
+      persistence:
+        enabled: true
+        storageClassName: "synology-iscsi"
+        type: pvc
+        accessModes:
+          - ReadWriteOnce
+        size: 4Gi
