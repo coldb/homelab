@@ -27,6 +27,9 @@ spec:
         target:
           kind: PrometheusRule
   values:
+    alertmanager:
+      enabled: false
+
     prometheus:
       prometheusSpec:
         podMonitorNamespaceSelector:
