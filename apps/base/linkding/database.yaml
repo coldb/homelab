@@ -7,6 +7,8 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+    podMonitorLabels:
+      release: kube-prometheus-stack
 
   storage:
     size: 1Gi
