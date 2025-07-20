@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - grafana-tls-secret.yaml
+  - ../../base/dashboards/

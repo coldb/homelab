@@ -40,10 +40,10 @@ spec:
               - grafana-staging.colddev.net
 
       sidecar:
-        datasources:
-          enabled: true
-          label: grafana_datasource
-          labelValue: "1"
+        # datasources:
+        #   enabled: true
+        #   label: grafana_datasource
+        #   labelValue: "1"
         dashboards:
           enabled: true
           label: grafana_dashboard
