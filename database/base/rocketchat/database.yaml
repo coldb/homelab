@@ -12,12 +12,12 @@ spec:
   upgradeOptions:
     apply: disabled
     schedule: "0 2 * * *"
-  # secrets:
-  #   users: minimal-cluster
+  secrets:
+    users: minimal-cluster
   replsets:
 
   - name: rs0
-    size: 1
+    size: 3
     volumeSpec:
       persistentVolumeClaim:
         resources:
