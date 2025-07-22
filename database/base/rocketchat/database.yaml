@@ -1,3 +1,4 @@
+# https://docs.percona.com/percona-operator-for-mongodb/minikube.html
 apiVersion: psmdb.percona.com/v1
 kind: PerconaServerMongoDB
 metadata:
