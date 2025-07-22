@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: psmdb
+  namespace: psmdb-system
+spec:
+  interval: 24h
+  url: https://percona.github.io/percona-helm-charts
+  # https://docs.percona.com/percona-operator-for-mongodb/helm.html
