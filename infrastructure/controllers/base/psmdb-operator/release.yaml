@@ -14,3 +14,5 @@ spec:
         name: psmdb
         namespace: psmdb-system
       interval: 12h
+  values:
+    watchAllNamespaces: true
