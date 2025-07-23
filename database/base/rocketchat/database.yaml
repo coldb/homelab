@@ -20,9 +20,10 @@ spec:
     size: 3
     volumeSpec:
       persistentVolumeClaim:
+        storageClassName: "synology-iscsi"
         resources:
           requests:
-            storage: 1Gi
+            storage: 2Gi
 
   sharding:
     enabled: true
@@ -31,9 +32,10 @@ spec:
       size: 1
       volumeSpec:
         persistentVolumeClaim:
+          storageClassName: "synology-iscsi"
           resources:
             requests:
-              storage: 1Gi
+              storage: 2Gi
 
     mongos:
       size: 1
