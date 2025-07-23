@@ -21,6 +21,10 @@ spec:
 
   - name: rs0
     size: 3
+    expose:
+      labels:
+        app.kubernetes.io/component: monitoring
+
     volumeSpec:
       persistentVolumeClaim:
         storageClassName: "synology-iscsi"
