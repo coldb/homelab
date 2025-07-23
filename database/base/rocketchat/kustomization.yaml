@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: rocketchat
 resources:
   - namespace.yaml
-  - database.yaml
+  # - database.yaml
