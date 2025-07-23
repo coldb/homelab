@@ -30,7 +30,7 @@ spec:
       antiAffinityTopologyKey: "none" # Needed to deploy in single node
 
   sharding:
-    enabled: false
+    enabled: true
 
     configsvrReplSet:
       size: 3
