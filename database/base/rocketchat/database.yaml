@@ -1,4 +1,5 @@
 # https://docs.percona.com/percona-operator-for-mongodb/minikube.html
+# https://docs.percona.com/percona-operator-for-mongodb/operator.html
 apiVersion: psmdb.percona.com/v1
 kind: PerconaServerMongoDB
 metadata:
@@ -27,7 +28,7 @@ spec:
             storage: 2Gi
 
   sharding:
-    enabled: true
+    enabled: false
 
     configsvrReplSet:
       size: 3
