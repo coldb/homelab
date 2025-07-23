@@ -24,9 +24,9 @@ spec:
         storageClassName: "synology-iscsi"
         resources:
           requests:
-            storage: 2Gi
+            storage: 3Gi
     affinity:
-      antiAffinityTopologyKey: "none"
+      antiAffinityTopologyKey: "none" # Needed to deploy in single node
 
   sharding:
     enabled: false
@@ -38,7 +38,9 @@ spec:
           storageClassName: "synology-iscsi"
           resources:
             requests:
-              storage: 2Gi
+              storage: 3Gi
 
     mongos:
       size: 1
+      affinity:
+        antiAffinityTopologyKey: "none" # Needed to deploy in single node
