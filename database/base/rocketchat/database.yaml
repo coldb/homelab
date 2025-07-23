@@ -26,6 +26,8 @@ spec:
         resources:
           requests:
             storage: 2Gi
+    affinity:
+      antiAffinityTopologyKey: "none"
 
   sharding:
     enabled: false
@@ -41,3 +43,4 @@ spec:
 
     mongos:
       size: 1
+        
