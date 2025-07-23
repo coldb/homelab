@@ -31,7 +31,8 @@ spec:
     affinity:
       antiAffinityTopologyKey: "none" # Needed to deploy in single node
     sidecars:
-    - image: percona/mongodb_exporter:0.44
+    - name: mongodb-exporter 
+      image: percona/mongodb_exporter:0.44
       env:
       - name: EXPORTER_USER
         valueFrom:
