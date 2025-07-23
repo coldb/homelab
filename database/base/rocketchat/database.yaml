@@ -4,7 +4,6 @@ apiVersion: psmdb.percona.com/v1
 kind: PerconaServerMongoDB
 metadata:
   name: rocketchat-db-staging-cluster-v1
-  namespace: rocketchat
 spec:
   crVersion: 1.20.1
   image: percona/percona-server-mongodb:7.0.18-11
@@ -22,7 +21,7 @@ spec:
     size: 3
     volumeSpec:
       persistentVolumeClaim:
-        # storageClassName: "synology-iscsi"
+        storageClassName: "synology-iscsi"
         resources:
           requests:
             storage: 2Gi
@@ -36,7 +35,7 @@ spec:
       size: 3
       volumeSpec:
         persistentVolumeClaim:
-          # storageClassName: "synology-iscsi"
+          storageClassName: "synology-iscsi"
           resources:
             requests:
               storage: 2Gi
