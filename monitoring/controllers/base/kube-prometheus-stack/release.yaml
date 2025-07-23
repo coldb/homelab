@@ -35,6 +35,7 @@ spec:
         podMonitorNamespaceSelector:
           matchLabels:
             app.kubernetes.io/component: monitoring
+            app.kubernetes.io/name: percona-server-mongodb
 
         # Discover all PodMonitors, Probes, PrometheusRules and ServiceMonitors
         podMonitorSelectorNilUsesHelmValues: false
