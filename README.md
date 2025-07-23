@@ -35,3 +35,18 @@ kubectl create secret generic sops-age \
 --namespace=flux-system \
 --from-file=age.agekey=/dev/stdin
 ```
+
+
+## Monitoring
+
+For monitoring the [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) helm chart is used.
+
+### Prometheus UI
+
+To access the prometheus UI a port forward is needed to expose it on localhost. This will expose the UI at [http://localhost:8080/](http://localhost:8080).
+
+```bash
+kubectl port-forward -n monitoring pod/prometheus-kube-prometheus-stack-prometheus-0 8080:9090
+```
+
+
