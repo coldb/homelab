@@ -43,4 +43,3 @@ spec:
 
     mongos:
       size: 1
-        
