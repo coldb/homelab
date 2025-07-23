@@ -15,6 +15,7 @@ spec:
     schedule: "0 2 * * *"
   secrets:
     users: minimal-cluster
+  enableVolumeExpansion: true
   replsets:
 
   - name: rs0
