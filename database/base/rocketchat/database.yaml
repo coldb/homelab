@@ -1,5 +1,6 @@
 # https://docs.percona.com/percona-operator-for-mongodb/minikube.html
 # https://docs.percona.com/percona-operator-for-mongodb/operator.html
+# https://github.com/percona/percona-server-mongodb-operator/blob/main/deploy/cr.yaml
 apiVersion: psmdb.percona.com/v1
 kind: PerconaServerMongoDB
 metadata:
@@ -34,6 +35,8 @@ spec:
 
     configsvrReplSet:
       size: 3
+      affinity:
+        antiAffinityTopologyKey: "none"
       volumeSpec:
         persistentVolumeClaim:
           storageClassName: "synology-iscsi"
@@ -45,3 +48,4 @@ spec:
       size: 1
       affinity:
         antiAffinityTopologyKey: "none" # Needed to deploy in single node
+
