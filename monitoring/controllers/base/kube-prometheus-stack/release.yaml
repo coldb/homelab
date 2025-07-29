@@ -34,7 +34,7 @@ spec:
       prometheusSpec:
         podMonitorNamespaceSelector:
           matchLabels:
-            - app.kubernetes.io/component: monitoring
+            app.kubernetes.io/component: monitoring
 
         # Discover all PodMonitors, Probes, PrometheusRules and ServiceMonitors
         podMonitorSelectorNilUsesHelmValues: false
