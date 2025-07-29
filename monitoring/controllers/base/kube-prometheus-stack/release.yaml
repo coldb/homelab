@@ -30,17 +30,17 @@ spec:
     alertmanager:
       enabled: false
 
-    # prometheus:
-    #   prometheusSpec:
-    #     podMonitorNamespaceSelector:
-    #       matchLabels:
-    #         - app.kubernetes.io/component: monitoring
-    #
-    #     # Discover all PodMonitors, Probes, PrometheusRules and ServiceMonitors
-    #     podMonitorSelectorNilUsesHelmValues: false
-    #     probeSelectorNilUsesHelmValues: false
-    #     ruleSelectorNilUsesHelmValues: false
-    #     serviceMonitorSelectorNilUsesHelmValues: false
+    prometheus:
+      prometheusSpec:
+        podMonitorNamespaceSelector:
+          matchLabels:
+            - app.kubernetes.io/component: monitoring
+
+        # Discover all PodMonitors, Probes, PrometheusRules and ServiceMonitors
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
 
     grafana:
       adminPassword: siim
