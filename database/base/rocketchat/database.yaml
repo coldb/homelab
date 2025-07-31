@@ -81,9 +81,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: rocketchat-mongodb-metrics
-  # namespace: mongodb
   labels:
-    # app: psmdb-metrics
     app.kubernetes.io/instance: rocketchat-mongodb-metrics
     app.kubernetes.io/component: metrics
   annotations:
@@ -97,7 +95,7 @@ spec:
     targetPort: 9216
     protocol: TCP
   selector:
-    app.kubernetes.io/instance: rocketchat-mongodb-metrics
+    app.kubernetes.io/instance: rocketchat-db-staging-cluster-v1
 
 ---
 apiVersion: monitoring.coreos.com/v1
