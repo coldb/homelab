@@ -84,9 +84,8 @@ metadata:
   # namespace: mongodb
   labels:
     # app: psmdb-metrics
-    app.kubernetes.io/component: monitoring
     app.kubernetes.io/instance: rocketchat-mongodb-metrics
-    # app.kubernetes.io/component: metrics
+    app.kubernetes.io/component: metrics
   annotations:
     prometheus.io/path: /metrics
     prometheus.io/port: '9216'
@@ -100,23 +99,23 @@ spec:
   selector:
     app.kubernetes.io/instance: rocketchat-mongodb-metrics
 
-# ---
-# apiVersion: monitoring.coreos.com/v1
-# kind: ServiceMonitor
-# metadata:
-#   name: psmdb-metrics-servicemonitor
-#   namespace: monitoring
-#   labels:
-#     app.kubernetes.io/instance: psmdb-db
-#     app.kubernetes.io/component: metrics
-# spec:
-#   namespaceSelector:
-#     matchNames:
-#       - mongodb
-#   selector:
-#     matchLabels:
-#       app.kubernetes.io/instance: psmdb-db
-#       app.kubernetes.io/component: metrics
-#   endpoints:
-#   - port: http-metrics
-#     interval: 15s
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: rocketchat-mongodb-servicemonitor
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/instance: rocketchat-mongodb-metrics
+    app.kubernetes.io/component: metrics
+spec:
+  namespaceSelector:
+    matchNames:
+      - rocketchat
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: rocketchat-mongodb-metrics
+      app.kubernetes.io/component: metrics
+  endpoints:
+  - port: http-metrics
+    interval: 15s
