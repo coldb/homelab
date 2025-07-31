@@ -98,6 +98,7 @@ spec:
     app.kubernetes.io/instance: rocketchat-db-staging-cluster-v1
 
 ---
+
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -117,3 +118,4 @@ spec:
   endpoints:
   - port: http-metrics
     interval: 15s
+
