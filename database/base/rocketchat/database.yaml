@@ -1,6 +1,10 @@
 # https://docs.percona.com/percona-operator-for-mongodb/minikube.html
 # https://docs.percona.com/percona-operator-for-mongodb/operator.html
 # https://github.com/percona/percona-server-mongodb-operator/blob/main/deploy/cr.yaml
+
+# Adding metrics collection
+# https://forums.percona.com/t/collecting-metrics-using-mongodb-exporter-as-a-sidecar-in-kube-prometheus-grafana-setup-gives-only-rs0-metrics-not-the-cfg-and-mongos-metrics/35555
+# https://forums.percona.com/t/how-to-collect-metrics-and-ship-to-existing-prometheus-grafana-setup/21616/11
 apiVersion: psmdb.percona.com/v1
 kind: PerconaServerMongoDB
 metadata:
@@ -71,3 +75,48 @@ spec:
       affinity:
         antiAffinityTopologyKey: "none" # Needed to deploy in single node
 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rocketchat-mongodb-metrics
+  # namespace: mongodb
+  labels:
+    # app: psmdb-metrics
+    app.kubernetes.io/component: monitoring
+    app.kubernetes.io/instance: rocketchat-mongodb-metrics
+    # app.kubernetes.io/component: metrics
+  annotations:
+    prometheus.io/path: /metrics
+    prometheus.io/port: '9216'
+    prometheus.io/scrape: 'true'
+spec:
+  ports:
+  - name: http-metrics 
+    port: 9216 
+    targetPort: 9216
+    protocol: TCP
+  selector:
+    app.kubernetes.io/instance: rocketchat-mongodb-metrics
+
+# ---
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   name: psmdb-metrics-servicemonitor
+#   namespace: monitoring
+#   labels:
+#     app.kubernetes.io/instance: psmdb-db
+#     app.kubernetes.io/component: metrics
+# spec:
+#   namespaceSelector:
+#     matchNames:
+#       - mongodb
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/instance: psmdb-db
+#       app.kubernetes.io/component: metrics
+#   endpoints:
+#   - port: http-metrics
+#     interval: 15s
