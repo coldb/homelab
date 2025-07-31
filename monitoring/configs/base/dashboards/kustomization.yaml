@@ -5,6 +5,7 @@ configMapGenerator:
   - name: extra-dashboards
     files:
       - extra-dashboards/edb-postgres.json
+      - extra-dashboards/mongodb.json
     options:
       labels:
         grafana_dashboard: "1"
