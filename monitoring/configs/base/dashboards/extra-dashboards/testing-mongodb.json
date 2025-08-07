@@ -1,0 +1,215 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1650000000000,
+  "links": [],
+  "panels": [
+    {
+      "type": "row",
+      "title": "Cluster Overview",
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "type": "stat",
+      "title": "Uptime (hrs)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "mongodb_instance_uptime_seconds / 3600",
+          "legendFormat": "Uptime",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "hours",
+          "decimals": 2
+        }
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 1 }
+    },
+    {
+      "type": "stat",
+      "title": "Connections",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "mongodb_connections{state=\"current\"}",
+          "legendFormat": "Connections",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        }
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 1 }
+    },
+    {
+      "type": "stat",
+      "title": "Memory Usage (MB)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "mongodb_memory{type=\"resident\"} / 1024 / 1024",
+          "legendFormat": "Resident",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "megabytes"
+        }
+      },
+      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 1 }
+    },
+    {
+      "type": "row",
+      "title": "Replication",
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "type": "graph",
+      "title": "Replication Lag (seconds)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "max(mongodb_mongod_replset_member_optime_date{state=\"SECONDARY\"}) - max(mongodb_mongod_replset_member_optime_date{state=\"PRIMARY\"})",
+          "legendFormat": "Replication Lag",
+          "refId": "A"
+        }
+      ],
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 5 }
+    },
+    {
+      "type": "row",
+      "title": "Operations",
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "type": "graph",
+      "title": "Opcounters",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(mongodb_op_counters_total{type=\"query\"}[5m])",
+          "legendFormat": "Queries",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(mongodb_op_counters_total{type=\"insert\"}[5m])",
+          "legendFormat": "Inserts",
+          "refId": "B"
+        },
+        {
+          "expr": "rate(mongodb_op_counters_total{type=\"update\"}[5m])",
+          "legendFormat": "Updates",
+          "refId": "C"
+        },
+        {
+          "expr": "rate(mongodb_op_counters_total{type=\"delete\"}[5m])",
+          "legendFormat": "Deletes",
+          "refId": "D"
+        },
+        {
+          "expr": "rate(mongodb_op_counters_total{type=\"command\"}[5m])",
+          "legendFormat": "Commands",
+          "refId": "E"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 11 }
+    },
+    {
+      "type": "row",
+      "title": "WiredTiger Cache",
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "type": "graph",
+      "title": "WiredTiger Cache Usage",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "mongodb_mongod_wiredtiger_cache_bytes{type=\"bytes currently in the cache\"} / 1024 / 1024",
+          "legendFormat": "Cache Used (MB)",
+          "refId": "A"
+        },
+        {
+          "expr": "mongodb_mongod_wiredtiger_cache_bytes{type=\"maximum bytes configured\"} / 1024 / 1024",
+          "legendFormat": "Cache Max (MB)",
+          "refId": "B"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 19 }
+    },
+    {
+      "type": "row",
+      "title": "Network",
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "type": "graph",
+      "title": "Network Traffic",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(mongodb_network_bytes_total{state=\"in\"}[5m])",
+          "legendFormat": "Bytes In",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(mongodb_network_bytes_total{state=\"out\"}[5m])",
+          "legendFormat": "Bytes Out",
+          "refId": "B"
+        }
+      ],
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 27 }
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 30,
+  "style": "dark",
+  "tags": ["mongodb", "percona", "prometheus"],
+  "templating": {
+    "list": [
+      {
+        "name": "instance",
+        "type": "query",
+        "datasource": "Prometheus",
+        "refresh": 1,
+        "query": "label_values(mongodb_connections, instance)",
+        "includeAll": true,
+        "multi": true
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "Percona MongoDB Overview",
+  "uid": "percona-mongo-overview",
+  "version": 1
+}
