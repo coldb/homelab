@@ -32,6 +32,13 @@ spec:
 
     prometheus:
       prometheusSpec:
+        additionalScrapeConfigs:
+          - job_name: "prometheus-mock"
+            metrics_path: /metrics
+            scrape_interval: 15s
+            static_configs:
+              - targets: ["192.168.1.42:3000"]
+
         podMonitorNamespaceSelector:
           matchLabels:
             app.kubernetes.io/component: monitoring
