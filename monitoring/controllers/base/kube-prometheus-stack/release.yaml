@@ -39,7 +39,7 @@ spec:
             metrics_path: /metrics
             scrape_interval: 15s
             static_configs:
-              - targets: ["192.168.1.42:3000"]
+              - targets: ["192.168.88.227:3000"]
 
         podMonitorNamespaceSelector:
           matchLabels:
