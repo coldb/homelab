@@ -32,6 +32,8 @@ spec:
 
     prometheus:
       prometheusSpec:
+        hostNetwork: true # Remove once done testing
+        dnsPolicy: ClusterFirstWithHostNet # Remove once done testing
         additionalScrapeConfigs:
           - job_name: "prometheus-mock"
             metrics_path: /metrics
