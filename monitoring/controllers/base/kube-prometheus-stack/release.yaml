@@ -59,7 +59,7 @@ spec:
         hosts:
           - grafana-staging.colddev.net
         tls:
-          - secretName: grafana-tls-secret
+          - secretName: grafana-ca-tls-secret
             hosts:
               - grafana-staging.colddev.net
 

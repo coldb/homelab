@@ -4,7 +4,7 @@ metadata:
   name: grafana-certificate
   namespace: monitoring
 spec:
-  secretName: grafana-tls-secret
+  secretName: grafana-ca-tls-secret
   issuerRef:
     name: colddevnet-clusterissuer
     kind: ClusterIssuer
