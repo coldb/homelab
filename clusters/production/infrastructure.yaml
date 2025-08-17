@@ -16,3 +16,26 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+
+---
+
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infrastructure-controllers
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infrastructure-controllers
+  interval: 1m0s
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infrastructure/controllers/production/cert-manager/cluster-issuer
+  prune: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
