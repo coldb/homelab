@@ -33,7 +33,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/controllers/production/production-cluster-issuer
+  path: ./infrastructure/controllers/production-cluster-issuer
   prune: true
   decryption:
     provider: sops
