@@ -4,4 +4,4 @@ resources:
   - colddevnet-clusterissuer.yaml
 spec:
   dependsOn:
-    - name: cert-manager
+    - name: cert-manager-helm
