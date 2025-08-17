@@ -5,5 +5,3 @@ metadata:
 spec:
   ca:
     secretName: colddevnet-ca-secret
-  dependsOn:
-    - name: cert-manager
