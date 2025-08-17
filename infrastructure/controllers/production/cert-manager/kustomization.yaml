@@ -4,4 +4,4 @@ namespace: cert-manager
 resources:
   - ../../base/cert-manager/
   - colddevnet-ca-secret.yaml
-  - colddevnet-clusterissuer.yaml
+  - kustomization-clusterissuer.yaml
