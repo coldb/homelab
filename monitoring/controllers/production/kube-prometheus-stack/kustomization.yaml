@@ -12,7 +12,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/values/grafana/ingress/hosts/0
-        value: grafana-production.colddev.net
+        value: grafana.colddev.net
       - op: replace
         path: /spec/values/grafana/ingress/tls/0/hosts/0
-        value: grafana-production.colddev.net
+        value: grafana.colddev.net
