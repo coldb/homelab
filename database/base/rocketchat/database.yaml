@@ -32,8 +32,6 @@ spec:
         resources:
           requests:
             storage: 3Gi
-    affinity:
-      antiAffinityTopologyKey: "none" # Needed to deploy in single node
     sidecars:
     - name: mongodb-exporter 
       image: percona/mongodb_exporter:2.37

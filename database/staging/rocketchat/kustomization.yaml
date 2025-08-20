@@ -2,3 +2,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/rocketchat/
+
+patches:
+  - target:
+      kind: PerconaServerMongoDB
+      name: rocketchat-db-staging-cluster-v1
+      namespace: rocketchat
+    # Needed to deploy on a single node
+    patch: |-
+      - op: add
+        path: /spec/replsets/0/affinity
+        value:
+          antiAffinityTopologyKey: "none"
