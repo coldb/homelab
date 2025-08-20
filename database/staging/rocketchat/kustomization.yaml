@@ -19,5 +19,11 @@ patches:
         path: /spec/replsets/0/volumeSpec/persistentVolumeClaim/storageClassName
         value: synology-iscsi
       - op: replace
+        path: /spec/replsets/0/volumeSpec/persistentVolumeClaim/resources/requests/storage
+        value: 1Gi
+      - op: replace
         path: /spec/sharding/configsvrReplSet/volumeSpec/persistentVolumeClaim/storageClassName
         value: synology-iscsi
+      - op: replace
+        path: /spec/sharding/configsvrReplSet/volumeSpec/persistentVolumeClaim/resources/requests/storage
+        value: 1Gi
