@@ -18,8 +18,6 @@ spec:
   upgradeOptions:
     apply: disabled
     schedule: "0 2 * * *"
-  secrets:
-    users: mongodb-database-users
   enableVolumeExpansion: true
   replsets:
 
@@ -39,12 +37,12 @@ spec:
       - name: EXPORTER_USER
         valueFrom:
           secretKeyRef:
-            name: minimal-cluster
+            name: mongodb-database-users
             key: MONGODB_CLUSTER_MONITOR_USER
       - name: EXPORTER_PASS
         valueFrom:
           secretKeyRef:
-            name: minimal-cluster
+            name: mongodb-database-users
             key: MONGODB_CLUSTER_MONITOR_PASSWORD
       - name: POD_IP
         valueFrom:
