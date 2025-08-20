@@ -15,3 +15,9 @@ patches:
         path: /spec/replsets/0/affinity
         value:
           antiAffinityTopologyKey: "none"
+      - op: replace
+        path: /spec/replsets/0/volumeSpec/persistentVolumeClaim/storageClassName
+        value: synology-iscsi
+      - op: replace
+        path: /spec/sharding/configsvrReplSet/volumeSpec/persistentVolumeClaim/storageClassName
+        value: synology-iscsi

@@ -28,7 +28,7 @@ spec:
     size: 3
     volumeSpec:
       persistentVolumeClaim:
-        storageClassName: "synology-iscsi"
+        storageClassName: "synology-iscsi-retain"
         resources:
           requests:
             storage: 3Gi
@@ -63,7 +63,7 @@ spec:
         antiAffinityTopologyKey: "none"
       volumeSpec:
         persistentVolumeClaim:
-          storageClassName: "synology-iscsi"
+          storageClassName: "synology-iscsi-retain"
           resources:
             requests:
               storage: 3Gi
