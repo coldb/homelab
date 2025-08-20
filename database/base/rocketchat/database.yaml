@@ -19,7 +19,7 @@ spec:
     apply: disabled
     schedule: "0 2 * * *"
   secrets:
-    users: minimal-cluster
+    users: mongodb-database-users
   enableVolumeExpansion: true
   replsets:
 
