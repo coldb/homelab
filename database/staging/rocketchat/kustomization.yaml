@@ -9,10 +9,17 @@ patches:
       kind: PerconaServerMongoDB
       name: rocketchat-db-staging-cluster-v1
       namespace: rocketchat
-    # Needed to deploy on a single node
     patch: |-
       - op: add
         path: /spec/replsets/0/affinity
+        value:
+          antiAffinityTopologyKey: "none"
+      - op: add
+        path: /spec/sharding/configsvrReplSet/affinity
+        value:
+          antiAffinityTopologyKey: "none"
+      - op: add
+        path: /spec/sharding/mongos/affinity
         value:
           antiAffinityTopologyKey: "none"
       - op: replace
