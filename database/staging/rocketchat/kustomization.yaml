@@ -10,6 +10,9 @@ patches:
       kind: PerconaServerMongoDB
       name: rocketchat-db-staging-cluster-v1
     patch: |-
+      - op: replace
+        path: /metadata/name/0/volumeSpec/persistentVolumeClaim/storageClassName
+        value: rocketchat-db-staging-cluster-v1
       - op: add
         path: /spec/replsets/0/affinity
         value:
@@ -34,3 +37,10 @@ patches:
       - op: replace
         path: /spec/sharding/configsvrReplSet/volumeSpec/persistentVolumeClaim/resources/requests/storage
         value: 1Gi
+  - target:
+      kind: Service
+      name: rocketchat-mongodb-metrics
+    patch: |-
+      - op: replace
+        path: /spec/selector/app.kubernetes.io~1instance
+        value: rocketchat-db-staging-cluster-v1
