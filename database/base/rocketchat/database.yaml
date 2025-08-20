@@ -57,8 +57,6 @@ spec:
 
     configsvrReplSet:
       size: 3
-      affinity:
-        antiAffinityTopologyKey: "none"
       volumeSpec:
         persistentVolumeClaim:
           storageClassName: "synology-iscsi-retain"
@@ -68,8 +66,6 @@ spec:
 
     mongos:
       size: 1
-      affinity:
-        antiAffinityTopologyKey: "none" # Needed to deploy in single node
 
 ---
 
