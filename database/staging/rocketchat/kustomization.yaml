@@ -9,7 +9,6 @@ patches:
   - target:
       kind: PerconaServerMongoDB
       name: rocketchat-db-staging-cluster-v1
-      namespace: rocketchat
     patch: |-
       - op: add
         path: /spec/replsets/0/affinity
