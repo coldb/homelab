@@ -18,6 +18,8 @@ spec:
   upgradeOptions:
     apply: disabled
     schedule: "0 2 * * *"
+  secrets:
+    users: mongodb-database-users
   enableVolumeExpansion: true
   replsets:
 
