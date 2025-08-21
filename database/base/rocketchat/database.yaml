@@ -139,3 +139,4 @@ spec:
       bucket: "production-backup-rocketchat-db"
       region: "eu-north-1"
       credentialsSecret: "rocketchat-aws-backup-credentials"
+      path: "2025-08-21T19:20:00Z"
