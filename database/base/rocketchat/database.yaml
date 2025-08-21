@@ -126,16 +126,16 @@ spec:
 
 ---
 
-apiVersion: psmdb.percona.com/v1
-kind: PerconaServerMongoDBRestore
-metadata:
-  name: auto-restore-latest
-spec:
-  clusterName: rocketchat-db-production-cluster-v1
-  backupSource:
-    destination: s3://production-backup-rocketchat-db
-    storageName: s3-stockholm
-    s3:
-      bucket: "production-backup-rocketchat-db"
-      region: "eu-north-1"
-      credentialsSecret: "rocketchat-aws-backup-credentials"
+# apiVersion: psmdb.percona.com/v1
+# kind: PerconaServerMongoDBRestore
+# metadata:
+#   name: auto-restore-latest
+# spec:
+#   clusterName: rocketchat-db-production-cluster-v1
+#   backupSource:
+#     destination: s3://production-backup-rocketchat-db
+#     storageName: s3-stockholm
+#     s3:
+#       bucket: "production-backup-rocketchat-db"
+#       region: "eu-north-1"
+#       credentialsSecret: "rocketchat-aws-backup-credentials"
