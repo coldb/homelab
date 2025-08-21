@@ -23,7 +23,7 @@ spec:
   enableVolumeExpansion: true
 
   backup:
-    enabled: true
+    enabled: false
     image: percona/percona-backup-mongodb:2.10.0
     storages:
       s3-stockholm:
