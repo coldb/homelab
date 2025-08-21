@@ -29,13 +29,13 @@ spec:
       s3-stockholm:
         type: s3
         s3:
-          bucket: "homelab-backups--eun1-az1--x-s3"
+          bucket: "production-backup-rocketchat-db"
           region: "eu-north-1"
           credentialsSecret: "rocketchat-aws-backup-credentials"
     tasks:
       - name: hourly-backup
         enabled: true
-        schedule: "0 * * * *"   # every hour
+        schedule: "*/10 * * * *"   # every hour
         keep: 7                 # keep last 7 backups
         storageName: "s3-stockholm"
 
