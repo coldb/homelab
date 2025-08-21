@@ -15,22 +15,22 @@ spec:
     users: mongodb-database-users
   enableVolumeExpansion: true
 
-  # backup:
-  #   enabled: false
-  #   image: percona/percona-backup-mongodb:2.10.0
-  #   storages:
-  #     s3-stockholm:
-  #       type: s3
-  #       s3:
-  #         bucket: "production-backup-rocketchat-db"
-  #         region: "eu-north-1"
-  #         credentialsSecret: "rocketchat-aws-backup-credentials"
-  #   tasks:
-  #     - name: hourly-backup
-  #       enabled: true
-  #       schedule: "0 2 * * *"   # Every night at 2AM
-  #       keep: 7
-  #       storageName: "s3-stockholm"
+  backup:
+    enabled: true
+    image: percona/percona-backup-mongodb:2.10.0
+    storages:
+      s3-stockholm:
+        type: s3
+        s3:
+          bucket: "production-backup-rocketchat-db"
+          region: "eu-north-1"
+          credentialsSecret: "rocketchat-aws-backup-credentials"
+    tasks:
+      - name: hourly-backup
+        enabled: true
+        schedule: "0 2 * * *"   # Every night at 2AM
+        keep: 7
+        storageName: "s3-stockholm"
 
   replsets:
 
@@ -123,20 +123,19 @@ spec:
   endpoints:
   - port: http-metrics
     interval: 15s
-
----
-
-apiVersion: psmdb.percona.com/v1
-kind: PerconaServerMongoDBRestore
-metadata:
-  name: auto-restore-latest
-spec:
-  clusterName: rocketchat-db-production-cluster-v1
-  backupSource:
-    destination: s3://production-backup-rocketchat-db
-    storageName: s3-stockholm
-    s3:
-      bucket: "production-backup-rocketchat-db"
-      region: "eu-north-1"
-      credentialsSecret: "rocketchat-aws-backup-credentials"
-      path: "2025-08-21T19:20:00Z"
+#
+# ---
+#
+# apiVersion: psmdb.percona.com/v1
+# kind: PerconaServerMongoDBRestore
+# metadata:
+#   name: auto-restore-latest
+# spec:
+#   clusterName: rocketchat-db-production-cluster-v1
+#   backupSource:
+#     destination: s3://production-backup-rocketchat-db
+#     storageName: s3-stockholm
+#     s3:
+#       bucket: "production-backup-rocketchat-db"
+#       region: "eu-north-1"
+#       credentialsSecret: "rocketchat-aws-backup-credentials"
