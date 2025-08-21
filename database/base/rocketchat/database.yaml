@@ -22,22 +22,22 @@ spec:
     users: mongodb-database-users
   enableVolumeExpansion: true
 
-  backup:
-    enabled: false
-    image: percona/percona-backup-mongodb:2.10.0
-    storages:
-      s3-stockholm:
-        type: s3
-        s3:
-          bucket: "production-backup-rocketchat-db"
-          region: "eu-north-1"
-          credentialsSecret: "rocketchat-aws-backup-credentials"
-    tasks:
-      - name: hourly-backup
-        enabled: true
-        schedule: "0 2 * * *"   # Every night at 2AM
-        keep: 7
-        storageName: "s3-stockholm"
+  # backup:
+  #   enabled: false
+  #   image: percona/percona-backup-mongodb:2.10.0
+  #   storages:
+  #     s3-stockholm:
+  #       type: s3
+  #       s3:
+  #         bucket: "production-backup-rocketchat-db"
+  #         region: "eu-north-1"
+  #         credentialsSecret: "rocketchat-aws-backup-credentials"
+  #   tasks:
+  #     - name: hourly-backup
+  #       enabled: true
+  #       schedule: "0 2 * * *"   # Every night at 2AM
+  #       keep: 7
+  #       storageName: "s3-stockholm"
 
   replsets:
 
