@@ -21,6 +21,23 @@ spec:
   secrets:
     users: mongodb-database-users
   enableVolumeExpansion: true
+
+  backup:
+    enabled: true
+    storages:
+      s3-stockholm:
+        type: s3
+        s3:
+          bucket: "homelab-backups--eun1-az1--x-s3"
+          region: "eu-north-1"
+          credentialsSecret: "rocketchat-aws-backup-credentials"
+    tasks:
+      - name: hourly-backup
+        enabled: true
+        schedule: "0 * * * *"   # every hour
+        keep: 7                 # keep last 7 backups
+        storageName: "s3-stockholm"
+
   replsets:
 
   - name: rs0
