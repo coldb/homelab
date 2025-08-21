@@ -35,8 +35,8 @@ spec:
     tasks:
       - name: hourly-backup
         enabled: true
-        schedule: "*/10 * * * *"   # every hour
-        keep: 7                 # keep last 7 backups
+        schedule: "0 2 * * *"   # Every night at 2AM
+        keep: 7
         storageName: "s3-stockholm"
 
   replsets:
