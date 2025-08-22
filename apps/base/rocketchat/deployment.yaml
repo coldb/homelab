@@ -46,13 +46,13 @@ spec:
             - name: MONGO_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: mongodb-database-users
-                  key: MONGODB_USER_ADMIN_USER
+                  name: rocketchat-config
+                  key: dbUsername
             - name: MONGO_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mongodb-database-users
-                  key: MONGODB_USER_ADMIN_PASSWORD
+                  name: rocketchat-config
+                  key: dbPassword
             - name: MONGO_URL
               value: >-
                 mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@rocketchat-db-production-cluster-v1.rocketchat.svc.cluster.local/rocketchat?replicaSet=rs0&ssl=false
