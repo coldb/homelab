@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: cloudflared
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      pod: cloudflared
+  namespaceSelector:
+    matchNames:
+      - linkding
+      - rocketchat
+      - audiobookself
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
+      honorLabels: true
