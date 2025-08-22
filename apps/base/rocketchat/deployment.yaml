@@ -55,4 +55,4 @@ spec:
                   key: MONGODB_USER_ADMIN_PASSWORD
             - name: MONGO_URL
               value: >-
-                mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@rocketchat-db-production-cluster-v1-rs0.rocketchat.svc.cluster.local/rocketchat?replicaSet=rs0&ssl=false
+                mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@rocketchat-db-production-cluster-v1.rocketchat.svc.cluster.local/rocketchat?replicaSet=rs0&ssl=false
