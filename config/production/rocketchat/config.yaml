@@ -1,0 +1,22 @@
+apiVersion: v1
+data:
+    regToken: ENC[AES256_GCM,data:Jpk7/lG2lipceJYp1TXrUw==,iv:Z0P8TepPKsi53Gy6IGUlaHl5WgOvMlU2XUT3T638k+I=,tag:6bV9x+cKT6SZWpIhjaZuiQ==,type:str]
+kind: Secret
+metadata:
+    creationTimestamp: null
+    name: rocketchat-config
+sops:
+    age:
+        - recipient: age1lu89hj3qppwuccx8nn5qq2dkny3kucgud7d4mallc7kw54a6xs7qwwfuez
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBsNWFlVEVodkhlQTFoaEM0
+            aDRSUUlPdHB3WW5ubHpGVTl2K3JkWnN4N0VRCnVJZE9IdGFCR1JWajVubFhVTEdN
+            VHBZVjZLMld6YUtBVUJwV1JIYVovU0EKLS0tIFYwaDZ4VE8rSjU2cjBURjIxR1M4
+            TnVmSnN4czVjMUdrM2NPa0RHaFU0bnMKQsmATWHOxYA3zzHD07NbAnu87o9c1h0k
+            f+Ke4vdmnTvtxeQlamj6v6p22098YACoJ4WH2f8quP2EdL0kpo9Xqg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-08-22T15:31:10Z"
+    mac: ENC[AES256_GCM,data:9o5EDWma88UAUIs1GEjdu6H+772tC5a+bcThZczZ6tSiF/JgjPV+J5c2XxLwn6uPxzltiyxB/q4ivixQtwzIH17nU2LUBi4NljF99FdCcz4KNcfH51RxpBbgK+2nkRLsN9i3eK94MO0ScjxCnWmL97kluerfFblZP3HCCCdr7+s=,iv:FQnqqRKlsHIKarjVam9cF/1KKkRNk9wha2Na7FIxbwo=,tag:52I34BFRaZRBCDbjPA/+1A==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2

@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rocketchat
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: rocketchat
+  template:
+    metadata:
+      labels:
+        app: rocketchat
+    spec:
+      # securityContext:
+      #   fsGroup: 33 # www-data group ID
+      #   runAsUser: 33 # www-data user ID
+      #   runAsGroup: 33 # www-data group ID
+
+      containers:
+        - name: rocketchat
+          image: registry.rocket.chat/rocketchat/rocket.chat:7.7.0
+          ports:
+            - containerPort: 3000
+
+          # securityContext:
+          #   allowPrivilegeEscalation: false
+
+          env:
+            # - name: ROOT_URL
+            #   value:
+            - name: PORT
+              value: 3000
+            - name: DEPLOY_METHOD
+              value: docker
+            - name: REG_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: rocketchat-config
+                  key: regToken
+            - name: MONGO_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-database-users
+                  key: MONGODB_USER_ADMIN_USER
+            - name: MONGO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-database-users
+                  key: MONGODB_USER_ADMIN_PASSWORD
+            - name: MONGO_URL
+              value: >-
+                mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@rocketchat-db-production-cluster-v1-rs0.rocketchat.svc.cluster.local/admin?replicaSet=rs0&ssl=false
+            - name: MONGO_OPLOG_URL
+              value: >-
+                mongodb://$(MONGO_USERNAME):$(MONGO_PASSWORD)@rocketchat-db-production-cluster-v1-rs0.rocketchat.svc.cluster.local/admin?replicaSet=rs0&ssl=false
