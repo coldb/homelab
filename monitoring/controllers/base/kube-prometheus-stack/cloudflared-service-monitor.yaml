@@ -14,7 +14,7 @@ spec:
       - rocketchat
       - audiobookself
   endpoints:
-    - port: metrics
+    - port: 2000
       path: /metrics
       interval: 30s
       honorLabels: true
