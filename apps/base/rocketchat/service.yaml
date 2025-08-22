@@ -6,5 +6,5 @@ spec:
   ports:
     - port: 3000
   selector:
-    app: linkding
+    app: rocketchat
   type: ClusterIP
