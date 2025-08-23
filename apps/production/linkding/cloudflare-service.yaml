@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: cloudflared-metrics
   labels:
-    app: cloudflared
+    app: cloudflared-metrics
 spec:
   selector:
     pod: cloudflared
