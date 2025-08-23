@@ -1,0 +1,5 @@
+creation_rules:
+  - path_regex: staging/.*\.yaml$
+    age: "age1dsevcxza33vhmq3hn7693jcla2l2peur7shm40pk2dsfuvh2cvus3ut5k5"
+  - path_regex: production/.*\.yaml$
+    age: "age1lu89hj3qppwuccx8nn5qq2dkny3kucgud7d4mallc7kw54a6xs7qwwfuez"
