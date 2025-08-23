@@ -4,6 +4,7 @@ namespace: monitoring
 configMapGenerator:
   - name: extra-dashboards
     files:
+      - extra-dashboards/cloudflared.json
       - extra-dashboards/edb-postgres.json
       - extra-dashboards/mongodb-overview.json
       - extra-dashboards/testing-mongodb.json
