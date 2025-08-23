@@ -12,7 +12,7 @@ spec:
     matchNames:
       - linkding
       - rocketchat
-      - audiobookself
+      - audiobookshelf
   endpoints:
     - port: "metrics"
       path: /metrics
