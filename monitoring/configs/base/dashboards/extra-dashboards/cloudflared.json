@@ -140,7 +140,7 @@
           },
           "editorMode": "builder",
           "expr": "cloudflared_tunnel_ha_connections{namespace=~\"$namespace\"}",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{namespace}} {{pod}}",
           "range": true,
           "refId": "A"
         }
@@ -238,7 +238,7 @@
           },
           "editorMode": "builder",
           "expr": "cloudflared_tunnel_concurrent_requests_per_tunnel{namespace=~\"$namespace\"}",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{namespace}} {{pod}}",
           "range": true,
           "refId": "A"
         }
@@ -459,7 +459,7 @@
           "editorMode": "builder",
           "expr": "sum by(instance) (increase(cloudflared_tunnel_total_requests{namespace=~\"$namespace\"}[$__rate_interval]))",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{namespace}} {{pod}}",
           "range": true,
           "refId": "A"
         }
@@ -581,7 +581,7 @@
           "editorMode": "builder",
           "expr": "changes(cloudflared_orchestration_config_version{namespace=~\"$namespace\"}[$__interval])",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{namespace}} {{pod}}",
           "range": true,
           "refId": "A"
         }
@@ -684,7 +684,7 @@
           "editorMode": "builder",
           "expr": "increase(cloudflared_tunnel_request_errors{namespace=~\"$namespace\"}[$__rate_interval])",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{namespace}} {{pod}}",
           "range": true,
           "refId": "A"
         }
