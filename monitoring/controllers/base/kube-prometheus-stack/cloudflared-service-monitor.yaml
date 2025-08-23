@@ -7,7 +7,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      pod: cloudflared
+      pod: cloudflared-metrics
   namespaceSelector:
     matchNames:
       - linkding
