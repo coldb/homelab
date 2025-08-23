@@ -4,4 +4,4 @@ namespace: rocketchat
 resources:
   - ../../base/rocketchat/
   - cloudflare-secret.yaml
-  - cloudflare.yaml
+  - ../../../shared/cloudflared/cloudflared.yaml
