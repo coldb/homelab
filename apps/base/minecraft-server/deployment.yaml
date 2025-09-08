@@ -1,0 +1,32 @@
+# https://docker-minecraft-server.readthedocs.io/en/latest/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minecraft
+  template:
+    metadata:
+      labels:
+        app: minecraft
+    spec:
+      containers:
+        - name: minecraft
+          image: itzg/minecraft-server:latest
+          ports:
+            - containerPort: 25565
+
+          envFrom:
+            - configMapRef:
+                name: minecraft-home-configmap
+
+          volumeMounts:
+            - name: minecraft-home-data
+              mountPath: /data
+      volumes:
+        - name: minecraft-home-data
+          persistentVolumeClaim:
+            claimName: minecraft-home-data-pvc

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: minecraft-home-configmap
+data:
+  EULA: "TRUE"
+  SERVER_NAME: "Cold Home"
+  PVP: "false"
+  MODE: "survival"
+  DIFFICULTY: "easy"
+
