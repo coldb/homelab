@@ -9,5 +9,10 @@ spec:
     enablePodMonitor: true
 
   storage:
-    size: 5Gi
-    storageClassName: "synology-iscsi"
+    pvcTemplate:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: "synology-iscsi"
