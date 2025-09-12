@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: linkding-db-staging-cluster-v1
+  name: n8n-db-cluster-v1
 spec:
   instances: 3
 
@@ -9,4 +9,5 @@ spec:
     enablePodMonitor: true
 
   storage:
-    size: 1Gi
+    size: 5Gi
+    storageClassName: "synology-iscsi"
