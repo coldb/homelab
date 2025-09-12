@@ -7,8 +7,11 @@ resources:
 patches:
   - target:
       kind: Cluster
-      name: n8n-db-cluster-v1
+      name: n8n-db-production-cluster-v1
     patch: |-
       - op: replace
         path: /spec/instances
         value: 1
+      - op: replace
+        path: /metadata/name
+        value: n8n-db-staging-cluster-v1
