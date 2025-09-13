@@ -5,6 +5,7 @@ metadata:
 spec:
   ports:
     - port: 3000
+    - port: 9458
   selector:
     app: rocketchat
   type: ClusterIP

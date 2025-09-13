@@ -27,6 +27,7 @@ spec:
           image: registry.rocket.chat/rocketchat/rocket.chat:7.10.0
           ports:
             - containerPort: 3000
+            - containerPort: 9458
 
           securityContext:
             allowPrivilegeEscalation: false
@@ -36,6 +37,10 @@ spec:
               value: "3000"
             - name: DEPLOY_METHOD
               value: docker
+            - name: OVERWRITE_SETTING_Prometheus_Enabled
+              value: "true"
+            - name: OVERWRITE_SETTING_Prometheus_Port
+              value: "9458"
             - name: REG_TOKEN
               valueFrom:
                 secretKeyRef:
