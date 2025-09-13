@@ -13,11 +13,19 @@ spec:
       labels:
         app: minecraft
     spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+
       containers:
         - name: minecraft
           image: itzg/minecraft-server:latest
           ports:
             - containerPort: 25565
+
+          securityContext:
+            allowPrivilegeEscalation: false
 
           envFrom:
             - configMapRef:
