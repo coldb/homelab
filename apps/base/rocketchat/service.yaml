@@ -35,5 +35,8 @@ spec:
   endpoints:
   - port: metrics
     interval: 30s
+    relabelings:
+      - targetLabel: cluster
+        replacement: "production"
 
 
