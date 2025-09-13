@@ -26,8 +26,10 @@ spec:
         - name: rocketchat
           image: registry.rocket.chat/rocketchat/rocket.chat:7.10.0
           ports:
-            - containerPort: 3000
-            - containerPort: 9458
+            - name: http
+              containerPort: 3000
+            - name: metrics
+              containerPort: 9458
 
           securityContext:
             allowPrivilegeEscalation: false
