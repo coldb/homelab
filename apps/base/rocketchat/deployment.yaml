@@ -17,10 +17,10 @@ spec:
       labels:
         app: rocketchat
     spec:
-      # securityContext:
-      #   fsGroup: 33 # www-data group ID
-      #   runAsUser: 33 # www-data user ID
-      #   runAsGroup: 33 # www-data group ID
+      securityContext:
+        fsGroup: 65533 # rocketchat group ID
+        runAsUser: 65533 # rocketchat user ID
+        runAsGroup: 65533 # rocketchat group ID
 
       containers:
         - name: rocketchat
@@ -28,12 +28,10 @@ spec:
           ports:
             - containerPort: 3000
 
-          # securityContext:
-          #   allowPrivilegeEscalation: false
+          securityContext:
+            allowPrivilegeEscalation: false
 
           env:
-            # - name: ROOT_URL
-            #   value:
             - name: PORT
               value: "3000"
             - name: DEPLOY_METHOD
