@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: n8n
+resources:
+  - ../../base/n8n/
+  - secret-configmap.enc.yaml
+
+patches:
+  - target:
+      kind: PersistentVolumeClaim
+      name: n8n-data-pvc
+    patch: |-
+      - op: replace
+        path: /spec/storageClassName
+        value: synology-iscsi
+
+  - target:
+      kind: ConfigMap
+      name: n8n-configmap
+    patch: |-
+      - op: replace
+        path: /data/DB_POSTGRESDB_HOST
+        value: n8n-db-staging-cluster-v1-rw.n8n.svc.cluster.local
+
