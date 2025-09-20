@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: pgadmin
 resources:
   - ../../base/pgadmin/
-  - secret.enc.yaml
+  - secret-configmap.enc.yaml
 
 patches:
   - target:
