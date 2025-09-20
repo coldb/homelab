@@ -16,3 +16,6 @@ patches:
       - op: replace
         path: /metadata/name
         value: n8n-db-staging-cluster-v1
+      - op: replace
+        path: /spec/storage/pvcTemplate/storageClassName
+        value: synology-iscsi
