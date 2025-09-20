@@ -12,4 +12,19 @@ patches:
     patch: |-
       - op: replace
         path: /spec/dnsNames/0
-        value: grafana-staging.colddev.net
+        value: pgadmin-staging.colddev.net
+
+  - target:
+      kind: Ingress
+      name: pgadmin
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: pgadmin-staging.colddev.net
+      - op: replace
+        path: /spec/tls/0/tls/0/hosts/0
+        value: pgadmin-staging.colddev.net
+      - op: replace
+        path: /spec/tls/0/hosts
+        value: pgadmin-staging.colddev.net
+
