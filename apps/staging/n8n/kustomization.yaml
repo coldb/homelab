@@ -4,6 +4,8 @@ namespace: n8n
 resources:
   - ../../base/n8n/
   - secret-configmap.enc.yaml
+  - cloudflare-secret.enc.yaml
+  - ../../../shared/cloudflared/
 
 patches:
   - target:
