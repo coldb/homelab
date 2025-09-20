@@ -25,6 +25,6 @@ patches:
         path: /spec/tls/0/tls/0/hosts/0
         value: pgadmin-staging.colddev.net
       - op: replace
-        path: /spec/tls/0/hosts
+        path: /spec/tls/0/hosts/0
         value: pgadmin-staging.colddev.net
 
