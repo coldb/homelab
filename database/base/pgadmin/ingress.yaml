@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pgadmin
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: pgadmin.colddev.net
+      http:
+        paths:
+          - backend:
+              service:
+                name: pgadmin
+                port:
+                  number: 3004
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - pgadmin.colddev.net
+      tls:
+        - secretName: pgadmin-ca-tls-secret
+          hosts:
+            - pgadmin.colddev.net
