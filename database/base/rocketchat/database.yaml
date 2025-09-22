@@ -24,7 +24,7 @@ spec:
         s3:
           bucket: "production-backup-rocketchat-db"
           region: "eu-north-1"
-          credentialsSecret: "rocketchat-aws-backup-credentials"
+          credentialsSecret: "aws-backup-credentials"
     tasks:
       - name: hourly-backup
         enabled: true
