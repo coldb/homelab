@@ -5,5 +5,4 @@ resources:
   - ../aws/
   - ../../base/rocketchat/
   - config.yaml
-  - aws-backup-credentials.enc.yaml
   - database-users.yaml
