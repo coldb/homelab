@@ -2,8 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: rocketchat
 resources:
+  - ../aws/
   - ../../base/rocketchat/
-  - ../aws/aws-backup-credentials.enc.yaml
   - config.yaml
   - aws-backup-credentials.enc.yaml
   - database-users.yaml
