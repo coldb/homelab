@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: rocketchat
 resources:
   - ../../base/rocketchat/
-  - ../aws/
+  - ../aws/aws-backup-credentials.enc.yaml
   - config.yaml
   - aws-backup-credentials.enc.yaml
   - database-users.yaml
