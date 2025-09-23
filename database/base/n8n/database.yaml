@@ -6,11 +6,48 @@ spec:
   instances: 3
 
   bootstrap:
-    initdb:
+    # initdb:
+    #   database: n8n
+    #   owner: n8n
+    #   secret:
+    #     name: n8n-db-app-user-secret
+    recovery:
+      source: clusterBackup
       database: n8n
       owner: n8n
       secret:
         name: n8n-db-app-user-secret
+
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://production-backup-n8n-db
+      s3Credentials:
+        accessKeyId:
+          name: aws-backup-credentials
+          key: AWS_ACCESS_KEY_ID
+        secretAccessKey:
+          name: aws-backup-credentials
+          key: AWS_SECRET_ACCESS_KEY
+      data:
+        compression: gzip
+        encryption: AES256
+      wal:
+        compression: gzip
+        encryption: AES256
+    retentionPolicy: 14d
+
+  externalClusters:
+    - name: clusterBackup
+      barmanObjectStore:
+        destinationPath: s3://production-backup-n8n-db
+        serverName: n8n-db-production-cluster-v1
+        s3Credentials:
+          accessKeyId:
+            name: aws-backup-credentials
+            key: AWS_ACCESS_KEY_ID
+          secretAccessKey:
+            name: aws-backup-credentials
+            key: AWS_SECRET_ACCESS_KEY
 
   monitoring:
     enablePodMonitor: true
