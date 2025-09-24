@@ -8,4 +8,4 @@ spec:
   cluster:
     name: n8n-db-production-cluster-v1
   immediate: true
-  schedule: "0 2 * * *"
+  schedule: "0 0 2 * *"
