@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - n8n
   - rocketchat
-  # - pgadmin
+  - pgadmin
