@@ -20,7 +20,7 @@ spec:
 
   backup:
     barmanObjectStore:
-      destinationPath: s3://production-backup-n8n-db
+      destinationPath: s3://production-backup-n8n-db/current
       s3Credentials:
         accessKeyId:
           name: aws-backup-credentials

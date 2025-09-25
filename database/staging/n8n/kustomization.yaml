@@ -21,7 +21,7 @@ patches:
         value: synology-iscsi
       - op: replace
         path: /spec/backup/barmanObjectStore/destinationPath
-        value: s3://staging-backup-n8n-db
+        value: s3://staging-backup-n8n-db/current
       - op: replace
         path: /spec/externalClusters/0/barmanObjectStore/destinationPath
         value: s3://staging-backup-n8n-db
