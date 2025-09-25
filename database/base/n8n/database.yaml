@@ -6,17 +6,17 @@ spec:
   instances: 3
 
   bootstrap:
-    initdb:
-      database: n8n
-      owner: n8n
-      secret:
-        name: n8n-db-app-user-secret
-    # recovery:
-    #   source: clusterBackup
+    # initdb:
     #   database: n8n
     #   owner: n8n
     #   secret:
     #     name: n8n-db-app-user-secret
+    recovery:
+      source: clusterBackup
+      database: n8n
+      owner: n8n
+      secret:
+        name: n8n-db-app-user-secret
 
   backup:
     barmanObjectStore:
