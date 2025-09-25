@@ -20,7 +20,7 @@ spec:
 
   backup:
     barmanObjectStore:
-      destinationPath: s3://production-backup-n8n-db/current
+      destinationPath: s3://production-backup-n8n-db/v2
       s3Credentials:
         accessKeyId:
           name: aws-backup-credentials
@@ -39,7 +39,7 @@ spec:
   externalClusters:
     - name: clusterBackup
       barmanObjectStore:
-        destinationPath: s3://production-backup-n8n-db
+        destinationPath: s3://production-backup-n8n-db/current
         serverName: n8n-db-production-cluster-v1
         s3Credentials:
           accessKeyId:
