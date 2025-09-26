@@ -17,7 +17,7 @@ spec:
 
   backup:
     enabled: true
-    image: percona/percona-backup-mongodb:2.10.0
+    image: percona/percona-backup-mongodb:2.11.0
     storages:
       s3-stockholm:
         type: s3
