@@ -1,0 +1,23 @@
+apiVersion: v1
+stringData:
+    DB_POSTGRESDB_USER: ENC[AES256_GCM,data:pg/G,iv:QHf3BU41Jsr3oumXk+98kKXG6xaL8sWVQ/ym2RgkHrE=,tag:j5zg9BUWNZ8IKzveCxifqw==,type:str]
+    DB_POSTGRESDB_PASSWORD: ENC[AES256_GCM,data:HNgqgYoSbrN6ua+M6tY=,iv:mgLTGMQgqd6wSr8WJqDHGiZow8YhfiQTvFwbX7RWiIY=,tag:oRnszc3dGMnpmv2f5mVb8g==,type:str]
+kind: Secret
+metadata:
+    creationTimestamp: null
+    name: n8n-configmap-secret
+sops:
+    age:
+        - recipient: age1lu89hj3qppwuccx8nn5qq2dkny3kucgud7d4mallc7kw54a6xs7qwwfuez
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBvNGdpVnYyQXdLZXZaWjhq
+            ZlUyUlBROHpVRm9qVEVnUDllVUtiZ1ZKOHgwCmw1bHAvdVhFSnJLN0N0Nmw2eGwz
+            bXBjK25OanRhR0NaWlJhbDBFQW5ZNDgKLS0tIGkyU0gvVHJ6c1BDT2l4eUx2Rk9D
+            cGdWMXVNMWtjOHRERmM0bERNbG1pcWcKQEQTNsKLwI6I8be4umNSgpwykdlDoKK2
+            8mmHauEBqnmEq4zrYWue5VWnSyVTl5uWB2SEmLAeytGTTWvcZHA40g==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-09-26T18:01:52Z"
+    mac: ENC[AES256_GCM,data:8n7Loaa1WEMnPuqiJv187Py9ukSHPPrtUbJk2fa2tPbhUSmVvxAANFJCjM/IbCZSpHtzGwYYrPMLQzpTdvtQcOTHqO9WEYatIrrmsJFvvTAnSNHJUB29YqAi/PCQ8guqw250GT16F7jqQuwD0Nf9WBqZwgOgZWyDuyzXKl7hvEc=,iv:+uFtAA8p9/VjE3Cd06Y++p9XGwkyQ9YXrwB7fWNmUJg=,tag:eGMDV3XxljU6JnMTwpiiOg==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2
