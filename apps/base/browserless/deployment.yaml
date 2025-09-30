@@ -21,7 +21,7 @@ spec:
 
       containers:
         - name: browserless
-          image: ghcr.io/browserless/chromium:2.37.0
+          image: ghcr.io/browserless/chromium:v2.37.0
 
           # securityContext:
           #   allowPrivilegeEscalation: false
