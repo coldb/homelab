@@ -1,0 +1,64 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: colddev-db-production-cluster-v1
+spec:
+  instances: 1
+
+  bootstrap:
+    initdb:
+      database: colddev
+      owner: colddev
+      secret:
+        name: colddev-db-app-user-secret
+    recovery:
+      source: clusterBackup
+      database: colddev
+      owner: colddev
+      secret:
+        name: colddev-db-app-user-secret
+
+  backup:
+    barmanObjectStore:
+      # Points to the current database backup path
+      destinationPath: s3://production-backup-colddev-db/v1
+      s3Credentials:
+        accessKeyId:
+          name: aws-backup-credentials
+          key: AWS_ACCESS_KEY_ID
+        secretAccessKey:
+          name: aws-backup-credentials
+          key: AWS_SECRET_ACCESS_KEY
+      data:
+        compression: gzip
+        encryption: AES256
+      wal:
+        compression: gzip
+        encryption: AES256
+    retentionPolicy: 14d
+
+  externalClusters:
+    - name: clusterBackup
+      barmanObjectStore:
+        # Path to restore database from
+        destinationPath: s3://production-backup-colddev-db/v1
+        serverName: colddev-db-production-cluster-v1
+        s3Credentials:
+          accessKeyId:
+            name: aws-backup-credentials
+            key: AWS_ACCESS_KEY_ID
+          secretAccessKey:
+            name: aws-backup-credentials
+            key: AWS_SECRET_ACCESS_KEY
+
+  monitoring:
+    enablePodMonitor: true
+
+  storage:
+    pvcTemplate:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi
+      storageClassName: "synology-iscsi-retain"

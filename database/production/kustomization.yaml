@@ -4,3 +4,4 @@ resources:
   - n8n
   - rocketchat
   - pgadmin
+  - colddev
