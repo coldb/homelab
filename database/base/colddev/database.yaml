@@ -11,12 +11,12 @@ spec:
       owner: colddev
       secret:
         name: colddev-db-app-user-secret
-    recovery:
-      source: clusterBackup
-      database: colddev
-      owner: colddev
-      secret:
-        name: colddev-db-app-user-secret
+    # recovery:
+    #   source: clusterBackup
+    #   database: colddev
+    #   owner: colddev
+    #   secret:
+    #     name: colddev-db-app-user-secret
 
   backup:
     barmanObjectStore:
