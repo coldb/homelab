@@ -26,6 +26,12 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
 
+          envFrom:
+            - configMapRef:
+                name: browserless-configmap
+            - secretRef:
+                name: browserless-configmap-secret
+
           ports:
             - containerPort: 3000
               protocol: TCP

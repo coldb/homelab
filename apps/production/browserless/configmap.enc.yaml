@@ -1,0 +1,22 @@
+apiVersion: v1
+stringData:
+    TOKEN: ENC[AES256_GCM,data:CwnDal/u+kbxWs1QBcNJVg==,iv:37/wgj7ax+rg5YBv/REf/81tEmZx272W70Oh7wLWqPU=,tag:lbirsGGn1f65q1pafDHrTw==,type:str]
+kind: Secret
+metadata:
+    creationTimestamp: null
+    name: browserless-configmap-secret
+sops:
+    age:
+        - recipient: age1lu89hj3qppwuccx8nn5qq2dkny3kucgud7d4mallc7kw54a6xs7qwwfuez
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBiaHh3bE1RZ0hGZnJaYTV4
+            UkVYekhwWldUVmJvTVR0ak9DVUNQeHc3c0FJCnFzWCtOak4wNVkvQjdwaFJZckZa
+            U2JGTUxONG9DM3F0NTRvRlhZYk1GeG8KLS0tIGpRVkk1N2NONmNsOGl5Uml0amY3
+            cHE3L3VOQnNwbjZwZFRtWW4rRDgrVXMKb8X8owmgPURHRlXIX5tllU79G1QoDmFM
+            av76tr4uh7laRjm/FMgUWi9hFzc0d6ZllGAKG3XtVIPXatgHtWExBg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-09-30T18:21:27Z"
+    mac: ENC[AES256_GCM,data:sIYsRb4Ht1KcXizkCg9ykB1gqFSfNlaxMNW7FQfT7H6ftc6dWJP+or0epqrhqeWT3b68zqI99oVSkzjgJkHOkBJV9wqhwssv6wC7o1fE32UTETb/wiNJJBxhvsWofuJ6UOrHBofyWE80KOPQW2naIYd8xOHg4Ym4pDImGrhGFg8=,iv:DH8H3vLUlg+cngWrL5WynZJlqyAHHwB05Gjoy8cRRnA=,tag:3SCjt5KtwFNnJeSc6rhnHw==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.10.2
