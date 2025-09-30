@@ -20,6 +20,7 @@ spec:
 
   backup:
     barmanObjectStore:
+      # Points to the current database backup path
       destinationPath: s3://production-backup-n8n-db/v2
       s3Credentials:
         accessKeyId:
@@ -39,6 +40,7 @@ spec:
   externalClusters:
     - name: clusterBackup
       barmanObjectStore:
+        # Path to restore database from
         destinationPath: s3://production-backup-n8n-db/current
         serverName: n8n-db-production-cluster-v1
         s3Credentials:
