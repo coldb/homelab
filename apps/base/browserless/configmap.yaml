@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: browerless-configmap
+  name: browserless-configmap
 data:
   QUEUED: "10"
   TIMEOUT: "30000"
