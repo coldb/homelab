@@ -14,17 +14,17 @@ spec:
         app: browserless
 
     spec:
-      # securityContext:
-      #   runAsUser: 1000
-      #   runAsGroup: 1000
-      #   fsGroup: 1000
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 990
+        fsGroup: 990
 
       containers:
         - name: browserless
           image: ghcr.io/browserless/chromium:v2.37.0
 
-          # securityContext:
-          #   allowPrivilegeEscalation: false
+          securityContext:
+            allowPrivilegeEscalation: false
 
           ports:
             - containerPort: 3000
