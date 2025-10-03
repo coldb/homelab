@@ -20,6 +20,7 @@ spec:
     image: percona/percona-backup-mongodb:2.11.0
     pitr:
       enabled: false
+      oplogSpanMin: 60
     storages:
       s3-stockholm:
         type: s3
@@ -31,7 +32,7 @@ spec:
       - name: hourly-backup
         enabled: true
         schedule: "0 2 * * *"   # Every night at 2AM
-        keep: 7
+        keep: 2
         storageName: "s3-stockholm"
 
   replsets:
