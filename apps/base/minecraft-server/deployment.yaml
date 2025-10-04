@@ -20,7 +20,7 @@ spec:
 
       containers:
         - name: minecraft
-          image: itzg/minecraft-server:latest
+          image: itzg/minecraft-server:2025.10.0
           ports:
             - containerPort: 25565
 
