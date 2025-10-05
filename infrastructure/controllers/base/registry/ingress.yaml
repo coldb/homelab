@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: registry
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: registry.colddev.net
+      http:
+        paths:
+          - backend:
+              service:
+                name: registry
+                port:
+                  number: 3004
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - registry.colddev.net
+      tls:
+        - secretName: registry-ca-tls-secret
+          hosts:
+            - registry.colddev.net

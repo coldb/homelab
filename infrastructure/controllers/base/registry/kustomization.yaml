@@ -4,3 +4,6 @@ resources:
   - namespace.yaml
   - deployment.yaml
   - storage.yaml
+  - service.yaml
+  - ssl-certificate.yaml
+  - ingress.yaml
