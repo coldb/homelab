@@ -12,7 +12,7 @@ spec:
               service:
                 name: registry
                 port:
-                  number: 3004
+                  number: 5000
             path: /
             pathType: Prefix
   tls:
