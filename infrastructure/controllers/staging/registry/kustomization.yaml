@@ -20,4 +20,4 @@ patches:
               - name: registry
                 env:
                   - name: REGISTRY_PROXY_REMOTEURL
-                    value: https://192.168.88.196
+                    value: https://registry.colddev.net
