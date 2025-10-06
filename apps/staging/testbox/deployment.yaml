@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: textbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: textbox
+  template:
+    metadata:
+      labels:
+        app: textbox
+    spec:
+
+      containers:
+        - name: textbox
+          image: registry.colddev.net/nginx:v1
+          ports:
+            - containerPort: 80
