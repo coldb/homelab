@@ -17,8 +17,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - registry.colddev.net
-      tls:
-        - secretName: registry-ca-tls-secret
-          hosts:
-            - registry.colddev.net
+      - registry.colddev.net
+      secretName: registry-ca-tls-secret
