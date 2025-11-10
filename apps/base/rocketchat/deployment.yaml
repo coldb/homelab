@@ -24,7 +24,7 @@ spec:
 
       containers:
         - name: rocketchat
-          image: registry.rocket.chat/rocketchat/rocket.chat:7.10.1
+          image: registry.rocket.chat/rocketchat/rocket.chat:7.12.1
           ports:
             - name: http
               containerPort: 3000
