@@ -17,7 +17,7 @@ spec:
 
   backup:
     enabled: true
-    image: percona/percona-backup-mongodb:2.11.0
+    image: percona/percona-backup-mongodb:2.12.0
     pitr:
       enabled: false
       oplogSpanMin: 60
