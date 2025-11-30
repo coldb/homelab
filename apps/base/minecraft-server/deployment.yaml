@@ -38,3 +38,52 @@ spec:
         - name: minecraft-home-data
           persistentVolumeClaim:
             claimName: minecraft-home-data-pvc
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-server-creative
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minecraft-creative
+  template:
+    metadata:
+      labels:
+        app: minecraft-creative
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+
+      containers:
+        - name: minecraft-creative
+          image: itzg/minecraft-server:2025.10.5
+          ports:
+            - containerPort: 25566
+
+          securityContext:
+            allowPrivilegeEscalation: false
+
+          env:
+            - name: EULA
+              value: "TRUE"
+            - name: SERVER_NAME
+              value: "Cold Home Creative"
+            - name: PVP
+              value: "false"
+            - name: MODE
+              value: "creative"
+            - name: DIFFICULTY
+              value: "easy"
+
+          volumeMounts:
+            - name: minecraft-home-creative-data
+              mountPath: /data
+      volumes:
+        - name: minecraft-home-creative-data
+          persistentVolumeClaim:
+            claimName: minecraft-home-creative-data-pvc

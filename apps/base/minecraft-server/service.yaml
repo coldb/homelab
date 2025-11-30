@@ -9,3 +9,17 @@ spec:
       targetPort: 25565
   selector:
     app: minecraft
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-creative-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 25566
+      targetPort: 25566
+  selector:
+    app: minecraft-creative
