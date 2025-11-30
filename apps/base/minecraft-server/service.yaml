@@ -20,6 +20,6 @@ spec:
   type: LoadBalancer
   ports:
     - port: 25566
-      targetPort: 25566
+      targetPort: 25565
   selector:
     app: minecraft-creative

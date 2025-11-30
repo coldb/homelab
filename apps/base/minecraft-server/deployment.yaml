@@ -63,7 +63,7 @@ spec:
         - name: minecraft-creative
           image: itzg/minecraft-server:2025.10.5
           ports:
-            - containerPort: 25566
+            - containerPort: 25565
 
           securityContext:
             allowPrivilegeEscalation: false
