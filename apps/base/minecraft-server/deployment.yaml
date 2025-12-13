@@ -61,7 +61,7 @@ spec:
 
       containers:
         - name: minecraft-creative
-          image: itzg/minecraft-server:2025.10.5
+          image: itzg/minecraft-server:latest
           ports:
             - containerPort: 25565
 
