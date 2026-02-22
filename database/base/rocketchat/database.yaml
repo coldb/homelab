@@ -9,8 +9,9 @@ spec:
     replsetSize: true
     mongosSize: true
   upgradeOptions:
-    apply: disabled
-    schedule: "0 2 * * *"
+    # apply: disabled
+    # schedule: "0 2 * * *"
+    setFCV: true
   secrets:
     users: mongodb-database-users
   enableVolumeExpansion: true
