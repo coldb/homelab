@@ -3,12 +3,12 @@ kind: Cluster
 metadata:
   name: colddev-db-production-cluster-v1
 spec:
-  # nodeMaintenanceWindow:
-  #   inProgress: true
-  #   reusePVC: true
   nodeMaintenanceWindow:
-    inProgress: false
+    inProgress: true
     reusePVC: true
+  # nodeMaintenanceWindow:
+  #   inProgress: false
+  #   reusePVC: true
 
   instances: 1
 
