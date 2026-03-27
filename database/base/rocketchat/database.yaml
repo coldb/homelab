@@ -40,8 +40,7 @@ spec:
 
   - name: rs0
 
-    size: 0
-    # size: 3
+    size: 3
     volumeSpec:
       persistentVolumeClaim:
         storageClassName: "synology-iscsi-retain"
