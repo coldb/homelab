@@ -5,3 +5,11 @@ resources:
   - ../../base/audiobookshelf/
   - cloudflare-secret.enc.yaml
   - ../../../shared/cloudflared/
+patches:
+  - target:
+      kind: PersistentVolumeClaim
+      name: audiobookshelf-(audiobooks|podcasts|config|metadata)-longhorn-pvc
+    patch: |-
+      - op: replace
+        path: /spec/storageClassName
+        value: longhorn-delete
