@@ -12,4 +12,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/storageClassName
-        value: longhorn-delete
+        value: longhorn-retain
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: 500Mi
