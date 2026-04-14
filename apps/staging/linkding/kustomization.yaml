@@ -6,3 +6,24 @@ resources:
   - cloudflare-secret.enc.yaml
   - ../../../shared/cloudflared/
   - secret.enc.yaml
+patches:
+  - target:
+      kind: PersistentVolumeClaim
+      name: linkding-data-pvc
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: linkding-data-longhorn-pvc
+      - op: replace
+        path: /spec/storageClassName
+        value: longhorn-retain
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: 500Mi
+  - target:
+      kind: Deployment
+      name: linkding
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/volumes/0/persistentVolumeClaim/claimName
+        value: linkding-data-longhorn-pvc
