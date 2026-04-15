@@ -48,4 +48,4 @@ spec:
       volumes:
         - name: linkding-data
           persistentVolumeClaim:
-            claimName: linkding-data-pvc
+            claimName: linkding-data-longhorn-pvc
