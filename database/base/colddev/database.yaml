@@ -13,22 +13,22 @@ spec:
   instances: 1
 
   bootstrap:
-    initdb:
-      database: colddev
-      owner: colddev
-      secret:
-        name: colddev-db-app-user-secret
-    # recovery:
-    #   source: clusterBackup
+    # initdb:
     #   database: colddev
     #   owner: colddev
     #   secret:
     #     name: colddev-db-app-user-secret
+    recovery:
+      source: clusterBackup
+      database: colddev
+      owner: colddev
+      secret:
+        name: colddev-db-app-user-secret
 
   backup:
     barmanObjectStore:
       # Points to the current database backup path
-      destinationPath: s3://production-backup-colddev-db/v1
+      destinationPath: s3://production-backup-colddev-db/v2
       s3Credentials:
         accessKeyId:
           name: aws-backup-credentials
@@ -68,4 +68,4 @@ spec:
       resources:
         requests:
           storage: 1Gi
-      storageClassName: "synology-iscsi-retain"
+      storageClassName: "longhorn-retain"
