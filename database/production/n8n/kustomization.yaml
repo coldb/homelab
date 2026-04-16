@@ -4,3 +4,20 @@ namespace: n8n
 resources:
   - ../../base/n8n/
   - secret-app-user.enc.yaml
+
+# The pre-migrate backup (20260416T182034) is unusable — its tail WAL
+# 000000050000002C00000069 was never archived to S3 before the old cluster
+# was deleted, so recovery fails with "WAL ends before end of online backup".
+# Pin recovery to the prior scheduled backup (Apr 16 02:00 UTC) instead.
+# n8n app was scaled to 0 at migration start, so no data loss between 02:00
+# and deletion.
+patches:
+  - target:
+      kind: Cluster
+      name: n8n-db-production-cluster-v1
+    patch: |-
+      - op: add
+        path: /spec/bootstrap/recovery/recoveryTarget
+        value:
+          backupID: "20260416T020001"
+          targetImmediate: true
