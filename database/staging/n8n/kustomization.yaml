@@ -21,10 +21,10 @@ patches:
         value: longhorn-retain
       - op: replace
         path: /spec/backup/barmanObjectStore/destinationPath
-        value: s3://staging-backup-n8n-db/v1
+        value: s3://staging-backup-n8n-db/v2
       - op: replace
         path: /spec/externalClusters/0/barmanObjectStore/destinationPath
-        value: s3://staging-backup-n8n-db/current
+        value: s3://staging-backup-n8n-db/v1
       - op: replace
         path: /spec/externalClusters/0/barmanObjectStore/serverName
         value: n8n-db-staging-cluster-v1
