@@ -44,4 +44,4 @@ spec:
       volumes:
         - name: pgadmin-data
           persistentVolumeClaim:
-            claimName: pgadmin-data
+            claimName: pgadmin-data-longhorn-pvc

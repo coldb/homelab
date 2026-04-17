@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pgadmin-data
+  name: pgadmin-data-longhorn-pvc
 spec:
-  storageClassName: "synology-iscsi"
+  storageClassName: "longhorn-retain"
   accessModes:
     - ReadWriteOnce
   resources:
