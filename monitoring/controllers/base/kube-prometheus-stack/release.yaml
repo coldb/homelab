@@ -79,8 +79,8 @@ spec:
 
       persistence:
         enabled: true
-        storageClassName: "synology-iscsi"
+        storageClassName: "longhorn-delete"
         type: pvc
         accessModes:
           - ReadWriteOnce
-        size: 4Gi
+        size: 2Gi
