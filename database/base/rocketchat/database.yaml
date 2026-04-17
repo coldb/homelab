@@ -32,42 +32,47 @@ spec:
     tasks:
       - name: hourly-backup
         enabled: true
-        schedule: "0 2 * * *"   # Every night at 2AM
+        schedule: "0 2 * * *" # Every night at 2AM
         keep: 2
         storageName: "s3-stockholm"
 
   replsets:
+    - name: rs0
 
-  - name: rs0
-
-    size: 3
-    volumeSpec:
-      persistentVolumeClaim:
-        storageClassName: "synology-iscsi-retain"
-        resources:
-          requests:
-            storage: 3Gi
-    sidecars:
-    - name: mongodb-exporter 
-      image: percona/mongodb_exporter:2.37
-      env:
-      - name: EXPORTER_USER
-        valueFrom:
-          secretKeyRef:
-            name: mongodb-database-users
-            key: MONGODB_CLUSTER_MONITOR_USER
-      - name: EXPORTER_PASS
-        valueFrom:
-          secretKeyRef:
-            name: mongodb-database-users
-            key: MONGODB_CLUSTER_MONITOR_PASSWORD
-      - name: POD_IP
-        valueFrom:
-          fieldRef:
-            fieldPath: status.podIP
-      - name: MONGODB_URI
-        value: "mongodb://$(EXPORTER_USER):$(EXPORTER_PASS)@$(POD_IP):27017"
-      args: ["--discovering-mode", "--compatible-mode", "--collect-all", "--mongodb.uri=$(MONGODB_URI)"]
+      size: 3
+      volumeSpec:
+        persistentVolumeClaim:
+          storageClassName: "longhorn-retain"
+          resources:
+            requests:
+              storage: 3Gi
+      sidecars:
+        - name: mongodb-exporter
+          image: percona/mongodb_exporter:2.37
+          env:
+            - name: EXPORTER_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-database-users
+                  key: MONGODB_CLUSTER_MONITOR_USER
+            - name: EXPORTER_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-database-users
+                  key: MONGODB_CLUSTER_MONITOR_PASSWORD
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: MONGODB_URI
+              value: "mongodb://$(EXPORTER_USER):$(EXPORTER_PASS)@$(POD_IP):27017"
+          args:
+            [
+              "--discovering-mode",
+              "--compatible-mode",
+              "--collect-all",
+              "--mongodb.uri=$(MONGODB_URI)",
+            ]
 
   sharding:
     enabled: false
@@ -76,7 +81,7 @@ spec:
       size: 3
       volumeSpec:
         persistentVolumeClaim:
-          storageClassName: "synology-iscsi-retain"
+          storageClassName: "longhorn-retain"
           resources:
             requests:
               storage: 3Gi
@@ -85,7 +90,6 @@ spec:
       size: 1
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -95,19 +99,18 @@ metadata:
     app.kubernetes.io/component: metrics
   annotations:
     prometheus.io/path: /metrics
-    prometheus.io/port: '9216'
-    prometheus.io/scrape: 'true'
+    prometheus.io/port: "9216"
+    prometheus.io/scrape: "true"
 spec:
   ports:
-  - name: http-metrics 
-    port: 9216 
-    targetPort: 9216
-    protocol: TCP
+    - name: http-metrics
+      port: 9216
+      targetPort: 9216
+      protocol: TCP
   selector:
     app.kubernetes.io/instance: rocketchat-db-production-cluster-v1
 
 ---
-
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -125,11 +128,10 @@ spec:
       app.kubernetes.io/instance: rocketchat-mongodb-metrics
       app.kubernetes.io/component: metrics
   endpoints:
-  - port: http-metrics
-    interval: 15s
+    - port: http-metrics
+      interval: 15s
 
 ---
-
 # apiVersion: psmdb.percona.com/v1
 # kind: PerconaServerMongoDBRestore
 # metadata:
