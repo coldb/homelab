@@ -38,9 +38,6 @@ patches:
       - op: replace
         path: /spec/storageClassName
         value: longhorn-retain
-      - op: replace
-        path: /spec/resources/requests/storage
-        value: 500Mi
   - target:
       kind: Deployment
       name: pgadmin
