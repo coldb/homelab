@@ -28,3 +28,23 @@ patches:
         path: /spec/tls/0/hosts/0
         value: pgadmin-staging.colddev.net
 
+  - target:
+      kind: PersistentVolumeClaim
+      name: pgadmin-data
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: pgadmin-data-longhorn-pvc
+      - op: replace
+        path: /spec/storageClassName
+        value: longhorn-retain
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: 500Mi
+  - target:
+      kind: Deployment
+      name: pgadmin
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/volumes/0/persistentVolumeClaim/claimName
+        value: pgadmin-data-longhorn-pvc
