@@ -1,0 +1,9 @@
+apiVersion: longhorn.io/v1beta2
+kind: BackupTarget
+metadata:
+  name: default
+  namespace: longhorn-system
+spec:
+  backupTargetURL: s3://production-backup-longhorn@eu-north-1/
+  credentialSecret: aws-backup-credentials
+  pollInterval: 5m0s
