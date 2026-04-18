@@ -3,3 +3,15 @@ kind: Kustomization
 namespace: longhorn-system
 resources:
   - ../../base/longhorn/
+
+patches:
+  - target:
+      kind: HelmRelease
+      name: longhorn
+    patch: |-
+      - op: add
+        path: /spec/values/defaultSettings/backupTarget
+        value: s3://production-backup-longhorn@eu-north-1/
+      - op: add
+        path: /spec/values/defaultSettings/backupTargetCredentialSecret
+        value: aws-backup-credentials

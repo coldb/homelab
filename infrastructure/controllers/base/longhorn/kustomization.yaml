@@ -6,3 +6,4 @@ resources:
   - release.yaml
   - storage-class.yaml
   - storage-class-retain.yaml
+  - recurring-jobs.yaml
