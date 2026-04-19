@@ -1,0 +1,38 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: forgejo
+resources:
+  - ../../base/forgejo/
+  - secret-db-credentials.enc.yaml
+
+patches:
+  - target:
+      kind: Cluster
+      name: forgejo-db-production-cluster-v1
+    patch: |-
+      - op: replace
+        path: /spec/instances
+        value: 1
+      - op: replace
+        path: /metadata/name
+        value: forgejo-db-staging-cluster-v1
+      - op: replace
+        path: /spec/storage/pvcTemplate/storageClassName
+        value: longhorn-retain
+      - op: replace
+        path: /spec/backup/barmanObjectStore/destinationPath
+        value: s3://staging-backup-forgejo-db/v2
+      - op: replace
+        path: /spec/externalClusters/0/barmanObjectStore/destinationPath
+        value: s3://staging-backup-forgejo-db/v1
+      - op: replace
+        path: /spec/externalClusters/0/barmanObjectStore/serverName
+        value: forgejo-db-staging-cluster-v1
+
+  - target:
+      kind: ScheduledBackup
+      name: forgejo-db-backup
+    patch: |-
+      - op: replace
+        path: /spec/cluster/name
+        value: forgejo-db-staging-cluster-v1

@@ -1,0 +1,11 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: forgejo-db-backup
+  namespace: forgejo
+spec:
+  backupOwnerReference: cluster
+  cluster:
+    name: forgejo-db-production-cluster-v1
+  immediate: true
+  schedule: "0 0 2 * *"
