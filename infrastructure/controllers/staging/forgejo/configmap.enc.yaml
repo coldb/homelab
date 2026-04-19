@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: forgejo-configmap-secret
+stringData:
+    FORGEJO__database__DB_TYPE: ENC[AES256_GCM,data:bVItFqyXiXU=,iv:z1hiVLU7hgmagl68sqIfyPirU6gjIvWqNSoYpWqm1yk=,tag:k5xT575xNIcoyauoz5WqtQ==,type:str]
+    FORGEJO__database__HOST: ENC[AES256_GCM,data:zx2TfjSSs65kaup99mzpaj0gAbce/QHtlCgPbi6Cio/1aSZfNlCw2p14eq7zPh20cqUACbXITPxcSWOD4yGe,iv:oNp7AG9DkInAKIPILzCCprqBQ686oXwrNneAXX+gPC0=,tag:W1tGHYZ4SilkgzA73jpbyg==,type:str]
+    FORGEJO__database__NAME: ENC[AES256_GCM,data:aW427tbSGw==,iv:55L61Z/KImm5tT8N2nuT3PvabQn2kDEaV/8aHYsvoUA=,tag:2hwj3ENQ2eSCvqPoCltA8g==,type:str]
+    FORGEJO__server__DOMAIN: ENC[AES256_GCM,data:Dsb56IFLd2ErJl6tuwZQbot6jg==,iv:U08j5YGnUSHos9SNPmK5+D2W0oGosoFccdgxeKSekes=,tag:j+WJz2Cn1GCh9whHTAWUmQ==,type:str]
+    FORGEJO__server__ROOT_URL: ENC[AES256_GCM,data:wL7u7Eh+DQ5ANlzExd1aFrNYm25PhaL/pGBzYA==,iv:Ly2wBtz+5h7Y2HEdMBIEOJase7k79GscjBSLsVU3xWo=,tag:NdZe3TgST4SGagTIvoOSsQ==,type:str]
+    FORGEJO__server__SSH_DOMAIN: ENC[AES256_GCM,data:Z9zCx9e55eLwbGDuyMmi,iv:Pp1ZiOP4tHgtRvbx91+QCK6yYAqoyDlRvWLpjqUf19A=,tag:NA6AKdsTQ2fPGnXyJoKFfg==,type:str]
+sops:
+    age:
+        - recipient: age1dsevcxza33vhmq3hn7693jcla2l2peur7shm40pk2dsfuvh2cvus3ut5k5
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA5U3lwSnplZEJ6WnQ0WXZF
+            U3hOYXlhRDhETEREc05CeVoyTFRzeHlTQ1JFCndtU3ZaWTBXTGpxOGE5bmtHeEtn
+            VWlsUFpRZzhJQTRRYzQyZVhiQ1haMjgKLS0tIFFVL3BFT0ZPMDlOM0NsWWt3R2xk
+            WlVUOURSNVJINVdUSTdoM1l6TExyKzAKAZYZ9IYetebJ0o9r+6TM2SPPWAN0yvs9
+            dVYInL1Qm116qloGMCgNReJYts3JWw4t/5SunxVgDBWRK10umWhlxw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-04-19T17:44:04Z"
+    mac: ENC[AES256_GCM,data:M2xeAdGkjF+Re5QyPYdLsxQoGIaDojnQpmciDMt45Obpp4NUhw5S08PNFLcA85XyS0R65OFWDG0o1lVApeQ4nzj3vvOSM/mkMagGQUszK4v/nGga/f5B8lbYpBZagX2EiujG3tVUZ2YtS7gebcF2V8vsPngBRWfWEAmU9lqGAp4=,iv:LHnxHCgtHvjNTPGDB1/YVTh+jiMKh2t6PtvnZAUx3wA=,tag:hK/WYfozJY63eaf9rtMdxA==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.2
