@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: forgejo-certificate
+spec:
+  secretName: forgejo-ca-tls-secret
+  issuerRef:
+    name: colddevnet-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - forgejo.colddev.net

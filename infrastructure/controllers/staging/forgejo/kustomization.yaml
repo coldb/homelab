@@ -5,3 +5,26 @@ resources:
   - ../../base/forgejo/
   - configmap.enc.yaml
   - secrets-db.enc.yaml
+
+patches:
+  - target:
+      kind: Ingress
+      name: forgejo
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: forgejo-staging.colddev.net
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: forgejo-staging.colddev.net
+      - op: replace
+        path: /spec/tls/0/tls/0/hosts/0
+        value: forgejo-staging.colddev.net
+
+  - target:
+      kind: Certificate
+      name: forgejo-certificate
+    patch: |-
+      - op: replace
+        path: /spec/dnsNames/0
+        value: forgejo-staging.colddev.net
