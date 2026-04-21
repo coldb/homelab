@@ -18,7 +18,4 @@ spec:
   tls:
     - hosts:
         - forgejo.colddev.net
-      tls:
-        - secretName: forgejo-ca-tls-secret
-          hosts:
-            - forgejo.colddev.net
+      secretName: forgejo-ca-tls-secret
