@@ -42,6 +42,8 @@ spec:
             - sh
             - -c
             - |
+              cat /etc/ssl/certs/ca-certificates.crt /ca-trust/ca.crt > /tmp/ca-bundle.crt
+              export SSL_CERT_FILE=/tmp/ca-bundle.crt
               echo "Waiting for Docker daemon..."
               while ! wget -q -O- http://localhost:2375/version >/dev/null 2>&1; do
                 sleep 1
@@ -59,11 +61,16 @@ spec:
               name: runner-data
             - mountPath: /config
               name: config
+            - mountPath: /ca-trust
+              name: ca-trust
+              readOnly: true
       initContainers:
         - command:
             - sh
             - -c
             - |
+              cat /etc/ssl/certs/ca-certificates.crt /ca-trust/ca.crt > /tmp/ca-bundle.crt
+              export SSL_CERT_FILE=/tmp/ca-bundle.crt
               if [ ! -f /data/.runner ]; then
                 echo "Registering runner..."
                 forgejo-runner create-runner-file \
@@ -85,6 +92,9 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: runner-data
+            - mountPath: /ca-trust
+              name: ca-trust
+              readOnly: true
       restartPolicy: Always
       securityContext:
         fsGroup: 1000
@@ -97,3 +107,9 @@ spec:
         - name: config
           configMap:
             name: forgejo-runner-config
+        - name: ca-trust
+          secret:
+            secretName: forgejo-ca-tls-secret
+            items:
+              - key: ca.crt
+                path: ca.crt

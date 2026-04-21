@@ -34,6 +34,8 @@ patches:
       - op: replace
         path: /spec/template/spec/initContainers/0/command/2
         value: |
+          cat /etc/ssl/certs/ca-certificates.crt /ca-trust/ca.crt > /tmp/ca-bundle.crt
+          export SSL_CERT_FILE=/tmp/ca-bundle.crt
           if [ ! -f /data/.runner ]; then
             echo "Registering runner..."
             forgejo-runner create-runner-file \
