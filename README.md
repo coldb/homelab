@@ -37,6 +37,14 @@ kubectl create secret generic sops-age \
 ```
 
 
+## Forgejo runner
+
+Admin user creation and runner pre-registration run automatically from the
+forgejo server pod's bootstrap init container on first startup. If the
+automatic flow fails, see [infrastructure/controllers/base/forgejo/README.md](infrastructure/controllers/base/forgejo/README.md)
+for the manual fallback.
+
+
 ## Monitoring
 
 For monitoring the [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) helm chart is used.

@@ -94,6 +94,58 @@ spec:
           volumeMounts:
             - mountPath: /etc/gitea
               name: forgejo-config
+        - command:
+            - sh
+            - -c
+            - |
+              /usr/local/bin/environment-to-ini
+              forgejo migrate
+              forgejo admin user create \
+                --admin \
+                --username "$ADMIN_USERNAME" \
+                --password "$ADMIN_PASSWORD" \
+                --email "$ADMIN_EMAIL" \
+                --must-change-password=false \
+                2>&1 | grep -v "user already exists" || true
+              forgejo forgejo-cli actions register \
+                --secret "$RUNNER_SECRET" \
+                --scope "$ADMIN_USERNAME" \
+                --name colddev-runner \
+                --labels "docker:docker://node:22-bookworm" \
+                2>&1 | grep -v "already" || true
+          env:
+            - name: USER_UID
+              value: "1000"
+            - name: USER_GID
+              value: "1000"
+          envFrom:
+            - configMapRef:
+                name: forgejo-config
+            - secretRef:
+                name: forgejo-configmap-secret
+            - secretRef:
+                name: forgejo-db-env-secret
+            - secretRef:
+                name: forgejo-admin-secret
+            - secretRef:
+                name: forgejo-runner-secret
+          image: data.forgejo.org/forgejo/forgejo:15.0.0-rootless
+          name: bootstrap
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - mountPath: /etc/gitea
+              name: forgejo-config
+            - mountPath: /data
+              name: forgejo-data
       restartPolicy: Always
       securityContext:
         fsGroup: 1000

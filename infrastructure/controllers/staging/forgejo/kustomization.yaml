@@ -4,6 +4,7 @@ namespace: forgejo
 resources:
   - ../../base/forgejo/
   - configmap.enc.yaml
+  - secrets-admin-user.enc.yaml
   - secrets-db.enc.yaml
   - secrets-runner.enc.yaml
 

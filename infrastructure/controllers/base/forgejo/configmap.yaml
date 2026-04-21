@@ -13,6 +13,7 @@ data:
   FORGEJO__picture__REPOSITORY_AVATAR_UPLOAD_PATH: /data/app/repo-avatars
   FORGEJO__repository__ROOT: /data/git
   FORGEJO__security__INSTALL_LOCK: "true"
+  FORGEJO__service__DISABLE_REGISTRATION: "true"
   FORGEJO__server__APP_DATA_PATH: /data/app
   FORGEJO__server__HTTP_PORT: "3000"
   FORGEJO__server__PER_WRITE_PER_KB_TIMEOUT: "-1"
