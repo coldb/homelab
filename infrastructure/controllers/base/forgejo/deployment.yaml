@@ -98,6 +98,37 @@ spec:
             - sh
             - -c
             - |
+              set -eu
+              host="${FORGEJO__database__HOST%%:*}"
+              port="${FORGEJO__database__HOST##*:}"
+              [ "$port" = "$FORGEJO__database__HOST" ] && port=5432
+              until pg_isready -h "$host" -p "$port" -U "$FORGEJO__database__USER"; do
+                echo "waiting for postgres at $host:$port..."
+                sleep 2
+              done
+          envFrom:
+            - configMapRef:
+                name: forgejo-config
+            - secretRef:
+                name: forgejo-configmap-secret
+            - secretRef:
+                name: forgejo-db-env-secret
+          image: postgres:16-alpine
+          name: wait-for-db
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsGroup: 70
+            runAsNonRoot: true
+            runAsUser: 70
+            seccompProfile:
+              type: RuntimeDefault
+        - command:
+            - sh
+            - -c
+            - |
               set -euo pipefail
 
               /usr/local/bin/environment-to-ini
