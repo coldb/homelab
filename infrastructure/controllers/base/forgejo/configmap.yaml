@@ -8,6 +8,8 @@ data:
   FORGEJO__attachment__PATH: /data/app/attachments
   FORGEJO__database__SSL_MODE: disable
   FORGEJO__lfs__PATH: /data/lfs
+  FORGEJO__packages__ENABLED: "true"
+  FORGEJO__packages__CHUNKED_UPLOAD_PATH: /data/packages/tmp
   FORGEJO__log__ROOT_PATH: /data/app/log
   FORGEJO__picture__AVATAR_UPLOAD_PATH: /data/app/avatars
   FORGEJO__picture__REPOSITORY_AVATAR_UPLOAD_PATH: /data/app/repo-avatars

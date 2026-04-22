@@ -47,3 +47,19 @@ patches:
           else
             echo "Runner already registered"
           fi
+
+  - target:
+      kind: PersistentVolumeClaim
+      name: forgejo-data
+    patch: |-
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: 2Gi
+
+  - target:
+      kind: PersistentVolumeClaim
+      name: forgejo-runner-docker-cache
+    patch: |-
+      - op: replace
+        path: /spec/resources/requests/storage
+        value: 2Gi
