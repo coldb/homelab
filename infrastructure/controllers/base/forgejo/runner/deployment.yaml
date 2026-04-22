@@ -73,20 +73,25 @@ spec:
               export SSL_CERT_FILE=/tmp/ca-bundle.crt
               if [ ! -f /data/.runner ]; then
                 echo "Registering runner..."
-                forgejo-runner create-runner-file \
+                cd /tmp
+                forgejo-runner register \
                   --instance https://forgejo.colddev.net \
-                  --secret "${RUNNER_SECRET}" \
-                  --name "colddev-runner"
-                mv .runner /data/.runner
+                  --token "${REGISTRATION_TOKEN}" \
+                  --name "colddev-runner" \
+                  --labels "docker:docker://ghcr.io/catthehacker/ubuntu:act-22.04,ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-22.04" \
+                  --no-interactive
+                mv /tmp/.runner /data/.runner
               else
                 echo "Runner already registered"
               fi
           env:
-            - name: RUNNER_SECRET
+            # Secret created by the forgejo chart's actions.provisioning flow.
+            # Verify name/key against the chart version you deploy.
+            - name: REGISTRATION_TOKEN
               valueFrom:
                 secretKeyRef:
-                  key: RUNNER_SECRET
-                  name: forgejo-runner-secret
+                  name: forgejo-actions-general-runner-secret
+                  key: token
           image: data.forgejo.org/forgejo/runner:6.4.0
           name: register-runner
           volumeMounts:

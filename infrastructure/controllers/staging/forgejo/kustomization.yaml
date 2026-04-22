@@ -6,19 +6,21 @@ resources:
   - configmap.enc.yaml
   - secrets-admin-user.enc.yaml
   - secrets-db.enc.yaml
-  - secrets-runner.enc.yaml
 
 patches:
   - target:
-      kind: Ingress
+      kind: HelmRelease
       name: forgejo
     patch: |-
       - op: replace
-        path: /spec/rules/0/host
+        path: /spec/values/ingress/hosts/0/host
         value: forgejo-staging.colddev.net
       - op: replace
-        path: /spec/tls/0/hosts/0
+        path: /spec/values/ingress/tls/0/hosts/0
         value: forgejo-staging.colddev.net
+      - op: replace
+        path: /spec/values/persistence/size
+        value: 2Gi
 
   - target:
       kind: Certificate
@@ -39,22 +41,17 @@ patches:
           export SSL_CERT_FILE=/tmp/ca-bundle.crt
           if [ ! -f /data/.runner ]; then
             echo "Registering runner..."
-            forgejo-runner create-runner-file \
+            cd /tmp
+            forgejo-runner register \
               --instance https://forgejo-staging.colddev.net \
-              --secret "${RUNNER_SECRET}" \
-              --name "colddev-runner"
-            mv .runner /data/.runner
+              --token "${REGISTRATION_TOKEN}" \
+              --name "colddev-runner" \
+              --labels "docker:docker://ghcr.io/catthehacker/ubuntu:act-22.04,ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-22.04" \
+              --no-interactive
+            mv /tmp/.runner /data/.runner
           else
             echo "Runner already registered"
           fi
-
-  - target:
-      kind: PersistentVolumeClaim
-      name: forgejo-data
-    patch: |-
-      - op: replace
-        path: /spec/resources/requests/storage
-        value: 2Gi
 
   - target:
       kind: PersistentVolumeClaim
