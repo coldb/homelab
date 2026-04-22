@@ -8,7 +8,7 @@ resources:
 patches:
   - target:
       kind: StorageClass
-      name: longhorn-(delete|retain)
+      name: longhorn-(delete|retain|retain-backup)
     patch: |-
       - op: replace
         path: /parameters/numberOfReplicas
