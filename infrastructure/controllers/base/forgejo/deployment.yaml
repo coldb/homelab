@@ -98,21 +98,33 @@ spec:
             - sh
             - -c
             - |
+              set -euo pipefail
+
               /usr/local/bin/environment-to-ini
-              forgejo migrate
-              forgejo admin user create \
-                --admin \
-                --username "$ADMIN_USERNAME" \
-                --password "$ADMIN_PASSWORD" \
-                --email "$ADMIN_EMAIL" \
-                --must-change-password=false \
-                2>&1 | grep -v "user already exists" || true
-              forgejo forgejo-cli actions register \
-                --secret "$RUNNER_SECRET" \
-                --scope "$ADMIN_USERNAME" \
-                --name colddev-runner \
-                --labels "docker:docker://node:22-bookworm" \
-                2>&1 | grep -v "already" || true
+
+              until forgejo migrate; do
+                echo "migrate failed (DB not ready?), retrying in 3s..."
+                sleep 3
+              done
+
+              if ! out=$(forgejo admin user create \
+                  --admin \
+                  --username "$ADMIN_USERNAME" \
+                  --password "$ADMIN_PASSWORD" \
+                  --email "$ADMIN_EMAIL" \
+                  --must-change-password=false 2>&1); then
+                echo "$out"
+                echo "$out" | grep -q "user already exists"
+              fi
+
+              if ! out=$(forgejo forgejo-cli actions register \
+                  --secret "$RUNNER_SECRET" \
+                  --scope "$ADMIN_USERNAME" \
+                  --name colddev-runner \
+                  --labels "docker:docker://node:22-bookworm" 2>&1); then
+                echo "$out"
+                echo "$out" | grep -q "already"
+              fi
           env:
             - name: USER_UID
               value: "1000"
