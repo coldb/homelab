@@ -8,9 +8,9 @@ spec:
   chart:
     spec:
       chart: forgejo
-      # Chart version tracks the forgejo-helm release, not the forgejo app
-      # version. Bump after verifying against artifacthub.io/packages/helm/forgejo-helm/forgejo.
-      version: "15.0.0"
+      # Chart version — distinct from the forgejo app version the chart ships.
+      # Check artifacthub.io/packages/helm/forgejo-helm/forgejo before bumping.
+      version: "17.0.0"
       sourceRef:
         kind: HelmRepository
         name: forgejo
