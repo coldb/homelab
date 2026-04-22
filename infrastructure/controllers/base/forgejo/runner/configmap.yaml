@@ -20,6 +20,7 @@ data:
       labels:
         - "docker:docker://ghcr.io/catthehacker/ubuntu:act-22.04"
         - "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-22.04"
+        - "hugo:docker://floryn90/hugo:0.145.0-ext-alpine"
 
     cache:
       enabled: true
