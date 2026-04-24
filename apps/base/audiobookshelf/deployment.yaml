@@ -53,15 +53,13 @@ spec:
       volumes:
         - name: audiobookshelf-audiobooks
           persistentVolumeClaim:
-            claimName: audiobookshelf-audiobooks-longhorn-pvc
+            claimName: audiobookshelf-audiobooks-longhorn-backup-pvc
         - name: audiobookshelf-podcasts
           persistentVolumeClaim:
-            claimName: audiobookshelf-podcasts-longhorn-pvc
+            claimName: audiobookshelf-podcasts-longhorn-backup-pvc
         - name: audiobookshelf-config
           persistentVolumeClaim:
-            claimName: audiobookshelf-config-longhorn-pvc
+            claimName: audiobookshelf-config-longhorn-backup-pvc
         - name: audiobookshelf-metadata
           persistentVolumeClaim:
-            claimName: audiobookshelf-metadata-longhorn-pvc
-
-
+            claimName: audiobookshelf-metadata-longhorn-backup-pvc
