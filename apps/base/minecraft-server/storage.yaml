@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: minecraft-home-data-longhorn-pvc
+  name: minecraft-home-data-longhorn-backup-pvc
 spec:
-  storageClassName: "longhorn-retain"
+  storageClassName: "longhorn-retain-backup"
   accessModes:
     - ReadWriteOnce
   resources:
@@ -14,9 +14,9 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: minecraft-home-creative-data-longhorn-pvc
+  name: minecraft-home-creative-data-longhorn-backup-pvc
 spec:
-  storageClassName: "longhorn-retain"
+  storageClassName: "longhorn-retain-backup"
   accessModes:
     - ReadWriteOnce
   resources:
