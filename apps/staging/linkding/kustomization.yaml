@@ -9,7 +9,7 @@ resources:
 patches:
   - target:
       kind: PersistentVolumeClaim
-      name: linkding-data-pvc
+      name: linkding-data-longhorn-backup-pvc
     patch: |-
       - op: replace
         path: /spec/resources/requests/storage
