@@ -61,6 +61,12 @@ spec:
             name: aws-backup-credentials
             key: AWS_SECRET_ACCESS_KEY
 
+  postgresql:
+    parameters:
+      archive_timeout: "1h"
+      checkpoint_timeout: "30min"
+      max_wal_size: "4GB"
+
   monitoring:
     enablePodMonitor: true
 

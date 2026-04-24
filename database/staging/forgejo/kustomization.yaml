@@ -28,6 +28,9 @@ patches:
       - op: replace
         path: /spec/externalClusters/0/barmanObjectStore/serverName
         value: forgejo-db-staging-cluster-v1
+      - op: replace
+        path: /spec/postgresql/parameters/archive_timeout
+        value: "12h"
 
   - target:
       kind: ScheduledBackup
