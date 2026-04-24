@@ -8,11 +8,8 @@ resources:
 patches:
   - target:
       kind: PersistentVolumeClaim
-      name: audiobookshelf-(audiobooks|podcasts|config|metadata)-longhorn-pvc
+      name: audiobookshelf-(audiobooks|podcasts|config|metadata)-longhorn-backup-pvc
     patch: |-
-      - op: replace
-        path: /spec/storageClassName
-        value: longhorn-retain
       - op: replace
         path: /spec/resources/requests/storage
         value: 500Mi
