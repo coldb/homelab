@@ -1,37 +1,22 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: audiobookshelf-audiobooks-longhorn-pvc
+  name: audiobookshelf-audiobooks-longhorn-backup-pvc
 spec:
-  storageClassName: "longhorn-retain"
+  storageClassName: "longhorn-retain-backup"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: 5Gi
 
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: audiobookshelf-podcasts-longhorn-pvc
+  name: audiobookshelf-podcasts-longhorn-backup-pvc
 spec:
-  storageClassName: "longhorn-retain"
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: audiobookshelf-config-longhorn-pvc
-spec:
-  storageClassName: "longhorn-retain"
+  storageClassName: "longhorn-retain-backup"
   accessModes:
     - ReadWriteOnce
   resources:
@@ -39,13 +24,25 @@ spec:
       storage: 1Gi
 
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: audiobookshelf-metadata-longhorn-pvc
+  name: audiobookshelf-config-longhorn-backup-pvc
 spec:
-  storageClassName: "longhorn-retain"
+  storageClassName: "longhorn-retain-backup"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: audiobookshelf-metadata-longhorn-backup-pvc
+spec:
+  storageClassName: "longhorn-retain-backup"
   accessModes:
     - ReadWriteOnce
   resources:
