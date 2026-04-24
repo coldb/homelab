@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: n8n-data-longhorn-pvc
+  name: n8n-data-longhorn-backup-pvc
 spec:
-  storageClassName: "longhorn-retain"
+  storageClassName: "longhorn-retain-backup"
   accessModes:
     - ReadWriteOnce
   resources:

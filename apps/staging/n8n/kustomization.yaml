@@ -10,7 +10,7 @@ resources:
 patches:
   - target:
       kind: PersistentVolumeClaim
-      name: n8n-data-longhorn-pvc
+      name: n8n-data-longhorn-backup-pvc
     patch: |-
       - op: replace
         path: /spec/resources/requests/storage
