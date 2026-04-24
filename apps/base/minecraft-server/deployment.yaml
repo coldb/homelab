@@ -37,7 +37,7 @@ spec:
       volumes:
         - name: minecraft-home-data
           persistentVolumeClaim:
-            claimName: minecraft-home-data-longhorn-pvc
+            claimName: minecraft-home-data-longhorn-backup-pvc
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -85,4 +85,4 @@ spec:
       volumes:
         - name: minecraft-home-creative-data
           persistentVolumeClaim:
-            claimName: minecraft-home-creative-data-longhorn-pvc
+            claimName: minecraft-home-creative-data-longhorn-backup-pvc
