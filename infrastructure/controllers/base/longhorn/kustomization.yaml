@@ -6,3 +6,5 @@ resources:
   - release.yaml
   - storage-class.yaml
   - recurring-jobs.yaml
+  - ingress.yaml
+  - ssl-certificate.yaml
