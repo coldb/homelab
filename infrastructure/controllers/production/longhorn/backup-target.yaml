@@ -6,4 +6,4 @@ metadata:
 spec:
   backupTargetURL: s3://production-backup-longhorn@eu-north-1/
   credentialSecret: aws-backup-credentials
-  pollInterval: 5m0s
+  pollInterval: 1h0m0s
