@@ -10,3 +10,18 @@ spec:
   selector:
     app: forgejo
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forgejo-ssh
+  namespace: forgejo
+spec:
+  type: LoadBalancer
+  ports:
+    - name: ssh
+      port: 2222
+      targetPort: 2222
+      protocol: TCP
+  selector:
+    app: forgejo

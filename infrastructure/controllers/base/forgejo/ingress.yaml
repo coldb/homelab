@@ -15,7 +15,18 @@ spec:
                   number: 3000
             path: /
             pathType: Prefix
+    - host: git.colddev.net
+      http:
+        paths:
+          - backend:
+              service:
+                name: forgejo
+                port:
+                  number: 3000
+            path: /
+            pathType: Prefix
   tls:
     - hosts:
         - forgejo.colddev.net
+        - git.colddev.net
       secretName: forgejo-ca-tls-secret

@@ -17,8 +17,14 @@ patches:
         path: /spec/rules/0/host
         value: forgejo-staging.colddev.net
       - op: replace
+        path: /spec/rules/1/host
+        value: git-staging.colddev.net
+      - op: replace
         path: /spec/tls/0/hosts/0
         value: forgejo-staging.colddev.net
+      - op: replace
+        path: /spec/tls/0/hosts/1
+        value: git-staging.colddev.net
 
   - target:
       kind: Certificate
@@ -27,6 +33,9 @@ patches:
       - op: replace
         path: /spec/dnsNames/0
         value: forgejo-staging.colddev.net
+      - op: replace
+        path: /spec/dnsNames/1
+        value: git-staging.colddev.net
 
   - target:
       kind: Deployment

@@ -9,3 +9,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - forgejo.colddev.net
+    - git.colddev.net
