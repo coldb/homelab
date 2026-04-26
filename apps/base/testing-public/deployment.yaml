@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testing-public
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: testing-public
+  template:
+    metadata:
+      labels:
+        app: testing-public
+    spec:
+      imagePullSecrets:
+        - name: docker-registry-auth
+      containers:
+        - name: testing-public
+          image: git-staging.colddev.net/coldb/testing-public:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
