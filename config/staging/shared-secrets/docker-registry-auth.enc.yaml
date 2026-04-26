@@ -2,6 +2,11 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: docker-registry-auth
+    annotations:
+        reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+        reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: testing-public
+        reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+        reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: testing-public
 stringData:
     .dockerconfigjson: ENC[AES256_GCM,data:DT4LzhbaK4lSg1WQQ0PzwsS428DGf11Le6hUqKmQlcWlMnUjHu6SykOU2nSSE4uNxMtLDhy+XmaduI+e4o7YWU/k5Na2JvG1roAIZu4HsJk+UFBl6PVcERgw/JKCfCiv6vo8b92I7r7mNOOz2XaI1OFuSNKRfVxb4CCxK9ugEOv7EHqbN2WA3nQ0Um2uuN+1LRmb8y03edb/jjNXV8mnePn1mZmeNTqp,iv:OpxpmXLS0WYr1t3lzbZ2AhHyL5uF/vid4QxKixmtXFM=,tag:rp/T1tOwXycJLAy8ivBebg==,type:str]
 sops:
@@ -15,7 +20,7 @@ sops:
             ZVdHeWx2T2xKK0liR09yN2k2elVPMFEKHDnzGlnL7+EWBs5Twpd7L6UftCKqG/iM
             naOQHKhgAqzwIoK3GX+FAvihIX/OdHy+0tCUELNsWHcINiZNYRJf5Q==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-04-26T14:42:59Z"
-    mac: ENC[AES256_GCM,data:ya2xjEU34WnVdGXLvK/NQOH44v/DY/o0mGcflU8IJ0QLbFgw2GjVlS0J/hLUF8kw/dXB/udfxvU3fBb9yNsmUF60lGBb9WiAh59K4TYPRTlJUne4/hZGsASgv3L+dVi9lWbJOBs8bIvRUG+9Cs+TEFM7XGZikC16XNQA+BLW8Jg=,iv:fbT/8ndJIJzTvN8yEes0+3W4/+N5mCdY15VKtnz/H8s=,tag:0d2VA0qIfkNxYw6MXmILEw==,type:str]
+    lastmodified: "2026-04-26T17:28:08Z"
+    mac: ENC[AES256_GCM,data:RfzAW9dvh28vmfe0VPTvYHosiUuMX5aY2lZYIEM3+6+VQ+rRm2dfiR/lehdiJzfSJqKVns0V203u5W8kK0EeA6MsWJCHVz9zKiErxFewFGMn3XeB7Og5K5ENrFcmssxJfsdTogDR//icKWMVHg8XG+Is9sAxQiX8sOFT7h74bW0=,iv:gc/j6oiASHaXNLWHBy1UkDqa1j/YpiWVf6A8qnyTn+c=,tag:u+12I2Lh+TcqkuO57Gyaew==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.12.2

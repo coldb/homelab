@@ -4,3 +4,4 @@ namespace: shared-secrets
 resources:
   - namespace.yaml
   - aws-backup-credentials.enc.yaml
+  - docker-registry-auth.enc.yaml
