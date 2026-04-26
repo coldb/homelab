@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: docker-registry-auth
+stringData:
+    .dockerconfigjson: ENC[AES256_GCM,data:EcaGvD7CbNruMRbnRi5iHmDauKgFbmwTvltqrbfqbKtjh23rly92wf93Y9A9cCn8BbPBuoqb5mR9TjqXcDiVN8haY3nEJrMjszwFUwMS3pNxOqTuVUdZjP97r0syjp50sERSuFcK/F15acwiievvu4h1kE/GS5l6uM8NLczXGne7WKkn+b3yG25OCiud+EWekpUGirLT6OO8ixEPZmg/bEflobE=,iv:NyD86RqJIHl65FpGyXqmsIEpzSeonVa9xKoeu0YzeKo=,tag:4qWeZDr4rmGfzWjuiF3WWw==,type:str]
+sops:
+    age:
+        - recipient: age1dsevcxza33vhmq3hn7693jcla2l2peur7shm40pk2dsfuvh2cvus3ut5k5
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQTy9zZW1EWk85ZkNrRXR0
+            UWVIbklqVlc5b0ZZczBDN2RKYis4QS9CNkUwCnlyT2xMT09GdXRrYWJJaDVKSFlQ
+            Y29sVGMybVJrVzNGOFdhU2xoL0NGTXMKLS0tIFdDejJGc1lBV3BiMm41OTBENlpY
+            ZVdHeWx2T2xKK0liR09yN2k2elVPMFEKHDnzGlnL7+EWBs5Twpd7L6UftCKqG/iM
+            naOQHKhgAqzwIoK3GX+FAvihIX/OdHy+0tCUELNsWHcINiZNYRJf5Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-04-26T14:24:44Z"
+    mac: ENC[AES256_GCM,data:Rgqj6ktRFy4vG9Kd0XI/wxuywFWUzHHyzU64UrrWTFblmdWhcS5tOdYDLUhkpNsnA3RAOPHkbDf5NAXo0450x7q5qmDXs91J99EqNMJKDVjTDRQZCp63O1LOrVHFzU15mhfuzL8A4m3qBAAezxJaHjfRbnzQAv3cpOkuIcp83UI=,iv:CsfeMmHE3Na66H8g8wPFSNlKeifUKV4ucMLx/uzZ9YE=,tag:+uj2KeolpMIHPPJWynChkg==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.2
