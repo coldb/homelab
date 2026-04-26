@@ -4,6 +4,4 @@ resources:
   - shared-secrets
   - n8n
   - rocketchat
-  - longhorn
-  - forgejo
   - testing-public
