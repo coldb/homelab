@@ -38,6 +38,9 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/docker
               name: docker-storage
+            - mountPath: /ca-trust
+              name: ca-trust
+              readOnly: true
         - command:
             - sh
             - -c
