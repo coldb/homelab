@@ -21,7 +21,7 @@ spec:
         - name: docker-registry-auth
       containers:
         - name: testing-public
-          image: git-staging.colddev.net/coldb/testing-public:latest
+          image: forgejo-staging.colddev.net/coldb/testing-public:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
