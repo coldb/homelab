@@ -5,4 +5,4 @@ resources:
   - rocketchat
   - pgadmin
   - colddev
-  - forgejo
+  # - forgejo
