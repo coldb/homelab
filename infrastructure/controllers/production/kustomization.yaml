@@ -6,4 +6,5 @@ resources:
   # - forgejo
   - longhorn
   - psmdb-operator
+  - reflector
   - synology-csi
