@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: shared-secrets
 resources:
   - namespace.yaml
-  # - aws-backup-credentials.enc.yaml  # uncomment after the SOPS file is moved here
+  - aws-backup-credentials.enc.yaml
