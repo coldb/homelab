@@ -30,6 +30,9 @@ data:
       fetch_interval: 2s
       envs:
         DOCKER_HOST: tcp://localhost:2375
+        REGISTRY_HOST: ${REGISTRY_HOST}
+        REGISTRY_USERNAME: ${REGISTRY_USERNAME}
+        REGISTRY_TOKEN: ${REGISTRY_TOKEN}
       labels:
         - "docker:docker://ghcr.io/catthehacker/ubuntu:act-22.04"
         - "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-22.04"

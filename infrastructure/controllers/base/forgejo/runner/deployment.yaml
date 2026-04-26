@@ -70,7 +70,11 @@ spec:
               done
               echo "Docker is ready!"
               cp /data/.runner .runner
-              forgejo-runner daemon --config /config/config.yaml
+              sed -e "s|\${REGISTRY_HOST}|$REGISTRY_HOST|g" \
+                  -e "s|\${REGISTRY_USERNAME}|$REGISTRY_USERNAME|g" \
+                  -e "s|\${REGISTRY_TOKEN}|$REGISTRY_TOKEN|g" \
+                  /config/config.yaml > /tmp/config.yaml
+              forgejo-runner daemon --config /tmp/config.yaml
           env:
             - name: DOCKER_HOST
               value: tcp://localhost:2375
