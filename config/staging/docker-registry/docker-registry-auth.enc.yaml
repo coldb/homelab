@@ -3,7 +3,7 @@ kind: Secret
 metadata:
     name: docker-registry-auth
 stringData:
-    .dockerconfigjson: ENC[AES256_GCM,data:EcaGvD7CbNruMRbnRi5iHmDauKgFbmwTvltqrbfqbKtjh23rly92wf93Y9A9cCn8BbPBuoqb5mR9TjqXcDiVN8haY3nEJrMjszwFUwMS3pNxOqTuVUdZjP97r0syjp50sERSuFcK/F15acwiievvu4h1kE/GS5l6uM8NLczXGne7WKkn+b3yG25OCiud+EWekpUGirLT6OO8ixEPZmg/bEflobE=,iv:NyD86RqJIHl65FpGyXqmsIEpzSeonVa9xKoeu0YzeKo=,tag:4qWeZDr4rmGfzWjuiF3WWw==,type:str]
+    .dockerconfigjson: ENC[AES256_GCM,data:DT4LzhbaK4lSg1WQQ0PzwsS428DGf11Le6hUqKmQlcWlMnUjHu6SykOU2nSSE4uNxMtLDhy+XmaduI+e4o7YWU/k5Na2JvG1roAIZu4HsJk+UFBl6PVcERgw/JKCfCiv6vo8b92I7r7mNOOz2XaI1OFuSNKRfVxb4CCxK9ugEOv7EHqbN2WA3nQ0Um2uuN+1LRmb8y03edb/jjNXV8mnePn1mZmeNTqp,iv:OpxpmXLS0WYr1t3lzbZ2AhHyL5uF/vid4QxKixmtXFM=,tag:rp/T1tOwXycJLAy8ivBebg==,type:str]
 sops:
     age:
         - recipient: age1dsevcxza33vhmq3hn7693jcla2l2peur7shm40pk2dsfuvh2cvus3ut5k5
@@ -15,7 +15,7 @@ sops:
             ZVdHeWx2T2xKK0liR09yN2k2elVPMFEKHDnzGlnL7+EWBs5Twpd7L6UftCKqG/iM
             naOQHKhgAqzwIoK3GX+FAvihIX/OdHy+0tCUELNsWHcINiZNYRJf5Q==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-04-26T14:24:44Z"
-    mac: ENC[AES256_GCM,data:Rgqj6ktRFy4vG9Kd0XI/wxuywFWUzHHyzU64UrrWTFblmdWhcS5tOdYDLUhkpNsnA3RAOPHkbDf5NAXo0450x7q5qmDXs91J99EqNMJKDVjTDRQZCp63O1LOrVHFzU15mhfuzL8A4m3qBAAezxJaHjfRbnzQAv3cpOkuIcp83UI=,iv:CsfeMmHE3Na66H8g8wPFSNlKeifUKV4ucMLx/uzZ9YE=,tag:+uj2KeolpMIHPPJWynChkg==,type:str]
+    lastmodified: "2026-04-26T14:42:59Z"
+    mac: ENC[AES256_GCM,data:ya2xjEU34WnVdGXLvK/NQOH44v/DY/o0mGcflU8IJ0QLbFgw2GjVlS0J/hLUF8kw/dXB/udfxvU3fBb9yNsmUF60lGBb9WiAh59K4TYPRTlJUne4/hZGsASgv3L+dVi9lWbJOBs8bIvRUG+9Cs+TEFM7XGZikC16XNQA+BLW8Jg=,iv:fbT/8ndJIJzTvN8yEes0+3W4/+N5mCdY15VKtnz/H8s=,tag:0d2VA0qIfkNxYw6MXmILEw==,type:str]
     encrypted_regex: ^(data|stringData)$
     version: 3.12.2
