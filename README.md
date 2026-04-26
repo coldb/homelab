@@ -86,10 +86,7 @@ kubectl create secret generic sops-age \
 
 ## Forgejo runner
 
-Admin user creation and runner pre-registration run automatically from the
-forgejo server pod's bootstrap init container on first startup. If the
-automatic flow fails, see [infrastructure/controllers/base/forgejo/README.md](infrastructure/controllers/base/forgejo/README.md)
-for the manual fallback.
+To create the initial admin user see [infrastructure/controllers/base/forgejo/README.md](infrastructure/controllers/base/forgejo/README.md).
 
 
 ## Monitoring
