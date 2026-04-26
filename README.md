@@ -1,5 +1,52 @@
 # homelab
 
+## Setting up server
+
+Each k3s node (server + every agent) must trust the colddev internal CA so
+containerd can pull from the private Forgejo container registry. Without this,
+image pulls fail with `x509: certificate signed by unknown authority`.
+
+The same self-signed colddev CA is used for **both** the staging and production
+clusters (the two SOPS-encrypted copies in
+`infrastructure/controllers/{staging,production}/cert-manager/colddevnet-ca-secret.yaml`
+contain identical certificate bytes). One CA file, installed into the system
+trust store, covers both `forgejo-staging.colddev.net` (staging) and
+`forgejo.colddev.net` (production) — containerd uses the system trust pool
+when no explicit `ca_file` is configured for the registry.
+
+Copy the certificate to server
+
+```bash
+scp /tmp/colddev-ca.crt <user>@<server-host>:/tmp/colddev-ca.crt
+```
+
+Run on **every** node in the cluster:
+
+```bash
+# Install the colddev internal CA into the system trust store.
+# Same file content on both staging and production nodes.
+sudo install -m 644 /path/to/colddev-ca.crt /usr/local/share/ca-certificates/colddev.crt
+sudo update-ca-certificates
+
+# Restart k3s so containerd picks up the updated trust store.
+sudo systemctl restart k3s         # on the server node
+sudo systemctl restart k3s-agent   # on each agent node
+```
+
+Verify the CA is trusted from the node:
+
+```bash
+# staging cluster
+curl -I https://forgejo-staging.colddev.net/v2/
+
+# production cluster
+curl -I https://forgejo.colddev.net/v2/
+```
+
+Both should return an HTTP response (e.g. `401 Unauthorized` for `/v2/`
+without auth) — never an `x509` error.
+
+
 ## Bootstrap flux
 
 Setup the following ENV variables:
