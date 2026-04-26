@@ -5,4 +5,4 @@ metadata:
 namespace: cert-manager
 resources:
   - ../../base/cert-manager/
-  - colddevnet-ca-secret.yaml
+  - colddevnet-ca-secret.enc.yaml
