@@ -28,6 +28,21 @@ spec:
           env:
             - name: DOCKER_TLS_CERTDIR
               value: ""
+            - name: REGISTRY_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: REGISTRY_HOST
+                  name: forgejo-runner-secret
+            - name: REGISTRY_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: REGISTRY_USERNAME
+                  name: forgejo-runner-secret
+            - name: REGISTRY_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: REGISTRY_TOKEN
+                  name: forgejo-runner-secret
           image: docker:29-dind
           name: docker
           ports:
