@@ -44,7 +44,7 @@ data:
     container:
       network: host
       privileged: false
-      options: "-v /ca-trust:/ca-trust:ro -e GIT_SSL_CAINFO=/ca-trust/ca.crt -e NODE_EXTRA_CA_CERTS=/ca-trust/ca.crt -e SSL_CERT_FILE=/ca-trust/ca.crt"
+      options: "-v /ca-trust:/ca-trust:ro -e GIT_SSL_CAINFO=/ca-trust/ca.crt -e NODE_EXTRA_CA_CERTS=/ca-trust/ca.crt -e SSL_CERT_FILE=/ca-trust/ca.crt -e REGISTRY_HOST=${REGISTRY_HOST} -e REGISTRY_USERNAME=${REGISTRY_USERNAME} -e REGISTRY_TOKEN=${REGISTRY_TOKEN}"
       valid_volumes:
         - /ca-trust
       docker_host: tcp://localhost:2375
