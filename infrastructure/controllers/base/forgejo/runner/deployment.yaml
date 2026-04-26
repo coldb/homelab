@@ -25,8 +25,13 @@ spec:
       containers:
         - name: docker
           image: docker:29-dind
-          args:
-            - --tls=false
+          command:
+            - sh
+            - -c
+            - |
+              cp /ca-trust/ca.crt /usr/local/share/ca-certificates/colddev-ca.crt
+              update-ca-certificates
+              exec dockerd-entrypoint.sh --tls=false
           env:
             - name: DOCKER_TLS_CERTDIR
               value: ""
