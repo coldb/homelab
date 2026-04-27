@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: image-sorter-configmap-enc
+stringData:
+    WORKOS_REDIRECT_URI: ENC[AES256_GCM,data:A/+doHvnRR+2XCYLFGYJDCRfBVqNA9fBiPzxkpkSruba084nFiau,iv:Bg/UUYW5pfCjcx1VB+fouTyXOqiH1imuI25HaYsMLxo=,tag:U+ZLpXZmNqBZIDJEjznlXw==,type:str]
+    WORKOS_API_KEY: ENC[AES256_GCM,data:jfpnXPgA3BldbEHOmSd6aaAY+UpIKhbBo+2tb6Bj93K7nlm5FdVfzgJkl+360yAJImWr3xZCqYWAU2WptcAsAKOjLHzZT+cvkrz2oGONrqQLTgk=,iv:ww0s/kKzfeQ1ws2Bpf6lbRq50/xJdQ9HXRjvisx2dL4=,tag:F6xzt+2nVa150PVQwmNoeQ==,type:str]
+    WORKOS_CLIENT_ID: ENC[AES256_GCM,data:Bu0AKT/sRtqkWRTx+7UJUNiY7Jad0tqVhb+vFTXgbhLu,iv:BxykOg6hAEyggvgBnRbuLumUJQO6L4LybgLoD/UHBAE=,tag:6DLKsBN1Ms3vCwB3cOTICQ==,type:str]
+    WORKOS_COOKIE_PASSWORD: ENC[AES256_GCM,data:r3nXSN55qWIo0jjgHkjZTfOuVpGIyzRzbGDZwZpCouQ=,iv:WY8qmLdHzPhWocMOxxKRdxtHk5pqQwTzdGgXcpb6aHw=,tag:9cyCivVZ1saev10DRXmBKQ==,type:str]
+sops:
+    age:
+        - recipient: age1lu89hj3qppwuccx8nn5qq2dkny3kucgud7d4mallc7kw54a6xs7qwwfuez
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAweFFDV2wzRkcxQ2lXYWFB
+            c0hiMjNDUGI2Nnp4NkdZL3hVdzUzZlhXR2xnCmtISk5aMy9LZG1wTE5XcEFRTjdI
+            WTJHMmxweVlhSVdJcTBKODZHUHlBODgKLS0tIElkdW1tVEhqNERaZ1VuVkxKUEQ5
+            ekVETUZHT091N0NjQU9MZDg0QVFkZlkKfpYiSYGB+kp7fgGFNXwGpgxFepApAxOu
+            Z0bLOw/9z0Q4cVbvuqfVlNepdztec9viZFIGlaSeIeOuOeWmgu8zhg==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-04-27T21:02:09Z"
+    mac: ENC[AES256_GCM,data:JAVzUDdnhyW7QuLKcDIjy86yeEMBuiguIUMkOarQaoY7GEBGqVuyAY7DSajxqWkF/ee5pdz4HwATvImElCRw/TbAbSWgfn6BcxrY5kkBbVMzlXxhxFo3BBNdwAhnC9LBk/mczVrPhtNgpItW2dkv17Ck7kFXvCl0kCDVtiTXKQE=,iv:wB1d71ApT0fnLn2ikoPxcKSVOa06UqJFCHCdallH/PU=,tag:KfAAeAdbw2foLeaZfLfbhw==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.2

@@ -23,5 +23,8 @@ spec:
         - name: image-sorter
           image: forgejo.colddev.net/coldb/image-sorter:latest@sha256:461ad628646f1391d28a31f64b926fdbf19b7a144835cd991da5346aaa7595a0
           imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: image-sorter-configmap-enc
           ports:
             - containerPort: 3000

@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: image-sorter
 resources:
   - ../../base/image-sorter/
+  - configmap.enc.yaml
