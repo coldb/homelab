@@ -24,4 +24,4 @@ spec:
           image: forgejo.colddev.net/coldb/image-sorter:latest@sha256:461ad628646f1391d28a31f64b926fdbf19b7a144835cd991da5346aaa7595a0
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - containerPort: 3000
