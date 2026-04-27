@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: renovate-host-rules
+    namespace: renovate
+stringData:
+    RENOVATE_HOST_RULES: ENC[AES256_GCM,data:ZGrgH1d2m6LWFF1Z59dfWpKDw4hKKSdMFb+IMGzMyqkzZBQt9hfzy2ZyfIQnn66A7Z+PfxvgmBuoAJ/THeZn5w/TP+h0c6yZClT/w9NrR0Sia40eRlp0WrrRDS7EgI8DdQSliKkgX90/Vhn0dyhvAsW6kbq26AsGxZ4FsBG0bWUyzGjmeD+zpw/tBsrLfq2xXYYgBqs1AbwvIKwZm/ySWaqqo1IXVC3pW2r7bZyPW6efgSJVue2C/d0xFNCGbZUTQJ4IBnyuIAcylwymrhRj3cqOsiEfkQrh2m+cQ79KMg9mIkd4sqq7QNpeFNO+0MQe1ms696Iv+pf3ueE1o7LasU1oMgVshOdET7XmQj3659rw+9qSq4jUx3iIAd9G9S2lTc+lTCgb8dQfflInttTjAugkML2Yeo/N+7HzvJPaAajTkQZgcl1Nj8k=,iv:jeFg8vmPt8UxqOUGIGUBBEFpRWcLo8vcw2d2tl1R1vM=,tag:lZx6bbTYDFfHlnRAu4z61A==,type:str]
+sops:
+    age:
+        - recipient: age1dsevcxza33vhmq3hn7693jcla2l2peur7shm40pk2dsfuvh2cvus3ut5k5
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBvMUlzTmdsc3B5ckZ1ZjU1
+            YVZ1ajJqS1MwcGZCeHhNMkxYQjhuSjRwc1ZVCnErSlV5eE9aMkErZFFSU0ZBQ2pZ
+            TDI3Z0tiZ0pXTDF6N3NJYWRiemxnVG8KLS0tIEtpaU4zOW1qR0FvajRnalp4MGt5
+            RDZRRS90RDFaMWtCckUvVU1NSk53aGsKabTV7Zy8E+1Lqq4enDg+2FUfumlcJnKM
+            P34v45L0Rn4cUz8bteUU2K5TD6Symg+OzBoGrkY945x3OFqgUdoQ8Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-04-27T20:42:33Z"
+    mac: ENC[AES256_GCM,data:BOVqY/9MIOZfchEX3rMz6cGgZ7rGNwUzmrpDnGkGQgASaqRdmQsNpDe9rnVuum/1ghEWz9T5FsRm/UtRwheSKyS7Y9o/znZLVZfxLBQ4Zmpg0OmZ5hk4ljK1JbN2dYZFN5vWaV0Vm9fDIywwX+FxrM7un0Bw9cWsRq20PaL2nEY=,iv:PmbzqJ7n0Ylk2d78YWRYjz/Vj0BvXAw3bHaCZbqQRo4=,tag:AhH+HpMJnmMGV8Om339hYw==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.2

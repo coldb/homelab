@@ -3,3 +3,6 @@ kind: Kustomization
 namespace: renovate
 resources:
   - ../../base/renovate/
+  - renovate-container-env.enc.yaml
+  - renovate-host-rules.enc.yaml
+  - colddev-ca-secret.enc.yaml
