@@ -3,5 +3,6 @@
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
   },
+  "branchConcurrentLimit": 15,
   "ignorePaths": ["infrastructure/controllers/base/synology-csi"]
 }
