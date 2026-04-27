@@ -60,3 +60,17 @@ already provisioned.
 The registration lives in forgejo's Postgres DB, so the runner survives pod
 restarts: its init container regenerates `.runner` from the same
 `RUNNER_SECRET` on each start.
+
+### 3. Set SSH public key
+
+In Settings > SSH / GPG Keys > Add key. The key can be found in the personal setup data.
+
+### 4. Create access token
+
+Access tokens are needed for access to different applications. Settings > Applications > Access tokens > New access token
+
+#### 4.1 Registry access
+
+Create new token with read/write access to package. Enable it for all packages public and private.
+
+
