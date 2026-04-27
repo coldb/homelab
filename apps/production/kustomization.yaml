@@ -6,3 +6,4 @@ resources:
   - rocketchat
   - n8n
   - browserless
+  - image-sorter
