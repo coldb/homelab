@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: docker-registry-auth
+    annotations:
+        reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+        reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: image-sorter
+        reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+        reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: image-sorter
+stringData:
+    .dockerconfigjson: ENC[AES256_GCM,data:HEyaEF0S174ZM8UZ7oRhdZKgvbyI6uudaUR6beuFKRQQpXjSKw7oSIOe00ZwTZgQGhqFwGpnIvzj25z1zAngm9cN1g2WYpRBIIlesH3c/Hh6xi4HzxtZWV73gYlGLmv6vBvcnYkS5itEqhnp/F/qMCquL4v2gwsUpZkPKyNkpQOqZ9Sa/57/i8NibDxlJ+g+WRoMfEuYFqcCJWKZztGJ0BQNQ+r9oqEm,iv:cTWqhf1V5i/zS3f0o/3wdoqGIyeSRATQ0GR0BuUCiWk=,tag:RzHOPdHYd41ltl87/uuIAw==,type:str]
+sops:
+    age:
+        - recipient: age1lu89hj3qppwuccx8nn5qq2dkny3kucgud7d4mallc7kw54a6xs7qwwfuez
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB4TTg4SFkxeHFqRGJCU0VR
+            eWpsM0RoZkRGQmJZQjdBYko0RVN5SUYxUUM4Cks3Wkc1ZnJLdnptL3YrdVVDTzZm
+            WExuVHhzTlJubEdxVFBXaG5JcEQyZEkKLS0tIGVMcHA5N2tDVEQ3Rm1KL2gvZmJB
+            Z3VpZVdlQlFiYlJhN2dPRkgwa2lNc2cKK94D7Ka/1K7uTuh35AmqE2s6ZfamKHN1
+            8NKIxyz2V07mPTSul4/ZHIOHTfvJd2RioTylYTIE/HnTfNCxXY0MCw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-04-27T19:59:51Z"
+    mac: ENC[AES256_GCM,data:8T6vnecFXie7JU+yrmKJJ5Z8vtG3E3wVkL5AxFDACUIQrCV+/7CL9IBy0dn0+x/F1U2OXxZMWJ9NMnGxQMk0lnatFx2/9Bl3sV3+iR4z9FAS+4VyrMA7oPaXMHvL1aiEvjbOuCPcHEi803Wz7/GGhW4NPzB1AYSV/Q0oG/6RR0o=,iv:EDvVhTVh862JbzIZmtouxKPJyuhwNfPmlZKVr56aP5M=,tag:L99Y4yRHrfSoyeY0iBlQTg==,type:str]
+    encrypted_regex: ^(data|stringData)$
+    version: 3.12.2
