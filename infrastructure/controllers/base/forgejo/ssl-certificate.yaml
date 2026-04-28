@@ -5,7 +5,7 @@ metadata:
 spec:
   secretName: forgejo-ca-tls-secret
   issuerRef:
-    name: colddevnet-clusterissuer
+    name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
     - forgejo.colddev.net
