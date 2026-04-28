@@ -8,7 +8,7 @@ resources:
 patches:
   - target:
       kind: Certificate
-      name: grafana-certificate
+      name: pgadmin-certificate
     patch: |-
       - op: replace
         path: /spec/dnsNames/0
@@ -22,8 +22,5 @@ patches:
         path: /spec/rules/0/host
         value: pgadmin-staging.colddev.net
       - op: replace
-        path: /spec/tls/0/tls/0/hosts/0
+        path: /spec/tls/0/hosts/0
         value: pgadmin-staging.colddev.net
-      - op: replace
-        path: /spec/tls/0/secretName
-        value: pgadmin-ca-tls-secret
