@@ -9,4 +9,4 @@ spec:
     name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
-    - grafana-staging.colddev.net
+    - grafana.colddev.net

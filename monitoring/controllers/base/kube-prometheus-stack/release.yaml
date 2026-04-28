@@ -58,11 +58,11 @@ spec:
         enabled: true
         ingressClassName: traefik
         hosts:
-          - grafana-staging.colddev.net
+          - grafana.colddev.net
         tls:
           - secretName: grafana-ca-tls-secret
             hosts:
-              - grafana-staging.colddev.net
+              - grafana.colddev.net
 
       sidecar:
         # datasources:
