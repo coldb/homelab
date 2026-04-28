@@ -25,5 +25,5 @@ patches:
         path: /spec/tls/0/tls/0/hosts/0
         value: pgadmin-staging.colddev.net
       - op: replace
-        path: /spec/tls/0/hosts/0
-        value: pgadmin-staging.colddev.net
+        path: /spec/tls/0/secretName
+        value: pgadmin-ca-tls-secret
