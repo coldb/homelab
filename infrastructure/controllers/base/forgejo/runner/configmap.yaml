@@ -3,20 +3,6 @@ kind: ConfigMap
 metadata:
   name: forgejo-runner-config
 data:
-  # The runner's container.options below makes the colddev CA trusted inside
-  # every job container so steps like actions/checkout can verify
-  # forgejo(-staging).colddev.net:
-  #   -v /ca-trust:/ca-trust:ro    bind-mount the CA file from the dind
-  #                                container into the job container (requires
-  #                                the path to be listed in valid_volumes)
-  #   -e GIT_SSL_CAINFO=...        git uses this for HTTPS verification
-  #                                (fixes the checkout `git fetch` error)
-  #   -e NODE_EXTRA_CA_CERTS=...   Node-based actions (actions/checkout runs
-  #                                in Node) trust this extra CA
-  #   -e SSL_CERT_FILE=...         curl / openssl / python tooling
-  # valid_volumes whitelists host paths (paths inside the dind container) that
-  # the runner is allowed to bind-mount into job containers; without it the
-  # -v above is rejected.
   config.yaml: |
     log:
       level: info
@@ -44,7 +30,5 @@ data:
     container:
       network: host
       privileged: false
-      options: "-v /ca-trust:/ca-trust:ro -e GIT_SSL_CAINFO=/ca-trust/ca.crt -e NODE_EXTRA_CA_CERTS=/ca-trust/ca.crt -e SSL_CERT_FILE=/ca-trust/ca.crt -e REGISTRY_HOST=${REGISTRY_HOST} -e REGISTRY_USERNAME=${REGISTRY_USERNAME} -e REGISTRY_TOKEN=${REGISTRY_TOKEN}"
-      valid_volumes:
-        - /ca-trust
+      options: "-e REGISTRY_HOST=${REGISTRY_HOST} -e REGISTRY_USERNAME=${REGISTRY_USERNAME} -e REGISTRY_TOKEN=${REGISTRY_TOKEN}"
       docker_host: tcp://localhost:2375
