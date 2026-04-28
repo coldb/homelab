@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: pgadmin-ca-tls-secret
   issuerRef:
-    name: colddevnet-clusterissuer
+    name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
     - pgadmin.colddev.net
