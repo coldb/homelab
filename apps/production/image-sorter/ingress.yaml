@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: image-sorter
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: image-sorter.colddev.net
+      http:
+        paths:
+          - backend:
+              service:
+                name: image-sorter
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - image-sorter.colddev.net
+      secretName: image-sorter-tls-secret

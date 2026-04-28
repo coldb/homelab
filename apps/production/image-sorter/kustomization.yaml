@@ -4,3 +4,5 @@ namespace: image-sorter
 resources:
   - ../../base/image-sorter/
   - configmap.enc.yaml
+  - ingress.yaml
+  - ssl-certificate.yaml
