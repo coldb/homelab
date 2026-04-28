@@ -18,7 +18,4 @@ spec:
   tls:
     - hosts:
         - pgadmin.colddev.net
-      tls:
-        - secretName: pgadmin-ca-tls-secret
-          hosts:
-            - pgadmin.colddev.net
+      secretName: pgadmin-ca-tls-secret
