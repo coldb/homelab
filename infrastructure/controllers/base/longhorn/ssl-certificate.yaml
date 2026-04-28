@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: longhorn-ca-tls-secret
   issuerRef:
-    name: colddevnet-clusterissuer
+    name: letsencrypt-prod
     kind: ClusterIssuer
   dnsNames:
     - longhorn.colddev.net
