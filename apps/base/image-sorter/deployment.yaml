@@ -21,7 +21,7 @@ spec:
         - name: docker-registry-auth
       containers:
         - name: image-sorter
-          image: forgejo.colddev.net/coldb/image-sorter:latest@sha256:3c37275f9e238d87b762006613a1b53b867212e7cab544ba586473830fa8de65
+          image: forgejo.colddev.net/coldb/image-sorter:latest@sha256:c0ef347314cf5465079aea7f4bc83357fadcabb06165c4d3547922718c320df0
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:
