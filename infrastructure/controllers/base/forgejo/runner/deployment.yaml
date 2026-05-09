@@ -57,7 +57,7 @@ spec:
             - mountPath: /var/lib/docker
               name: docker-storage
         - name: runner
-          image: data.forgejo.org/forgejo/runner:6.4.0
+          image: data.forgejo.org/forgejo/runner:12.10.1
           command:
             - sh
             - -c
@@ -119,7 +119,7 @@ spec:
                 secretKeyRef:
                   key: RUNNER_SECRET
                   name: forgejo-runner-secret
-          image: data.forgejo.org/forgejo/runner:6.4.0
+          image: data.forgejo.org/forgejo/runner:12.10.1
           name: register-runner
           volumeMounts:
             - mountPath: /data
