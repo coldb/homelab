@@ -71,6 +71,7 @@ spec:
     enablePodMonitor: true
 
   storage:
+    size: 5Gi
     pvcTemplate:
       accessModes:
         - ReadWriteOnce
