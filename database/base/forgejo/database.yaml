@@ -29,7 +29,7 @@ spec:
     barmanObjectStore:
       # Points to the current database backup path
       # This needs to be bumped to next version to allow restoring
-      destinationPath: s3://production-backup-forgejo-db/v1
+      destinationPath: s3://production-backup-forgejo-db/v2
       s3Credentials:
         accessKeyId:
           name: aws-backup-credentials
