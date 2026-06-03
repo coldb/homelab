@@ -21,7 +21,7 @@ spec:
         - name: docker-registry-auth
       containers:
         - name: ledgerly
-          image: forgejo.colddev.net/coldb/ledgerly:latest
+          image: forgejo.colddev.net/coldb/ledgerly:latest@sha256:d50a819f30f630329c2938ce97f408487f2013e937a96acaaedde8bf86b4278b
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
