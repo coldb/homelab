@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ledgerly
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: ledgerly
+  template:
+    metadata:
+      labels:
+        app: ledgerly
+    spec:
+      imagePullSecrets:
+        - name: docker-registry-auth
+      containers:
+        - name: ledgerly
+          image: forgejo.colddev.net/coldb/ledgerly:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
