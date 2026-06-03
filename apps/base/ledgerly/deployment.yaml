@@ -17,11 +17,21 @@ spec:
       labels:
         app: ledgerly
     spec:
+      securityContext:
+        fsGroup: 101
+        runAsUser: 101
+        runAsGroup: 101
+
       imagePullSecrets:
         - name: docker-registry-auth
       containers:
         - name: ledgerly
           image: forgejo.colddev.net/coldb/ledgerly:latest@sha256:d50a819f30f630329c2938ce97f408487f2013e937a96acaaedde8bf86b4278b
+
+          securityContext:
+            allowPrivilegeEscalation: false
+
           imagePullPolicy: Always
+
           ports:
             - containerPort: 8080
