@@ -3,23 +3,5 @@ kind: Kustomization
 namespace: ledgerly
 resources:
   - ../../base/ledgerly/
-
-patches:
-  - target:
-      kind: Ingress
-      name: ledgerly
-    patch: |-
-      - op: replace
-        path: /spec/rules/0/host
-        value: ledgerly-staging.colddev.net
-      - op: replace
-        path: /spec/tls/0/hosts/0
-        value: ledgerly-staging.colddev.net
-
-  - target:
-      kind: Certificate
-      name: ledgerly-certificate
-    patch: |-
-      - op: replace
-        path: /spec/dnsNames/0
-        value: ledgerly-staging.colddev.net
+  - cloudflared.enc.yaml
+  - ../../../shared/cloudflared/

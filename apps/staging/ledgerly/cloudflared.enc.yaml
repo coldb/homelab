@@ -1,0 +1,22 @@
+apiVersion: v1
+stringData:
+    token: ENC[AES256_GCM,data:MHIdTZwV+JVG0irkJEBx3BFFQPGnZDVKfr8aJOA0/1u/nd6SS++bsrtljUy0a4EjeqQbexw5myO9X0ewt9VRWIeGi38xdCzYHdMJf/WY2R/a2zZ2qRZ0dsyN+t39qrzNo8iI4IY8GAsBl29+kvhfRJZ7SAXRmjzUft4M8txydqNKMbvwp9bmriRjdfl8kobTJs5dwgV7qKG4e9VhlaRbhFToCfByVfGP9H0upBSFpbf1yV+UyGs+LA==,iv:vGenv1DYH7Yy+6JCuY3zYVw7uODWcdJV/otUCUshvWw=,tag:TFm4bFG8mWKRifpdEEUeAQ==,type:str]
+kind: Secret
+metadata:
+    creationTimestamp: null
+    name: cloudflare
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB1TTBwaU5QK3AzRnVlcjZG
+            WDdWSTN2Y2NIcUhnMHk5VEVsN0FHUTJIL1ZBCnlxTVB2ZnR5QUorZzMvRjk2YXAr
+            RFlzWVdyYW1CRm1icGJDZXFzUks4SDgKLS0tIFU0OStTdDd4Z3RockJ3OTJSUWVv
+            TWY0djF6eHBVNjZTYnBFYTlIOWRqMUUKs/WrhthY4umidYUcK4VC3RrE1wGsu/1m
+            Yvz1VYG21tRUqvGOuy4JeUTLoLWPDZFq76DskkSdju0bZN3cEXSIRg==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1dsevcxza33vhmq3hn7693jcla2l2peur7shm40pk2dsfuvh2cvus3ut5k5
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-06-06T11:36:23Z"
+    mac: ENC[AES256_GCM,data:wxe14c+m90zMVot68ohQsZzyfNu+5M4EhH7r2j8y070ARvU+1T7IZFcHyRPX3QtQ/MRKXceV7+DH+8NoRMgjffqmesZ406xgkEpQgQ38U2HZAYwDk0XfVx8M7IMRZN6W9aPsHtxRIBgLv9sPMRuESJMZCb6UJmvPQGstefUAA30=,iv:olnT8EYzldTrHkcLA5YkZ/UJ782qVCZ7V04qMehxZmw=,tag:Gnqpw84YYkvkhIWyr3KSrg==,type:str]
+    version: 3.13.0
