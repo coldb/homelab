@@ -1,4 +1,4 @@
-piVersion: v1
+apiVersion: v1
 kind: Secret
 metadata:
     name: ledgerly-secret
@@ -18,6 +18,6 @@ sops:
             -----END AGE ENCRYPTED FILE-----
           recipient: age1lu89hj3qppwuccx8nn5qq2dkny3kucgud7d4mallc7kw54a6xs7qwwfuez
     encrypted_regex: ^(data|stringData)$
-    lastmodified: "2026-06-06T15:51:31Z"
-    mac: ENC[AES256_GCM,data:J8V9j258imd4u+Al/s8oxqCrFo5wrCcaWo51P42npd5BsAjMI1gbIovNZpP3+10IiNX5jukdTm9XUj0u9kJtxZby/nPXPN6OZhTmjx/aXe1LK6bySCp2qAYd+W3svkf45QOM0Kv+updzZyfstUR1QlMu/tbFK4UIYR34MLn4D6U=,iv:Q+DlhuGir82/PyzvumAW2cZqGvMQvogTjJvsA4ZpnZc=,tag:1LjyVaJAVwtIG/A9FzvRvg==,type:str]
+    lastmodified: "2026-06-06T15:56:38Z"
+    mac: ENC[AES256_GCM,data:oiGhW6njOrgtycr9tRHxjU0U+xmh76P2QdJYS9TNykA04lCUar4IumCLzgEBmQwfViWTggV4y3VhF37cpj7nhq/qBEnF392dGV9P5Tw916KCSV4zekP5kSWkWavl5y9G0TAn6i3KCTj3Goy/cPcvtKnhfHV30qWb9EJT9ylKwSw=,iv:deIHHHC+zuBkqKYXKPUdSEBCO8z25OPshwZ6WbmDNjY=,tag:kfDLb/kCpgL8JUAhDykYcQ==,type:str]
     version: 3.13.1
