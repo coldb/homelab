@@ -26,7 +26,7 @@ spec:
         - name: docker-registry-auth
       containers:
         - name: ledgerly
-          image: forgejo.colddev.net/coldb/ledgerly:pr-1@sha256:09dbb6f6e6078e4053a2826b6858eb06784f972829d2061caf622a735bb3d87b
+          image: forgejo.colddev.net/coldb/ledgerly:pr-1@sha256:fb2ff4b317e8128748bc27ecb07fff2042f41e020e3a9c75e7ea20177c8c8517
 
           securityContext:
             allowPrivilegeEscalation: false
