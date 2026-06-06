@@ -1,0 +1,23 @@
+piVersion: v1
+kind: Secret
+metadata:
+    name: ledgerly-secret
+stringData:
+    DATABASE_URL: ENC[AES256_GCM,data:qZcua2rDOR8Y26kHBaREc9dHZrhAQumsRgwGd3NnZkHLJYSJIgjwAxaHvi0KorZ3qRPFS2ZEOufBBOVkZXEn/WhPb0w4GoSNNCufXDb2kP8cpV0xLDEhHPeF1HSUs13lJ+qYW9vUccYVicWCQameYn88CrcHbg==,iv:3Iwp+57iaxby1ZzHDG+L1KV/PtM8ahQ4ayW2s/IjlZk=,tag:OwVyIcv8h+kIzjW9p8nttw==,type:str]
+    CLERK_PUBLISHABLE_KEY: ENC[AES256_GCM,data:vWw0P0H/ourYYNggbRjzKj3YDWd2bjPqFRpeUo2X9ngmGoRSjmPN5XrI,iv:aHcLURNtstmoUkPckXSoj0BSGtCIGstZL+a9vIuq2Ho=,tag:FYIMG8L3KD9qZ+45wXGXeg==,type:str]
+    CLERK_SECRET_KEY: ENC[AES256_GCM,data:eOUtwdeMqltXuWO6atzI1XDwTV7AQhB5mo1lQbG1DdHQyURTumlV8JLoVyCunGTYJt0=,iv:rtilqhp/bP8rA3rsodPNI4xg4swTYAgq6qpjSee/L3o=,tag:8qdebkVXrPSJgcRWY8S4/w==,type:str]
+sops:
+    age:
+        - enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQNXF3dlNBN0Uwa1pFWVVJ
+            bkNvMXNNQzUrVnYwSVQyRHorRzNXSTJWZ1ZzCkRlc2VtVDRFRkthRmFYSjNlb0ln
+            RS9nN01hWUx4K2d1UVFCcUZTSDUwMEUKLS0tIC9JRUJpekRpQ0Z6TExnSVkrZVRP
+            VEhQbGxMajc2a3VOd0pyOG90Z0Y3eU0KuKj1x5v8v9xjpikxvy5FLxmqvonkGTsq
+            U7aqhrY6h44UnYeBECpSeM2DOrbbbb8OdtMkp+cK1VNzkG/HEAZRSA==
+            -----END AGE ENCRYPTED FILE-----
+          recipient: age1lu89hj3qppwuccx8nn5qq2dkny3kucgud7d4mallc7kw54a6xs7qwwfuez
+    encrypted_regex: ^(data|stringData)$
+    lastmodified: "2026-06-06T15:51:31Z"
+    mac: ENC[AES256_GCM,data:J8V9j258imd4u+Al/s8oxqCrFo5wrCcaWo51P42npd5BsAjMI1gbIovNZpP3+10IiNX5jukdTm9XUj0u9kJtxZby/nPXPN6OZhTmjx/aXe1LK6bySCp2qAYd+W3svkf45QOM0Kv+updzZyfstUR1QlMu/tbFK4UIYR34MLn4D6U=,iv:Q+DlhuGir82/PyzvumAW2cZqGvMQvogTjJvsA4ZpnZc=,tag:1LjyVaJAVwtIG/A9FzvRvg==,type:str]
+    version: 3.13.1

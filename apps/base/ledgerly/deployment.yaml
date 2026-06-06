@@ -33,5 +33,9 @@ spec:
 
           imagePullPolicy: Always
 
+          envFrom:
+            - secretRef:
+                name: ledgerly-secret
+
           ports:
             - containerPort: 8080
