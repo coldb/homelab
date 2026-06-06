@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ledgerly-migrate
+spec:
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 300
+  template:
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: docker-registry-auth
+      containers:
+        - name: migrate
+          image: forgejo.colddev.net/coldb/ledgerly
+          imagePullPolicy: Always
+          command:
+            - drizzle-kit
+            - migrate
+            - --config=drizzle.config.ts
+          envFrom:
+            - secretRef:
+                name: ledgerly-secret

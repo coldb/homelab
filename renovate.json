@@ -3,6 +3,9 @@
   "kubernetes": {
     "fileMatch": ["\\.yaml$"]
   },
+  "kustomize": {
+    "pinDigests": true
+  },
   "branchConcurrentLimit": 15,
   "prConcurrentLimit": 15,
   "ignorePaths": ["infrastructure/controllers/base/synology-csi"]

@@ -1,8 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: ledgerly
+components:
+  - ../ledgerly-images/
 resources:
-  - configmap.enc.yaml
-  - ../../base/ledgerly/
+  - ../../base/ledgerly-app/
   - cloudflared.enc.yaml
   - ../../../shared/cloudflared/
