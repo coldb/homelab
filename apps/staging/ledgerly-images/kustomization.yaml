@@ -2,4 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 images:
   - name: forgejo.colddev.net/coldb/ledgerly
-    newTag: pr-1@sha256:d68fab36ec32fc17d44c1f602f7fa22fc662045ee1f2cd287952eb3401fd2648
+    newTag: pr-1@sha256:b369910552adf5c4d6ebdb9b3b08eadc9f2a70893c861aa4d5c3b9ed955f6fc4
