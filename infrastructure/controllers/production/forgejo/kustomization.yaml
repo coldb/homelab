@@ -7,3 +7,13 @@ resources:
   - secrets-admin-user.enc.yaml
   - secrets-db.enc.yaml
   - secrets-runner.enc.yaml
+
+patches:
+  - target:
+      kind: Deployment
+      name: forgejo-runner
+    patch: |-
+      - op: add
+        path: /spec/template/spec/nodeSelector
+        value:
+          forgejo-runner: "true"
