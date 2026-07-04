@@ -4,7 +4,6 @@ metadata:
   name: ledgerly-migrate
 spec:
   backoffLimit: 1
-  ttlSecondsAfterFinished: 300
   template:
     spec:
       restartPolicy: Never
