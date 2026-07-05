@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hermes-agent
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: hermes-agent
+
+  template:
+    metadata:
+      labels:
+        app: hermes-agent
+
+    spec:
+      containers:
+        - name: hermes-agent
+          image: nousresearch/hermes-agent:v2026.7.1
+          args:
+            - gateway
+            - run
+
+          securityContext:
+            allowPrivilegeEscalation: false
+
+          env:
+            - name: HERMES_DASHBOARD
+              value: "1"
+            - name: HERMES_DASHBOARD_HOST
+              value: 0.0.0.0
+            - name: HERMES_DASHBOARD_PORT
+              value: "9119"
+            - name: HERMES_DASHBOARD_BASIC_AUTH_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: hermes-agent-secret
+                  key: HERMES_DASHBOARD_BASIC_AUTH_USERNAME
+            - name: HERMES_DASHBOARD_BASIC_AUTH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: hermes-agent-secret
+                  key: HERMES_DASHBOARD_BASIC_AUTH_PASSWORD
+            - name: HERMES_DASHBOARD_BASIC_AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: hermes-agent-secret
+                  key: HERMES_DASHBOARD_BASIC_AUTH_SECRET
+
+          ports:
+            - name: dashboard
+              containerPort: 9119
+              protocol: TCP
+
+          resources:
+            requests:
+              cpu: "1"
+              memory: 1Gi
+            limits:
+              cpu: "2"
+              memory: 4Gi
+
+          volumeMounts:
+            - mountPath: /opt/data
+              name: hermes-agent-data
+
+      restartPolicy: Always
+
+      volumes:
+        - name: hermes-agent-data
+          persistentVolumeClaim:
+            claimName: hermes-agent-data-longhorn-backup-pvc
