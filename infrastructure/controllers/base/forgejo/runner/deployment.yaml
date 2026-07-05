@@ -100,7 +100,7 @@ spec:
               name: config
       initContainers:
         - name: prepare-runner-data
-          image: busybox:1.36
+          image: docker:29-dind
           command:
             - sh
             - -c
