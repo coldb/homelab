@@ -6,6 +6,18 @@
   "kustomize": {
     "pinDigests": true
   },
+  "packageRules": [
+    {
+      "groupName": "Flux",
+      "matchPackageNames": [
+        "fluxcd/flux2",
+        "ghcr.io/fluxcd/source-controller",
+        "ghcr.io/fluxcd/kustomize-controller",
+        "ghcr.io/fluxcd/helm-controller",
+        "ghcr.io/fluxcd/notification-controller"
+      ]
+    }
+  ],
   "branchConcurrentLimit": 15,
   "prConcurrentLimit": 15,
   "ignorePaths": ["infrastructure/controllers/base/synology-csi"]
