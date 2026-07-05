@@ -88,6 +88,23 @@ kubectl create secret generic sops-age \
 
 To create the initial admin user see [infrastructure/controllers/base/forgejo/README.md](infrastructure/controllers/base/forgejo/README.md).
 
+In production, the runner deployment has a `nodeSelector` for
+`forgejo-runner: "true"` in
+`infrastructure/controllers/production/forgejo/kustomization.yaml`. At least
+one schedulable node must have this label:
+
+```bash
+kubectl label node <node-name> forgejo-runner=true
+```
+
+When moving the runner to a different node, add the label to the new node and
+remove it from the old one:
+
+```bash
+kubectl label node <new-node-name> forgejo-runner=true
+kubectl label node <old-node-name> forgejo-runner-
+```
+
 
 ## Monitoring
 
@@ -100,5 +117,4 @@ To access the prometheus UI a port forward is needed to expose it on localhost. 
 ```bash
 kubectl port-forward -n monitoring pod/prometheus-kube-prometheus-stack-prometheus-0 8080:9090
 ```
-
 
