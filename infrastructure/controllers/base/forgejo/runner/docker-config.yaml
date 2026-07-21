@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: forgejo-runner-docker-config
+data:
+  daemon.json: |
+    {
+      "builder": {
+        "gc": {
+          "enabled": true,
+          "defaultKeepStorage": "15GB"
+        }
+      }
+    }

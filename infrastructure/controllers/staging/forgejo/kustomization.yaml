@@ -70,3 +70,39 @@ patches:
       - op: replace
         path: /spec/resources/requests/storage
         value: 10Gi
+
+  - target:
+      kind: ConfigMap
+      name: forgejo-runner-docker-config
+    patch: |-
+      apiVersion: v1
+      kind: ConfigMap
+      metadata:
+        name: forgejo-runner-docker-config
+      data:
+        daemon.json: |
+          {
+            "builder": {
+              "gc": {
+                "enabled": true,
+                "defaultKeepStorage": "3GB"
+              }
+            }
+          }
+
+  - target:
+      kind: Deployment
+      name: forgejo-runner
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: forgejo-runner
+      spec:
+        template:
+          spec:
+            containers:
+              - name: docker-gc
+                env:
+                  - name: BUILDKIT_CACHE_MAX
+                    value: 3gb

@@ -56,6 +56,10 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/docker
               name: docker-storage
+            - mountPath: /etc/docker/daemon.json
+              name: docker-config
+              readOnly: true
+              subPath: daemon.json
         - name: runner
           image: data.forgejo.org/forgejo/runner:12.13.1
           command:
@@ -98,6 +102,60 @@ spec:
               name: runner-data
             - mountPath: /config
               name: config
+        - name: docker-gc
+          image: docker:29-cli
+          command:
+            - sh
+            - -ec
+            - |
+              until docker info >/dev/null 2>&1; do
+                sleep 2
+              done
+
+              while true; do
+                usage="$(
+                  df -P /docker-storage |
+                    awk 'NR == 2 { gsub("%", "", $5); print $5 }'
+                )"
+
+                if [ "$usage" -ge 70 ] && [ -z "$(docker ps --quiet)" ]; then
+                  echo "Docker storage is ${usage}% full; pruning unused data"
+
+                  docker container prune --force
+                  docker volume prune --force
+
+                  docker image ls --format '{{.Repository}}:{{.Tag}}' |
+                    while IFS= read -r image; do
+                      case "$image" in
+                        "$REGISTRY_HOST"/*)
+                          docker image rm "$image" || true
+                          ;;
+                      esac
+                    done
+
+                  docker image prune --force
+                  docker buildx prune \
+                    --force \
+                    --all \
+                    --max-used-space "$BUILDKIT_CACHE_MAX"
+                fi
+
+                sleep 300
+              done
+          env:
+            - name: DOCKER_HOST
+              value: tcp://localhost:2375
+            - name: BUILDKIT_CACHE_MAX
+              value: 15gb
+            - name: REGISTRY_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: REGISTRY_HOST
+                  name: forgejo-runner-secret
+          volumeMounts:
+            - mountPath: /docker-storage
+              name: docker-storage
+              readOnly: true
       initContainers:
         - name: prepare-runner-data
           image: docker:29-dind
@@ -144,6 +202,9 @@ spec:
         - name: docker-storage
           persistentVolumeClaim:
             claimName: forgejo-runner-docker-cache
+        - name: docker-config
+          configMap:
+            name: forgejo-runner-docker-config
         - name: config
           configMap:
             name: forgejo-runner-config
