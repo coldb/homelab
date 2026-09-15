@@ -38,6 +38,17 @@ spec:
 
   replsets:
     - name: rs0
+      affinity:
+        advanced:
+          nodeAffinity:
+            # MongoDB cannot start on prod4's Linux 7.x kernel (MongoDB SERVER-121912).
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: kubernetes.io/hostname
+                      operator: NotIn
+                      values:
+                        - prod4
 
       size: 3
       volumeSpec:
