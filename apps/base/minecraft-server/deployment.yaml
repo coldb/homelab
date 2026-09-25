@@ -20,7 +20,7 @@ spec:
 
       containers:
         - name: minecraft
-          image: itzg/minecraft-server:latest@sha256:18a8f7a0948ef70b6f40fb0a80dd32e666382e5ea287f1f91b93b19e008e8fe6
+          image: itzg/minecraft-server:latest@sha256:f528b51700dda8dcdcca96d0a9b2ae0f0a832a0d1b70eed38f13c41811131dbf
           ports:
             - containerPort: 25565
 
@@ -60,7 +60,7 @@ spec:
 
       containers:
         - name: minecraft-creative
-          image: itzg/minecraft-server:latest@sha256:18a8f7a0948ef70b6f40fb0a80dd32e666382e5ea287f1f91b93b19e008e8fe6
+          image: itzg/minecraft-server:latest@sha256:f528b51700dda8dcdcca96d0a9b2ae0f0a832a0d1b70eed38f13c41811131dbf
           ports:
             - containerPort: 25565
 
