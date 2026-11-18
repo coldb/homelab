@@ -1,0 +1,88 @@
+# Separate from the existing aggregates: no persistent Planner staging stack.
+# Keep suspended until the prerequisites in apps/production/planner/README.md pass.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: planner-config
+  namespace: flux-system
+spec:
+  suspend: true
+  dependsOn:
+    - name: flux-system
+  interval: 5m
+  retryInterval: 1m
+  timeout: 5m
+  path: ./config/production/planner
+  prune: false
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: planner-database
+  namespace: flux-system
+spec:
+  suspend: true
+  dependsOn:
+    - name: flux-system
+    - name: planner-config
+    - name: infrastructure-controllers
+  interval: 5m
+  retryInterval: 1m
+  timeout: 15m
+  path: ./database/production/planner
+  prune: false
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: planner-migrations
+  namespace: flux-system
+spec:
+  suspend: true
+  dependsOn:
+    - name: flux-system
+    - name: planner-database
+  interval: 5m
+  retryInterval: 1m
+  timeout: 15m
+  path: ./apps/production/planner-migrations
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: planner-web
+  namespace: flux-system
+spec:
+  suspend: true
+  dependsOn:
+    # Built-in dependency checks require both resources to have reconciled
+    # this exact Git artifact. The root applies the child specs before either
+    # the migration or web can act on a new revision.
+    - name: flux-system
+    - name: planner-migrations
+  interval: 5m
+  retryInterval: 1m
+  timeout: 10m
+  path: ./apps/production/planner
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

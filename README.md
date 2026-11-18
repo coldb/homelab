@@ -1,5 +1,8 @@
 # homelab
 
+Planner MVP phase 1 resources and activation/release instructions are in
+[apps/production/planner/README.md](apps/production/planner/README.md).
+
 ## Setting up server
 
 Each k3s node (server + every agent) must trust the colddev internal CA so

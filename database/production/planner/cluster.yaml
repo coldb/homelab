@@ -1,0 +1,86 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: planner-db
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  # Must be a reviewed CNPG PostgreSQL 17 image, including Barman tooling.
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.12-system-bookworm@sha256:2b71f805acb6744c3d8d82c29256ee6e0580ea49e7a14e8e99b321a21c674439
+  instances: 3
+  enableSuperuserAccess: false
+  affinity:
+    enablePodAntiAffinity: true
+    podAntiAffinityType: required
+    topologyKey: kubernetes.io/hostname
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: "2"
+      memory: 1Gi
+  storage:
+    size: 2Gi
+    storageClass: longhorn-retain
+  bootstrap:
+    initdb:
+      database: planner
+      owner: planner_db_owner
+      dataChecksums: true
+      secret:
+        name: planner-db-owner
+      postInitApplicationSQLRefs:
+        configMapRefs:
+          - name: planner-db-bootstrap
+            key: bootstrap.sql
+  managed:
+    roles:
+      - name: planner_migrator
+        login: true
+        superuser: false
+        createdb: false
+        createrole: false
+        replication: false
+        passwordSecret:
+          name: planner-migrations-db
+      - name: planner_api
+        login: true
+        superuser: false
+        createdb: false
+        createrole: false
+        replication: false
+        passwordSecret:
+          name: planner-api-db
+  postgresql:
+    parameters:
+      max_connections: "50"
+      shared_buffers: 128MB
+      min_wal_size: 80MB
+      max_wal_size: 256MB
+      max_slot_wal_keep_size: 256MB
+      archive_timeout: 1h
+      checkpoint_timeout: 5min
+    pg_hba:
+      - hostnossl all all all reject
+  backup:
+    # Existing operator's built-in Barman integration; review alongside the
+    # mandatory operator upgrade before activation (see README).
+    barmanObjectStore:
+      destinationPath: s3://production-backup-planner-db/v1
+      s3Credentials:
+        accessKeyId:
+          name: planner-backup
+          key: AWS_ACCESS_KEY_ID
+        secretAccessKey:
+          name: planner-backup
+          key: AWS_SECRET_ACCESS_KEY
+      data:
+        compression: gzip
+        encryption: AES256
+      wal:
+        compression: gzip
+        encryption: AES256
+    retentionPolicy: 7d
+  monitoring:
+    enablePodMonitor: true
