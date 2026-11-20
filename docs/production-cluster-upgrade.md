@@ -197,9 +197,10 @@ Status on 2026-11-20. Recheck live health and backup freshness before the window
   directory, and the server token file is present.
 - [x] Verify independent host access with sudo. The operator confirmed that
   `sudo systemctl is-active k3s` returned `active` on `lab1`.
-- [ ] Record the staging interruption window. Capture and validate the stopped
-  SQLite backup and matching server token off-node before the first chart
-  hop, and record the matching K3s version and rollback point.
+- [ ] Capture and validate the stopped SQLite backup and matching server
+  token off-node before the first chart hop. Staging can go offline when
+  the operator and the recovery key are ready. Record the matching K3s
+  version and rollback point.
 - [x] Render the staging-only first chart pin `0.25.0` for CNPG `1.26.1`.
   The staging render changes only that pin and the production overlay renders
   identically. Apply the pin during the approved rehearsal window.
@@ -248,10 +249,16 @@ anything. The current staging inventory includes these writers and schedules.
 
 Use the host session to stop K3s after the cluster-side quiesce and detachment
 checks. Capture the full SQLite `server/db/` directory and matching token in
-protected off-node storage. Verify permissions, transfer integrity, and
-SQLite integrity on a disposable copy. Record the running K3s version and
-applied Git revision with the checkpoint. For this initial checkpoint,
-restart the existing K3s binary, restore staged services, and verify Flux,
+protected off-node storage. The staging backup destination is
+`s3://staging-backup-longhorn/k3s/lab1/`. Upload and readback succeeded at
+this prefix. Encrypt the archive before uploading it and keep its private
+recovery key outside staging and S3.
+
+Verify the transfer and run SQLite's integrity check on a disposable
+decrypted copy. Record the running K3s version and applied Git revision
+with the checkpoint. For this initial checkpoint, restart the existing
+K3s binary. Keep application writers stopped until the protected off-node
+copy passes verification, then restore staged services and verify Flux,
 Forgejo, n8n and backup health before applying the CNPG chart pin.
 
 ### Rehearsal sequence
