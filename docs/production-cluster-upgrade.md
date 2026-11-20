@@ -22,9 +22,9 @@ Read-only inventory on 2026-11-18.
 | PostgreSQL | Forgejo and n8n, one instance each, on 17.2 | Colddev, Forgejo, Ledgerly and n8n on 17.2. Colddev has one instance, the others have three |
 | Longhorn | `1.11.1`, V1 volumes. 14 attached and healthy, 5 detached | `1.11.1`, V1 volumes. 25 attached and healthy, 5 detached |
 
-**Staging is blocked.** n8n has no ready primary, the application is crashing,
-and recent CNPG Backup objects are pending. Repair n8n separately and pass the staging
-baseline in step 3 before the first chart change.
+**Staging n8n was blocked at inventory.** The database and application were
+recovered on 2026-11-20. See the staging preflight checklist in step 3 for the
+remaining entry gates.
 
 **Production is blocked.** Ledgerly reports `walArchivingFailing` and has no
 reported last successful backup. Verify a completed backup and its WAL in S3.
@@ -178,6 +178,47 @@ while the Ledgerly repair is pending. Production waits for the backup checks.
 application read/write, and a fresh completed CNPG backup with the required WAL
 in S3 for **both Forgejo and n8n**. Stop until n8n passes the same checks as
 Forgejo.
+
+### Staging preflight checklist
+
+Status on 2026-11-20. Recheck live health and backup freshness before the window.
+
+- [x] Recover n8n. The app uses `n8n-db-staging-cluster-v2`, applied its schema
+  migrations, and passed its readiness check. Keep the old volumes retained.
+- [x] Verify both active CNPG primaries and their latest base backup and WAL
+  objects in S3. Forgejo repository reads also passed.
+- [ ] Complete a controlled Forgejo application write and readback.
+- [ ] Complete the Longhorn backup and restore checks below.
+- [ ] Record `lab1`'s datastore type and off-node backup and server-token
+  locations. Verify the matching recovery procedure and host access.
+- [ ] Record the staging interruption window and confirm the first hop's
+  staging-only chart pin and rollback point.
+- [ ] Decide whether to repair or record the existing staging Forgejo runner
+  and Ledgerly Flux failures as outside the rehearsal checks.
+
+### Longhorn backup and restore checks
+
+The staging S3 target is available. Twelve latest volume backup metadata
+objects were verified in S3. Both active CNPG database volumes are covered by
+their native backups. The active Forgejo repositories and n8n files have
+completed Longhorn backups.
+
+- [ ] Back up the Grafana PVC or record a verified export and recovery method.
+  Record the Forgejo runner Docker cache as rebuildable after confirming it
+  holds no required data.
+- [ ] Check the two detached Minecraft world volumes and the two retained n8n
+  database volumes for unique data. Record the existing recovery point where
+  it covers the retained data. Back up any uncovered volume that must be kept.
+- [ ] Create a one-off staging `SystemBackup` with `spec.volumeBackupPolicy`
+  set to `disabled`. Wait for `Ready` and verify its bundle in the default S3 target.
+  Record its name and timestamp alongside the separate volume and database
+  recovery artifacts. [Longhorn system backup](https://longhorn.io/docs/1.11.1/advanced-resources/system-backup-restore/backup-longhorn-system/)
+- [ ] Restore the completed `forgejo-data` backup into a new test volume and
+  claim. Mount the claim read-only in a disposable Pod and verify repository
+  integrity. Record the backup ID and result, then remove the test resources.
+  [Longhorn volume restore](https://longhorn.io/docs/1.11.1/snapshots-and-backups/backup-and-restore/restore-from-a-backup/)
+
+### Rehearsal sequence
 
 Schedule a staging interruption for the single-node sequence below. Use the
 rehearsal to validate charts, volume reattachment, and backups. Record
