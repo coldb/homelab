@@ -19,6 +19,9 @@ patches:
       name: longhorn
     patch: |-
       - op: replace
+        path: /spec/chart/spec/version
+        value: "1.12.2"
+      - op: replace
         path: /spec/values/defaultSettings/defaultReplicaCount
         value: "1"
 
