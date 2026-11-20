@@ -197,10 +197,9 @@ Status on 2026-11-20. Recheck live health and backup freshness before the window
   directory, and the server token file is present.
 - [x] Verify independent host access with sudo. The operator confirmed that
   `sudo systemctl is-active k3s` returned `active` on `lab1`.
-- [ ] Capture and validate the stopped SQLite backup and matching server
-  token off-node before the first chart hop. Staging can go offline when
-  the operator and the recovery key are ready. Record the matching K3s
-  version and rollback point.
+- [x] Capture and validate the stopped SQLite backup and matching server
+  token off-node before the first chart hop. The archive was retrieved from
+  S3, decrypted, and verified with SQLite `PRAGMA integrity_check`.
 - [x] Render the staging-only first chart pin `0.25.0` for CNPG `1.26.1`.
   The staging render changes only that pin and the production overlay renders
   identically. Apply the pin during the approved rehearsal window.
@@ -260,6 +259,18 @@ with the checkpoint. For this initial checkpoint, restart the existing
 K3s binary. Keep application writers stopped until the protected off-node
 copy passes verification, then restore staged services and verify Flux,
 Forgejo, n8n and backup health before applying the CNPG chart pin.
+
+The initial checkpoint was verified on 2026-11-20. It contains the stopped
+SQLite datastore and matching server token for `v1.32.5+k3s1` at applied
+revision `d96d5e9d3604a3510676cff17922dfcc6e616c5c`. The encrypted archive is
+`s3://staging-backup-longhorn/k3s/lab1/pre-rehearsal-20261120T175336Z.tar.gz.age`.
+Its SHA-256 is `3e349f3ac7783ce9dfb2fcce9d029c28e25cd73e858b58d000ccb098848a0ee1`.
+The temporary plaintext copy was removed after verification.
+
+An earlier attempt exposed a stuck Forgejo PVC expansion. The controlled
+power cycle cleared the stale iSCSI attachment and let Longhorn detach the
+expanded volume. The filesystem resize completed when CNPG remounted the
+Forgejo PVC, which now reports `5Gi`.
 
 ### Rehearsal sequence
 
