@@ -195,8 +195,8 @@ Status on 2026-11-20. Recheck live health and backup freshness before the window
 - [x] Complete the Longhorn backup and restore checks below.
 - [x] Identify `lab1`'s datastore. It uses SQLite at the default K3s data
   directory, and the server token file is present.
-- [ ] Verify independent console or SSH access with sudo. Staging handles
-  workloads on `lab1`, so recovery access must work during an API outage.
+- [x] Verify independent host access with sudo. The operator confirmed that
+  `sudo systemctl is-active k3s` returned `active` on `lab1`.
 - [ ] Record the staging interruption window. Capture and validate the stopped
   SQLite backup and matching server token off-node before the first chart
   hop, and record the matching K3s version and rollback point.
@@ -230,6 +230,29 @@ completed Longhorn backups.
   test volume and claim. The isolated Pod mounted it read-only and `git fsck`
   passed on both repositories. Removed the test resources afterward.
   [Longhorn volume restore](https://longhorn.io/docs/1.11.1/snapshots-and-backups/backup-and-restore/restore-from-a-backup/)
+
+### Initial lab1 recovery checkpoint
+
+Use the [stopped-writer recovery procedure](#capture-a-recovery-point-with-writers-stopped)
+in the agreed interruption window. Reconfirm the inventory before stopping
+anything. The current staging inventory includes these writers and schedules.
+
+- Deployments with storage are Audiobookshelf, Forgejo, Forgejo runner,
+  Linkding, both Minecraft servers, Grafana, n8n, and pgAdmin. Include the
+  Forgejo runner even while its init container is failing because it mounts
+  the Docker cache volume.
+- The active CNPG clusters are `forgejo-db-staging-cluster-v1` and
+  `n8n-db-staging-cluster-v2`. The old n8n backup schedule is already suspended.
+- The active schedules are Longhorn `daily-backup` and `hourly-snapshot`,
+  Renovate, and both active CNPG backup schedules. Save their current state.
+
+Use the host session to stop K3s after the cluster-side quiesce and detachment
+checks. Capture the full SQLite `server/db/` directory and matching token in
+protected off-node storage. Verify permissions, transfer integrity, and
+SQLite integrity on a disposable copy. Record the running K3s version and
+applied Git revision with the checkpoint. For this initial checkpoint,
+restart the existing K3s binary, restore staged services, and verify Flux,
+Forgejo, n8n and backup health before applying the CNPG chart pin.
 
 ### Rehearsal sequence
 
