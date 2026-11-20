@@ -21,4 +21,14 @@ patches:
     patch: |-
       - op: replace
         path: /data/DB_POSTGRESDB_HOST
-        value: n8n-db-staging-cluster-v1-rw.n8n.svc.cluster.local
+        value: n8n-db-staging-cluster-v2-rw.n8n.svc.cluster.local
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: n8n
+      spec:
+        template:
+          metadata:
+            annotations:
+              colddev.net/database-cluster: n8n-db-staging-cluster-v2
