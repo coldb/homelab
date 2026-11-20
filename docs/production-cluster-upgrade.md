@@ -189,14 +189,24 @@ Status on 2026-11-20. Recheck live health and backup freshness before the window
   CNPG cluster's detached volume still has a bound claim.
 - [x] Verify both active CNPG primaries and their latest base backup and WAL
   objects in S3. Forgejo repository reads also passed.
-- [ ] Complete a controlled Forgejo application write and readback.
-- [ ] Complete the Longhorn backup and restore checks below.
-- [ ] Record `lab1`'s datastore type and off-node backup and server-token
-  locations. Verify the matching recovery procedure and host access.
-- [ ] Record the staging interruption window and confirm the first hop's
-  staging-only chart pin and rollback point.
-- [ ] Decide whether to repair or record the existing staging Forgejo runner
-  and Ledgerly Flux failures as outside the rehearsal checks.
+- [x] Complete a controlled Forgejo application write and readback. Verified
+  a file in a disposable private repository, then removed the repository,
+  test account, and token.
+- [x] Complete the Longhorn backup and restore checks below.
+- [x] Identify `lab1`'s datastore. It uses SQLite at the default K3s data
+  directory, and the server token file is present.
+- [ ] Verify independent console or SSH access with sudo. Staging handles
+  workloads on `lab1`, so recovery access must work during an API outage.
+- [ ] Record the staging interruption window. Capture and validate the stopped
+  SQLite backup and matching server token off-node before the first chart
+  hop, and record the matching K3s version and rollback point.
+- [x] Render the staging-only first chart pin `0.25.0` for CNPG `1.26.1`.
+  The staging render changes only that pin and the production overlay renders
+  identically. Apply the pin during the approved rehearsal window.
+- [x] Record known staging failures outside the rehearsal checks. Forgejo
+  runner registration is already failing, and Ledgerly's Flux migration has
+  no staging namespace. Check the Forgejo and n8n services and databases
+  during each hop.
 
 ### Longhorn backup and restore checks
 
@@ -207,16 +217,15 @@ completed Longhorn backups.
 
 - [x] Confirmed the Forgejo runner cache is mounted as Docker's working
   storage and can be rebuilt from image pulls and builds.
-- [ ] Record a verified Grafana export and recovery method, or agree that
-  its staging data is disposable. The temporary Grafana S3 backup was
-  removed under the retention decision for this work.
+- [x] Treat staging Grafana data as disposable. The temporary Grafana S3
+  backup was removed under the retention decision for this work.
 - [x] Preserved both detached Minecraft world volumes. Verified the S3
   metadata for home world backup `backup-85ae3b36c020422e` and creative world
   backup `backup-62b77d61201b4ec0` on 2026-11-20. Both volumes are detached.
-- [ ] Create a one-off staging `SystemBackup` with `spec.volumeBackupPolicy`
-  set to `disabled`. Wait for `Ready` and verify its bundle in the default S3 target.
-  Record its name and timestamp alongside the separate volume and database
-  recovery artifacts. [Longhorn system backup](https://longhorn.io/docs/1.11.1/advanced-resources/system-backup-restore/backup-longhorn-system/)
+- [x] Created metadata-only `SystemBackup` `staging-pre-rehearsal-20261120`
+  with `spec.volumeBackupPolicy: disabled`. Longhorn reported `Ready` at
+  14:05 UTC, and the S3 configuration and ZIP integrity checks passed.
+  [Longhorn system backup](https://longhorn.io/docs/1.11.1/advanced-resources/system-backup-restore/backup-longhorn-system/)
 - [x] Restored `forgejo-data` from `backup-a7e24d398a6347ca` into a separate
   test volume and claim. The isolated Pod mounted it read-only and `git fsck`
   passed on both repositories. Removed the test resources afterward.
