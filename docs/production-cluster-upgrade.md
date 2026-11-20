@@ -184,7 +184,9 @@ Forgejo.
 Status on 2026-11-20. Recheck live health and backup freshness before the window.
 
 - [x] Recover n8n. The app uses `n8n-db-staging-cluster-v2`, applied its schema
-  migrations, and passed its readiness check. Keep the old volumes retained.
+  migrations, and passed its readiness check. Removed two released n8n volumes
+  after verifying that neither had a live claim or attachment. The original
+  CNPG cluster's detached volume still has a bound claim.
 - [x] Verify both active CNPG primaries and their latest base backup and WAL
   objects in S3. Forgejo repository reads also passed.
 - [ ] Complete a controlled Forgejo application write and readback.
@@ -203,19 +205,21 @@ objects were verified in S3. Both active CNPG database volumes are covered by
 their native backups. The active Forgejo repositories and n8n files have
 completed Longhorn backups.
 
-- [ ] Back up the Grafana PVC or record a verified export and recovery method.
-  Record the Forgejo runner Docker cache as rebuildable after confirming it
-  holds no required data.
-- [ ] Check the two detached Minecraft world volumes and the two retained n8n
-  database volumes for unique data. Record the existing recovery point where
-  it covers the retained data. Back up any uncovered volume that must be kept.
+- [x] Confirmed the Forgejo runner cache is mounted as Docker's working
+  storage and can be rebuilt from image pulls and builds.
+- [ ] Record a verified Grafana export and recovery method, or agree that
+  its staging data is disposable. The temporary Grafana S3 backup was
+  removed under the retention decision for this work.
+- [x] Preserved both detached Minecraft world volumes. Verified the S3
+  metadata for home world backup `backup-85ae3b36c020422e` and creative world
+  backup `backup-62b77d61201b4ec0` on 2026-11-20. Both volumes are detached.
 - [ ] Create a one-off staging `SystemBackup` with `spec.volumeBackupPolicy`
   set to `disabled`. Wait for `Ready` and verify its bundle in the default S3 target.
   Record its name and timestamp alongside the separate volume and database
   recovery artifacts. [Longhorn system backup](https://longhorn.io/docs/1.11.1/advanced-resources/system-backup-restore/backup-longhorn-system/)
-- [ ] Restore the completed `forgejo-data` backup into a new test volume and
-  claim. Mount the claim read-only in a disposable Pod and verify repository
-  integrity. Record the backup ID and result, then remove the test resources.
+- [x] Restored `forgejo-data` from `backup-a7e24d398a6347ca` into a separate
+  test volume and claim. The isolated Pod mounted it read-only and `git fsck`
+  passed on both repositories. Removed the test resources afterward.
   [Longhorn volume restore](https://longhorn.io/docs/1.11.1/snapshots-and-backups/backup-and-restore/restore-from-a-backup/)
 
 ### Rehearsal sequence
