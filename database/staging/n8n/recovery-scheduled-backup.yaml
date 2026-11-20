@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: n8n-db-backup-v2
+spec:
+  backupOwnerReference: cluster
+  cluster:
+    name: n8n-db-staging-cluster-v2
+  immediate: true
+  schedule: "0 0 2 * * *"

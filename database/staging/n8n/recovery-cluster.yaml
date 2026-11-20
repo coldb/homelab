@@ -1,0 +1,61 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: n8n-db-staging-cluster-v2
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.2
+  bootstrap:
+    recovery:
+      source: stagingArchive
+      database: n8n
+      owner: n8n
+      secret:
+        name: n8n-db-app-user-secret
+      recoveryTarget:
+        backupID: "20260426T020001"
+  externalClusters:
+    - name: stagingArchive
+      barmanObjectStore:
+        destinationPath: s3://staging-backup-n8n-db/v2
+        serverName: n8n-db-staging-cluster-v1
+        s3Credentials:
+          accessKeyId:
+            name: aws-backup-credentials
+            key: AWS_ACCESS_KEY_ID
+          secretAccessKey:
+            name: aws-backup-credentials
+            key: AWS_SECRET_ACCESS_KEY
+  backup:
+    barmanObjectStore:
+      # Recovery requires a fresh archive for writes.
+      destinationPath: s3://staging-backup-n8n-db/v3
+      s3Credentials:
+        accessKeyId:
+          name: aws-backup-credentials
+          key: AWS_ACCESS_KEY_ID
+        secretAccessKey:
+          name: aws-backup-credentials
+          key: AWS_SECRET_ACCESS_KEY
+      data:
+        compression: gzip
+        encryption: AES256
+      wal:
+        compression: gzip
+        encryption: AES256
+    retentionPolicy: 14d
+  postgresql:
+    parameters:
+      archive_timeout: "12h"
+      checkpoint_timeout: "30min"
+      max_wal_size: "4GB"
+  monitoring:
+    enablePodMonitor: true
+  storage:
+    pvcTemplate:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 3Gi
+      storageClassName: longhorn-retain

@@ -3,6 +3,8 @@ kind: Kustomization
 namespace: n8n
 resources:
   - ../../base/n8n/
+  - recovery-cluster.yaml
+  - recovery-scheduled-backup.yaml
   - secret-app-user.enc.yaml
 
 patches:
@@ -39,3 +41,6 @@ patches:
       - op: replace
         path: /spec/cluster/name
         value: n8n-db-staging-cluster-v1
+      - op: add
+        path: /spec/suspend
+        value: true
