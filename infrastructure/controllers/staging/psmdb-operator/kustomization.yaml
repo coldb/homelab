@@ -1,40 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: psmdb-system
-resources:
-  - ../../base/psmdb-operator/
-  - ../../base/psmdb-operator-crds/
-
-patches:
-  - target:
-      kind: HelmRelease
-      name: psmdb
-    patch: |-
-      - op: replace
-        path: /spec/chart/spec/version
-        value: "1.23.1"
-      # The 1.23.1 chart defaults to the 1.23.0 controller.
-      - op: add
-        path: /spec/values/image
-        value:
-          tag: "1.23.1"
-      - op: add
-        path: /spec/dependsOn
-        value:
-          - name: psmdb-operator-crds
-      - op: add
-        path: /spec/install
-        value:
-          crds: Skip
-      - op: add
-        path: /spec/upgrade
-        value:
-          crds: Skip
-
-  - target:
-      kind: HelmRelease
-      name: psmdb-operator-crds
-    patch: |-
-      - op: replace
-        path: /spec/chart/spec/version
-        value: "1.23.1"
+resources: []
+  # - ../../base/psmdb-operator/
