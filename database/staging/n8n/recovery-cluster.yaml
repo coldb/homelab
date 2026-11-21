@@ -4,7 +4,7 @@ metadata:
   name: n8n-db-staging-cluster-v2
 spec:
   instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.2
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.12-system-bookworm@sha256:7bfe2e96f4592b1dcfa8669810f571192b860b99732ba552e8abd34824af5927
   bootstrap:
     recovery:
       source: stagingArchive
