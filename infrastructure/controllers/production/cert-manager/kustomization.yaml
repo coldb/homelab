@@ -7,3 +7,12 @@ resources:
   - ../../base/cert-manager/
   - colddevnet-ca-secret.enc.yaml
   - cloudflare-api-token.enc.yaml
+
+patches:
+  - target:
+      kind: HelmRelease
+      name: cert-manager
+    patch: |-
+      - op: replace
+        path: /spec/chart/spec/version
+        value: "v1.19.6"
