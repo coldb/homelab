@@ -11,7 +11,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/chart/spec/version
-        value: "84.5.0"
+        value: "93.6.1"
 
   - target:
       kind: HelmRelease
