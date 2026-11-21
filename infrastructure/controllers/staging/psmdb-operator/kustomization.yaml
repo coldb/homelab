@@ -12,7 +12,12 @@ patches:
     patch: |-
       - op: replace
         path: /spec/chart/spec/version
-        value: "1.22.0"
+        value: "1.23.1"
+      # The 1.23.1 chart defaults to the 1.23.0 controller.
+      - op: add
+        path: /spec/values/image
+        value:
+          tag: "1.23.1"
       - op: add
         path: /spec/dependsOn
         value:
