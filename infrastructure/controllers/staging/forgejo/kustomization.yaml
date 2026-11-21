@@ -9,6 +9,14 @@ resources:
   - secrets-runner.enc.yaml
 
 patches:
+  - patch: |-
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: forgejo
+        labels:
+          app.kubernetes.io/component: monitoring
+
   - target:
       kind: Ingress
       name: forgejo

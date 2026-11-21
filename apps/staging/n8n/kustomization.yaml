@@ -8,6 +8,13 @@ resources:
   - ../../../shared/cloudflared/
 
 patches:
+  - patch: |-
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: n8n
+        labels:
+          app.kubernetes.io/component: monitoring
   - target:
       kind: PersistentVolumeClaim
       name: n8n-data-longhorn-backup-pvc
