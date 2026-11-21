@@ -9,6 +9,9 @@ patches:
       name: rocketchat-db-production-cluster-v1
     patch: |-
       - op: replace
+        path: /spec/crVersion
+        value: "1.22.0"
+      - op: replace
         path: /spec/image
         value: percona/percona-server-mongodb:8.0.38-16@sha256:60ec65283ad2108622762910fc964ed4a2617efd05301c691dcb203a04566d97
       - op: replace
