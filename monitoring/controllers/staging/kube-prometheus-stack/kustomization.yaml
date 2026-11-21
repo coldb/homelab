@@ -8,6 +8,14 @@ patches:
   - target:
       kind: HelmRelease
       name: kube-prometheus-stack
+    patch: |-
+      - op: replace
+        path: /spec/chart/spec/version
+        value: "83.7.0"
+
+  - target:
+      kind: HelmRelease
+      name: kube-prometheus-stack
       namespace: monitoring
     patch: |-
       - op: replace
