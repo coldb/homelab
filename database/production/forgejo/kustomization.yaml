@@ -5,6 +5,15 @@ resources:
   - ../../base/forgejo/
   - secret-db-credentials.enc.yaml
 
+patches:
+  - target:
+      kind: Cluster
+      name: forgejo-db-production-cluster-v1
+    patch: |-
+      - op: add
+        path: /spec/imageName
+        value: ghcr.io/cloudnative-pg/postgresql:17.12-system-bookworm@sha256:7bfe2e96f4592b1dcfa8669810f571192b860b99732ba552e8abd34824af5927
+
 # Patch to help restore to a specific backup
 # patches:
 #   - target:
