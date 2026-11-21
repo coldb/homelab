@@ -3,3 +3,18 @@ kind: Kustomization
 namespace: rocketchat
 resources:
   - ../../base/rocketchat/
+patches:
+  - target:
+      kind: PerconaServerMongoDB
+      name: rocketchat-db-production-cluster-v1
+    patch: |-
+      - op: add
+        path: /spec/updateStrategy
+        value: OnDelete
+      - op: replace
+        path: /spec/image
+        value: percona/percona-server-mongodb:8.0.38-16@sha256:60ec65283ad2108622762910fc964ed4a2617efd05301c691dcb203a04566d97
+      - op: replace
+        path: /spec/replsets/0/affinity
+        value:
+          antiAffinityTopologyKey: kubernetes.io/hostname
