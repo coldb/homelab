@@ -18,3 +18,6 @@ patches:
         path: /spec/replsets/0/affinity
         value:
           antiAffinityTopologyKey: kubernetes.io/hostname
+      - op: replace
+        path: /spec/replsets/0/sidecars/0/image
+        value: percona/mongodb_exporter@sha256:afc6fe95557f506fcf9251f9363592c80abfedad506266d891db5d4c8d9be273
