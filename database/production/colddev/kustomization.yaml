@@ -4,11 +4,3 @@ namespace: colddev
 resources:
   - ../../base/colddev/
   - secret-app-user.enc.yaml
-patches:
-  - target:
-      kind: Cluster
-      name: colddev-db-production-cluster-v1
-    patch: |-
-      - op: replace
-        path: /spec/instances
-        value: 2
