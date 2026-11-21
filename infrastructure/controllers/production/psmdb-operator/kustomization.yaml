@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: psmdb-system
 resources:
   - ../../base/psmdb-operator/
+  - ../../base/psmdb-operator-crds/
