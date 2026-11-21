@@ -25,3 +25,11 @@ patches:
         path: /spec/upgrade
         value:
           crds: Skip
+
+  - target:
+      kind: HelmRelease
+      name: psmdb-operator-crds
+    patch: |-
+      - op: replace
+        path: /spec/chart/spec/version
+        value: "1.23.1"
