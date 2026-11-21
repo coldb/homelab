@@ -1,0 +1,24 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: psmdb-operator-crds
+  namespace: psmdb-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: psmdb-operator-crds
+      version: "1.22.0"
+      sourceRef:
+        kind: HelmRepository
+        name: psmdb
+        namespace: psmdb-system
+      interval: 12h
+  install:
+    disableTakeOwnership: false
+    strategy:
+      name: RetryOnFailure
+  commonMetadata:
+    annotations:
+      # The 1.22.0 chart predates Percona's preserveCrds option.
+      helm.sh/resource-policy: keep
