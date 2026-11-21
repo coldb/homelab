@@ -3,3 +3,11 @@ kind: Kustomization
 namespace: cnpg-system
 resources:
   - ../../base/cloudnativepg/
+patches:
+  - target:
+      kind: HelmRelease
+      name: cnpg
+    patch: |-
+      - op: replace
+        path: /spec/chart/spec/version
+        value: "0.25.0"
