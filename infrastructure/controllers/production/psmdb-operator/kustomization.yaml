@@ -4,3 +4,24 @@ namespace: psmdb-system
 resources:
   - ../../base/psmdb-operator/
   - ../../base/psmdb-operator-crds/
+
+patches:
+  - target:
+      kind: HelmRelease
+      name: psmdb
+    patch: |-
+      - op: replace
+        path: /spec/chart/spec/version
+        value: "1.22.0"
+      - op: add
+        path: /spec/dependsOn
+        value:
+          - name: psmdb-operator-crds
+      - op: add
+        path: /spec/install
+        value:
+          crds: Skip
+      - op: add
+        path: /spec/upgrade
+        value:
+          crds: Skip
