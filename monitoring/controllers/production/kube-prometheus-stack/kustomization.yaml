@@ -11,4 +11,4 @@ patches:
     patch: |-
       - op: replace
         path: /spec/chart/spec/version
-        value: "83.7.0"
+        value: "84.5.0"
