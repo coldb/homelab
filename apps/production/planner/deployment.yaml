@@ -29,7 +29,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: web
-          image: planner-release-image
+          image: forgejo.colddev.net/coldb/planner
           imagePullPolicy: IfNotPresent
           workingDir: /app/apps/web
           command: [node, /app/launch.mjs, serve]
@@ -45,6 +45,11 @@ spec:
               value: "8080"
             - name: APP_ORIGIN
               value: https://planner.colddev.net
+            - name: CLERK_PUBLISHABLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: planner-clerk
+                  key: CLERK_PUBLISHABLE_KEY
             - name: CLERK_SECRET_KEY
               valueFrom:
                 secretKeyRef:

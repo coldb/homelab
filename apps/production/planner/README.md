@@ -6,22 +6,26 @@ Tunnel and a manual Job for user admission and disablement.
 
 ## Prepare the first release
 
-1. Configure the Planner production Clerk instance for invitation-only sign-up
-   and use `https://planner.colddev.net` as the app origin. Set the public
-   `VITE_CLERK_PUBLISHABLE_KEY` variable in Planner’s Forgejo repository, then
-   dispatch **Publish Planner image** on `main`. Copy the immutable image
-   reference from the run summary. [Planner repository](https://forgejo.colddev.net/coldb/planner)
-2. Create a locally managed tunnel with `cloudflared tunnel create planner`
-   after authenticating with `cloudflared tunnel login`. Set its UUID in
-   `cloudflared-config.yaml` and register the DNS record with
-   `cloudflared tunnel route dns <UUID> planner.colddev.net`.
-3. Prepare the Clerk, registry and Cloudflare credentials and add their
-   SOPS-encrypted files to the Planner config overlay.
+1. Merge the Planner image PR. A push to Planner’s `main` runs the checks and
+   publishes `forgejo.colddev.net/coldb/planner:latest`. Copy the digest from
+   the **Check and publish Planner** run summary for the merged commit.
+   [Planner repository](https://forgejo.colddev.net/coldb/planner)
+2. Configure the Planner production Clerk instance for invitation-only sign-up
+   and use `https://planner.colddev.net` as the app origin. Copy its
+   `CLERK_PUBLISHABLE_KEY` (`pk_live_…`) and `CLERK_SECRET_KEY` (`sk_live_…`)
+   into the Clerk Secret template. The pod reads both keys at runtime.
+3. Log in with `cloudflared tunnel login`, then create the locally managed
+   tunnel with `cloudflared tunnel create planner`. Set its UUID in
+   `cloudflared-config.yaml` and register DNS with
+   `cloudflared tunnel route dns <UUID> planner.colddev.net`. Use the generated
+   `<UUID>.json` credentials in the tunnel Secret template.
+4. Prepare the Forgejo registry pull credentials. Encrypt the Clerk, registry
+   and Cloudflare Secret files and add them to the Planner config overlay.
    [Application secrets](../../../config/production/planner/secrets/README.md)
-4. In `apps/production/planner-release/kustomization.yaml`, set the published
-   image digest and a unique migration Job name, such as `planner-migrate-r1`.
-   The release component supplies the same image, verified writer hostname and
-   CNPG CA to web, migration and operator workloads.
+5. In `apps/production/planner-release/kustomization.yaml`, set `newTag` to
+   `latest@sha256:<published-digest>`. The release component supplies the same
+   image, verified writer hostname and CNPG CA to web, migration and operator
+   workloads.
 
 Run the checks from the homelab root with Python, PyYAML and `kubectl`:
 
@@ -46,12 +50,15 @@ kubectl --context homelab-prod -n planner rollout status deployment/planner-web
 kubectl --context homelab-prod -n planner rollout status deployment/planner-tunnel
 ```
 
-Flux waits for the migration Job to succeed on the same Git revision before
-applying the web and tunnel Deployments. The Job runs the reviewed SQL, verifies
-dataset `todo-1` and stays available for inspection until the next release.
-Choose a new Job name when changing the digest, writer, CA, or Job settings.
-Review migration compatibility with the running web image before an update.
-Use a fresh Job name for a corrected release or a schema-compatible rollback.
+Flux waits for `planner-migrate` to succeed on the same Git revision before
+applying the web and tunnel Deployments. Flux recreates this Job when the image
+or other immutable fields change. The Job runs the reviewed SQL and verifies
+dataset `todo-1`.
+
+For later releases, Renovate proposes the new `latest` digest in a homelab PR.
+Review migration compatibility with the running web image before merging. If a
+migration fails, review its logs and publish a corrected release. To roll back,
+pin a known schema-compatible digest.
 
 Network policies limit web ingress to the Tunnel and let the web, migration
 and operator pods reach PostgreSQL. Web can reach public HTTPS for Clerk, and
@@ -187,9 +194,9 @@ For a manual restore:
    password reconciliation and the replacement's first backup at its new prefix.
 4. In the same cutover revision, set the shared release component's writer and
    CA to `planner-db-restore-rw.planner.svc.cluster.local` and
-   `planner-db-restore-ca`. Choose a new migration Job name. Run the activation
-   checker from this revision to verify the recovery, CA and schedule. Keep
-   migrations and web suspended until `planner-database` is Ready on that Git revision.
+   `planner-db-restore-ca`. Run the activation checker from this revision to
+   verify the recovery, CA and schedule. Keep migrations and web suspended
+   until `planner-database` is Ready on that Git revision.
    Resume migrations and verify the new Job and restored data.
 5. Compare restored admissions by stable identity with current Clerk state and
    newer Planner statuses or operator records. Reapply disablements made after

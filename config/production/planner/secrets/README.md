@@ -6,11 +6,11 @@ files stay outside the Kustomization.
 
 | Template | Value to supply |
 | --- | --- |
-| `planner-clerk.secret.example.yaml` | Backend secret key from the Planner Clerk production instance |
+| `planner-clerk.secret.example.yaml` | `CLERK_PUBLISHABLE_KEY` (`pk_live_…`) and `CLERK_SECRET_KEY` (`sk_live_…`) from the same Planner production instance |
 | `planner-registry.secret.example.yaml` | Forgejo username and package-read token in Docker config JSON |
 | `planner-cloudflare.secret.example.yaml` | Full `<UUID>.json` credential file from the locally managed tunnel |
 
-The registry token needs read access to the Planner package. Keep the
+Use a Forgejo token with package-read scope from an account that can pull the\nPlanner package. Keep the
 Cloudflare account `cert.pem` on the machine that provisions the tunnel.
 Use the same tunnel UUID in `apps/production/planner/cloudflared-config.yaml`.
 Kubernetes converts `stringData` to base64 when it creates the Secret.

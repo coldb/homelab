@@ -26,7 +26,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: operator
-          image: planner-release-image
+          image: forgejo.colddev.net/coldb/planner
           workingDir: /app/apps/web
           command: [node, /app/launch.mjs, operator]
           args: [status, user_REPLACE_ME]

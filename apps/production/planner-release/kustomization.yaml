@@ -1,9 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 images:
-  - name: planner-release-image
-    newName: forgejo.colddev.net/coldb/planner
-    digest: sha256:REPLACE_WITH_PUBLISHED_PLANNER_DIGEST
+  - name: forgejo.colddev.net/coldb/planner
+    newTag: latest@sha256:REPLACE_WITH_PUBLISHED_PLANNER_DIGEST
 replacements:
   # Keep all consumers on the same verified writer and CA during restore.
   - sourceValue: planner-db-rw.planner.svc.cluster.local
@@ -30,9 +29,3 @@ replacements:
           name: planner-web
         fieldPaths:
           - spec.template.spec.volumes.[name=db-ca].secret.secretName
-  - sourceValue: planner-migrate-unconfigured
-    targets:
-      - select:
-          kind: Job
-          name: planner-migrate
-        fieldPaths: [metadata.name]

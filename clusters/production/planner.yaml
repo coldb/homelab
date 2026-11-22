@@ -61,6 +61,8 @@ spec:
   path: ./apps/production/planner-migrations
   prune: true
   wait: true
+  # Recreate the fixed-name Job when its image or other immutable fields change.
+  force: true
   sourceRef:
     kind: GitRepository
     name: flux-system

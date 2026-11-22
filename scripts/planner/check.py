@@ -11,7 +11,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
 DIGEST = r'@sha256:[0-9a-f]{64}$'
-JOB_NAME = r'planner-migrate-r[a-z0-9-]{0,43}[a-z0-9]$'
+IMAGE = 'forgejo.colddev.net/coldb/planner:latest'
 INITIAL_CLUSTER = 'planner-db'
 APP_STAGES = {'planner-migrations', 'planner-web'}
 DATABASE_SECRETS = {'planner-api-db', 'planner-db-owner', 'planner-migrations-db'}
@@ -113,7 +113,8 @@ def check(ready):
         require(all('readyExpr' not in dep for dep in dependencies),
                 f'{name}: dependency expressions override Flux revision checks')
         if name == 'planner-migrations':
-            require(spec.get('wait') is True, 'Flux must wait for the migration Job to complete')
+            require(spec.get('wait') is True and spec.get('force') is True,
+                    'Flux must recreate the Job on immutable changes and wait for it to complete')
         if name == 'planner-web':
             require({'name': 'planner-migrations'} in dependencies, 'Web must wait for migration success')
         output = subprocess.check_output(['kubectl', 'kustomize', str(ROOT / spec['path'])], text=True)
@@ -132,7 +133,7 @@ def check(ready):
         'apiVersion': 'v1', 'kind': 'Secret', 'name': 'aws-backup-credentials', 'namespace': 'planner',
     } in config['healthChecks'], 'planner-config must wait for the reflected backup Secret')
 
-    job = next(obj for (kind, _), obj in rendered.items() if kind == 'Job')
+    job = rendered['Job', 'planner-migrate']
     web = rendered['Deployment', 'planner-web']
     image, writer, ca = pod_inputs(job)
     operator = yaml.safe_load(subprocess.check_output(
@@ -154,8 +155,8 @@ def check(ready):
                 and encrypted_payload(secret).keys() == {'username', 'password'},
                 f'{name}: require a Planner basic-auth Secret with username and password')
     if ready:
-        require(re.fullmatch(JOB_NAME, job['metadata']['name']), 'Set a release Job name of the form planner-migrate-r1')
-        require(re.search(DIGEST, image), 'Publish and set the Planner image digest')
+        require(re.fullmatch(re.escape(IMAGE) + DIGEST, image),
+                'Pin the digest of the published Planner latest tag')
         postgres = database['imageName']
         require(re.search(r':17\.\d+[^@]*' + DIGEST, postgres), 'Pin the CNPG PostgreSQL 17 image by patch and digest')
         tunnel = rendered['Deployment', 'planner-tunnel']
