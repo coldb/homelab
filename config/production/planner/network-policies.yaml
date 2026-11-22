@@ -28,6 +28,81 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  name: tunnel
+spec:
+  podSelector:
+    matchLabels:
+      app: planner-tunnel
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: planner-web
+      ports:
+        - {protocol: TCP, port: 8080}
+    - to:
+        # Cloudflare's two global IPv4 Tunnel edge pools.
+        - ipBlock: {cidr: 198.41.192.0/24}
+        - ipBlock: {cidr: 198.41.200.0/24}
+      ports:
+        - {protocol: UDP, port: 7844}
+        - {protocol: TCP, port: 7844}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: web
+spec:
+  podSelector:
+    matchLabels:
+      app: planner-web
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: planner-tunnel
+      ports:
+        - {protocol: TCP, port: 8080}
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: planner-db
+      ports:
+        - {protocol: TCP, port: 5432}
+    # Standard NetworkPolicy cannot select Clerk by hostname. Permit public
+    # HTTPS only, without granting access to RFC1918 or link-local destinations.
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except: [10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16, 127.0.0.0/8]
+      ports:
+        - {protocol: TCP, port: 443}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: migrations-and-operator
+spec:
+  podSelector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: [planner-migrations, planner-operator]
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              cnpg.io/cluster: planner-db
+      ports:
+        - {protocol: TCP, port: 5432}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: database
 spec:
   podSelector:
@@ -36,6 +111,11 @@ spec:
   policyTypes: [Ingress, Egress]
   ingress:
     - from:
+        - podSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [planner-web, planner-migrations, planner-operator]
         - podSelector:
             matchLabels:
               cnpg.io/cluster: planner-db

@@ -1,0 +1,73 @@
+# Render with the operator overlay. Set a unique name, action and stable Clerk ID.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: planner-operator
+  namespace: planner
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 120
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app: planner-operator
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      imagePullSecrets:
+        - name: planner-registry
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: operator
+          image: planner-release-image
+          workingDir: /app/apps/web
+          command: [node, /app/launch.mjs, operator]
+          args: [status, user_REPLACE_ME]
+          env:
+            - name: PGHOST
+              value: replace-with-release-writer
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: planner-api-db
+                  key: username
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: planner-api-db
+                  key: password
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          volumeMounts:
+            - name: db-ca
+              mountPath: /etc/planner-db
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: db-ca
+          secret:
+            secretName: replace-with-release-ca
+            items:
+              - key: ca.crt
+                path: ca.crt
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi
