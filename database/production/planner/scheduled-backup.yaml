@@ -1,0 +1,11 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: planner-db-daily
+spec:
+  cluster:
+    name: planner-db
+  backupOwnerReference: cluster
+  method: barmanObjectStore
+  immediate: true
+  schedule: "0 0 2 * * *"
