@@ -16,6 +16,18 @@
         "ghcr.io/fluxcd/helm-controller",
         "ghcr.io/fluxcd/notification-controller"
       ]
+    },
+    {
+      "description": "Promote the staging-tested n8n image to production manually",
+      "matchPackageNames": ["docker.n8n.io/n8nio/n8n"],
+      "matchFileNames": ["apps/base/n8n/**", "apps/production/n8n/**"],
+      "enabled": false
+    },
+    {
+      "description": "Look up n8n staging digests directly on Docker Hub to avoid the proxy's shared pull limit",
+      "matchPackageNames": ["docker.n8n.io/n8nio/n8n"],
+      "matchFileNames": ["apps/staging/n8n/kustomization.yaml"],
+      "overridePackageName": "n8nio/n8n"
     }
   ],
   "branchConcurrentLimit": 15,
