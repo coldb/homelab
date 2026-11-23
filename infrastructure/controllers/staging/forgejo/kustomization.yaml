@@ -8,10 +8,6 @@ resources:
   - secrets-db.enc.yaml
   - secrets-runner.enc.yaml
 
-images:
-  - name: data.forgejo.org/forgejo/forgejo
-    newTag: 17.0.2-rootless
-
 patches:
   - target:
       kind: Ingress
