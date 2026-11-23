@@ -18,8 +18,8 @@ data:
   FORGEJO__service__DISABLE_REGISTRATION: "true"
   FORGEJO__server__APP_DATA_PATH: /data/app
   FORGEJO__server__HTTP_PORT: "3000"
-  FORGEJO__server__PER_WRITE_PER_KB_TIMEOUT: "-1"
-  FORGEJO__server__PER_WRITE_TIMEOUT: "-1"
+  FORGEJO__server__PER_WRITE_PER_KB_TIMEOUT: "-1s"
+  FORGEJO__server__PER_WRITE_TIMEOUT: "-1s"
   FORGEJO__server__SSH_LISTEN_PORT: "2222"
   FORGEJO__server__SSH_PORT: "2222"
   FORGEJO__session__PROVIDER_CONFIG: /data/app/sessions
