@@ -5,3 +5,19 @@ resources:
   - ../../base/rocketchat/
   - cloudflare-secret.enc.yaml
   - ../../../shared/cloudflared/
+patches:
+  - target:
+      kind: Deployment
+      name: rocketchat
+    patch: |-
+      - op: replace
+        path: /spec/strategy
+        value:
+          type: Recreate
+      - op: add
+        path: /spec/template/spec/containers/0/readinessProbe
+        value:
+          httpGet:
+            path: /api/info
+            port: http
+          periodSeconds: 4
