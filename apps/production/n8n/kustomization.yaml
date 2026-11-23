@@ -6,3 +6,7 @@ resources:
   - configmap.enc.yaml
   - cloudflared.enc.yaml
   - ../../../shared/cloudflared/
+
+images:
+  - name: docker.n8n.io/n8nio/n8n
+    newTag: "2.48.8"
