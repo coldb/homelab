@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: media-manager
+resources:
+  - ../../base/media-manager
+  - agent.yaml
+  - agent-storage.yaml
+  - gateway-service.yaml
+  - web-ingress.yaml
+  - inbound.yaml
+images:
+  - name: media-manager-main
+    newName: forgejo.colddev.net/coldb/media-manager
+    digest: ${MAIN_DIGEST}
+  - name: media-manager-agent
+    newName: forgejo.colddev.net/coldb/media-manager-agent
+    digest: ${AGENT_DIGEST}
+patches:
+  - patch: |
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: media-manager-images
+      spec:
+        resources:
+          requests:
+            storage: 8Gi
+  - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: media-manager
+      spec:
+        template:
+          metadata:
+            annotations:
+              media-manager/release-tag: ${RELEASE_TAG}
+            labels:
+              media-manager/release: ${GATEWAY_SERVICE}
+          spec:
+            containers:
+              - name: web
+                env:
+                  - name: VIDEO_PREVIEW_MAX_BYTES
+                    value: "268435456"
+              - name: gateway
+                env:
+                  - name: VIDEO_PREVIEW_MAX_BYTES
+                    value: "268435456"

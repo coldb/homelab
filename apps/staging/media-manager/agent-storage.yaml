@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-manager-agent-state
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+    - ReadWriteOncePod
+  storageClassName: longhorn-retain
+  resources:
+    requests:
+      storage: 6Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-manager-agent-media
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  accessModes:
+    - ReadWriteOncePod
+  storageClassName: longhorn-retain
+  resources:
+    requests:
+      storage: 2Gi

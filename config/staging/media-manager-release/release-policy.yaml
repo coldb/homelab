@@ -1,0 +1,56 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: media-manager-staging-release
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: [v1]
+        operations: [UPDATE]
+        resources: [configmaps]
+  matchConditions:
+    - name: release-writer-and-target
+      expression: >-
+        request.userInfo.username == 'system:serviceaccount:flux-system:media-manager-staging-release'
+        && request.namespace == 'flux-system' && request.name == 'media-manager-staging-release'
+  validations:
+    - expression: >-
+        has(object.data) && size(object.data) == 4
+        && 'RELEASE_SEQUENCE' in object.data && object.data.RELEASE_SEQUENCE.matches('^[1-9][0-9]*$')
+        && int(object.data.RELEASE_SEQUENCE) > 0
+        && 'SOURCE_SHA' in object.data && object.data.SOURCE_SHA.matches('^[0-9a-f]{40}$')
+        && 'MAIN_DIGEST' in object.data && object.data.MAIN_DIGEST.matches('^sha256:[0-9a-f]{64}$')
+        && 'AGENT_DIGEST' in object.data && object.data.AGENT_DIGEST.matches('^sha256:[0-9a-f]{64}$')
+      message: Release data must contain the sequence, commit SHA, and both image digests.
+    - expression: >-
+        !has(oldObject.data) || !('RELEASE_SEQUENCE' in oldObject.data)
+        || int(object.data.RELEASE_SEQUENCE) > int(oldObject.data.RELEASE_SEQUENCE)
+        || object.data == oldObject.data
+      message: The release tuple is immutable at each sequence and cannot go backwards.
+    - expression: >-
+        (!has(object.binaryData) || size(object.binaryData) == 0)
+        && ((!has(object.immutable) && !has(oldObject.immutable))
+            || (has(object.immutable) && has(oldObject.immutable) && object.immutable == oldObject.immutable))
+        && (!has(object.metadata.ownerReferences) || size(object.metadata.ownerReferences) == 0)
+        && (!has(object.metadata.finalizers) || size(object.metadata.finalizers) == 0)
+      message: Release updates may not add binary data or lifecycle-changing fields.
+    - expression: >-
+        size(object.metadata.annotations) == 1
+        && object.metadata.annotations['kustomize.toolkit.fluxcd.io/prune'] == 'disabled'
+        && size(object.metadata.labels) == 3
+        && object.metadata.labels['reconcile.fluxcd.io/watch'] == 'Enabled'
+        && object.metadata.labels['kustomize.toolkit.fluxcd.io/namespace'] == 'flux-system'
+        && object.metadata.labels['kustomize.toolkit.fluxcd.io/name'] == 'media-manager-staging-release'
+        && oldObject.metadata.labels['kustomize.toolkit.fluxcd.io/name'] in
+           ['media-manager-staging-bootstrap', 'media-manager-staging-release']
+      message: Preserve the watch and prune protections and use the dedicated Flux release owner.
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: media-manager-staging-release
+spec:
+  policyName: media-manager-staging-release
+  validationActions: [Deny]

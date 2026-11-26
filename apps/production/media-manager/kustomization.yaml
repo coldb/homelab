@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: media-manager
+resources:
+  - ../../base/media-manager
+  - web-ingress.yaml
+  - gateway.yaml
+  - inbound.yaml
+images:
+  - name: media-manager-main
+    newName: forgejo.colddev.net/coldb/media-manager
+    digest: ${MAIN_DIGEST}

@@ -1,0 +1,43 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/media-manager
+  - scheduled-backup.yaml
+patches:
+  - target:
+      group: postgresql.cnpg.io
+      version: v1
+      kind: Cluster
+      name: media-manager-db
+    patch: |
+      - op: replace
+        path: /spec/instances
+        value: 3
+      - op: replace
+        path: /spec/storage/size
+        value: 16Gi
+      - op: add
+        path: /spec/affinity
+        value:
+          enablePodAntiAffinity: true
+          podAntiAffinityType: required
+          topologyKey: kubernetes.io/hostname
+      - op: add
+        path: /spec/backup
+        value:
+          barmanObjectStore:
+            destinationPath: s3://production-backup-media-manager-db/v1
+            s3Credentials:
+              accessKeyId:
+                name: aws-backup-credentials
+                key: AWS_ACCESS_KEY_ID
+              secretAccessKey:
+                name: aws-backup-credentials
+                key: AWS_SECRET_ACCESS_KEY
+            data:
+              compression: gzip
+              encryption: AES256
+            wal:
+              compression: gzip
+              encryption: AES256
+          retentionPolicy: 7d

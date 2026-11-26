@@ -1,0 +1,103 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-manager-staging-config
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infrastructure-controllers
+  interval: 5m
+  retryInterval: 1m
+  path: ./config/staging/media-manager
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: media-manager-tailscale
+      namespace: tailscale
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-manager-staging-database
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: media-manager-staging-config
+  interval: 5m
+  retryInterval: 1m
+  timeout: 15m
+  path: ./database/staging/media-manager
+  prune: false
+  healthChecks:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: media-manager-db
+      namespace: media-manager
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-manager-staging-bootstrap
+  namespace: flux-system
+spec:
+  interval: 5m
+  retryInterval: 1m
+  path: ./config/staging/media-manager-release
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-manager-staging-release
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: media-manager-staging-bootstrap
+  interval: 1m
+  retryInterval: 1m
+  path: ./
+  prune: false
+  force: false
+  serviceAccountName: media-manager-staging-release
+  sourceRef:
+    kind: OCIRepository
+    name: media-manager-staging-release
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-manager-staging-release-input
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: media-manager-staging-bootstrap
+  interval: 1m
+  retryInterval: 1m
+  path: ./config/staging/media-manager-release-input
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  postBuild:
+    substituteStrategy: Always
+    substituteFrom:
+      - kind: ConfigMap
+        name: media-manager-staging-release
