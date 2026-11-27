@@ -9,7 +9,7 @@ resources:
 
 images:
   - name: docker.n8n.io/n8nio/n8n
-    newTag: "2.48.8"
+    newTag: "2.50.3@sha256:6dc48a8dbdfe070b3babacd128995635e61cd19da9172b9aa0d5546792bd4a23"
 
 patches:
   - target:
