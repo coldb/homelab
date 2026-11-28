@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: planner-web
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: planner-web
+  template:
+    metadata:
+      labels:
+        app: planner-web
+    spec:
+      automountServiceAccountToken: false
+      imagePullSecrets:
+        - name: planner-registry
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: web
+          image: forgejo.colddev.net/coldb/planner
+          imagePullPolicy: IfNotPresent
+          workingDir: /app/apps/web
+          command: [node, /app/launch.mjs, serve]
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: HOST
+              value: 0.0.0.0
+            - name: PORT
+              value: "8080"
+            - name: APP_ORIGIN
+              value: https://planner.colddev.net
+            - name: CLERK_PUBLISHABLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: planner-clerk
+                  key: CLERK_PUBLISHABLE_KEY
+            - name: CLERK_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: planner-clerk
+                  key: CLERK_SECRET_KEY
+            - name: PGHOST
+              value: planner-db-rw.planner.svc.cluster.local
+            - name: PGUSER
+              valueFrom:
+                secretKeyRef:
+                  name: planner-api-db
+                  key: username
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: planner-api-db
+                  key: password
+          startupProbe:
+            httpGet:
+              path: /health/startup
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          volumeMounts:
+            - name: db-ca
+              mountPath: /etc/planner-db
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: db-ca
+          secret:
+            secretName: planner-db-ca
+            items:
+              - key: ca.crt
+                path: ca.crt
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi

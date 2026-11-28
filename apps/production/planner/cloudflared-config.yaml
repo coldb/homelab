@@ -1,0 +1,16 @@
+# Locally managed tunnel: remote token-managed ingress would override these rules.
+tunnel: REPLACE_WITH_TUNNEL_UUID
+credentials-file: /etc/cloudflared-credentials/credentials.json
+metrics: 0.0.0.0:2000
+no-autoupdate: true
+edge-ip-version: "4"
+loglevel: info
+ingress:
+  - hostname: planner.colddev.net
+    # Match private path segments anywhere, including traversal/backslash variants
+    # that an origin URL parser might normalize before routing.
+    path: '(?i)(^|[/\\])(health|metrics)([/\\]|$)'
+    service: http_status:404
+  - hostname: planner.colddev.net
+    service: http://planner-web.planner.svc.cluster.local:80
+  - service: http_status:404
