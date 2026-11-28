@@ -1,0 +1,12 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: media-manager-db-daily
+  namespace: media-manager
+spec:
+  cluster:
+    name: media-manager-db
+  backupOwnerReference: cluster
+  method: barmanObjectStore
+  immediate: true
+  schedule: "0 0 2 * * *"

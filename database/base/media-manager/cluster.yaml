@@ -1,0 +1,29 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: media-manager-db
+  namespace: media-manager
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.7-system-trixie@sha256:c437b7c6c00aa7e66f5d6de1dd83602391fdebd4ff776ffb1ab7aaba5e7351ad
+  instances: 1
+  enableSuperuserAccess: false
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: "2"
+      memory: 1Gi
+  storage:
+    size: 8Gi
+    storageClass: longhorn-retain
+  bootstrap:
+    initdb:
+      database: media_manager
+      owner: media_manager
+      dataChecksums: true
+  postgresql:
+    pg_hba:
+      - hostnossl all all all reject

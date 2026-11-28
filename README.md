@@ -95,6 +95,11 @@ To move it, update the selector while the runner is idle. Flux recreates the
 runner pod, and its Docker cache volume reattaches to the destination node.
 
 
+## Media Manager
+
+See the [Media Manager deployment runbook](config/staging/media-manager/README.md)
+for release selection, staging verification, and production activation.
+
 ## Monitoring
 
 For monitoring the [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) helm chart is used.

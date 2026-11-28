@@ -1,0 +1,13 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: media-manager-staging-release
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: oci://forgejo.colddev.net/coldb/media-manager-staging-release
+  secretRef:
+    name: media-manager-release-registry
+  ref:
+    semver: '>=0.0.1 <0.1.0'
+    semverFilter: '^0\.0\.[1-9][0-9]*$'

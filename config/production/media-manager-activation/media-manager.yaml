@@ -1,0 +1,73 @@
+# Activation template. The production cluster does not reconcile this directory.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-manager-production-config
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infrastructure-controllers
+  interval: 5m
+  retryInterval: 1m
+  path: ./config/production/media-manager
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: media-manager-tailscale
+      namespace: tailscale
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-manager-production-database
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: media-manager-production-config
+  interval: 5m
+  retryInterval: 1m
+  timeout: 15m
+  path: ./database/production/media-manager
+  prune: false
+  healthChecks:
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      name: media-manager-db
+      namespace: media-manager
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-manager-production-app
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: media-manager-production-database
+    - name: infrastructure-controllers-cluster-issuer
+  interval: 1m
+  retryInterval: 1m
+  timeout: 5m
+  path: ./apps/production/media-manager
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: media-manager
+      namespace: media-manager
+  postBuild:
+    substitute:
+      MAIN_DIGEST: REPLACE_WITH_VERIFIED_SHA256_DIGEST
